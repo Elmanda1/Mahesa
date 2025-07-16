@@ -1,5 +1,6 @@
 // src/App.jsx - Fixed Version with Integrated Wall of Quotes and Navbar
 import React, { useState } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import QuizPage from './pages/QuizPage';
 import GalleryPage from './pages/GalleryPage';
@@ -20,26 +21,28 @@ function App() {
   const handleBackToHome = () => setCurrentPage('home');
   const handleQuizComplete = () => setCurrentPage('gallery');
 
-  const renderPage = () => {
-    switch(currentPage) {
-      case 'home':
-        return <HomePage 
-          onStartQuiz={handleStartQuiz}
-          onNavigateToGallery={handleNavigateToGallery}
-          onNavigateToTimeline={handleNavigateToTimeline}
-          onNavigateToAbout={handleNavigateToAbout}
-          onNavigate={handleNavigate}
-        />; // TIDAK ADA NAVBAR DI SINI
-      case 'quiz':
-        return (
+  return (
+    <Router basename="/Mahesa">
+      <Routes>
+        <Route path="/" element={
+          currentPage === 'home' ? (
+            <HomePage 
+              onStartQuiz={handleStartQuiz}
+              onNavigateToGallery={handleNavigateToGallery}
+              onNavigateToTimeline={handleNavigateToTimeline}
+              onNavigateToAbout={handleNavigateToAbout}
+              onNavigate={handleNavigate}
+            />
+          ) : null
+        } />
+        <Route path="/quiz" element={
           <QuizPage 
             onQuizComplete={handleQuizComplete}
             onBackToHome={handleBackToHome}
             onNavigate={handleNavigate}
           />
-        );
-      case 'gallery':
-        return (
+        } />
+        <Route path="/gallery" element={
           <>
             <Navbar activeView="gallery" onNavigate={handleNavigate} />
             <GalleryPage 
@@ -50,18 +53,16 @@ function App() {
               onNavigate={handleNavigate}
             />
           </>
-        );
-      case 'timeline':
-        return (
+        } />
+        <Route path="/timeline" element={
           <TimelinePage 
             onBackToHome={handleBackToHome}
             onNavigateToGallery={handleNavigateToGallery}
             onNavigateToAbout={handleNavigateToAbout}
             onNavigate={handleNavigate}
           />
-        );
-      case 'about':
-        return (
+        } />
+        <Route path="/about" element={
           <AboutPage 
             onBackToHome={handleBackToHome}
             onStartQuiz={handleStartQuiz}
@@ -69,13 +70,10 @@ function App() {
             onNavigateToTimeline={handleNavigateToTimeline}
             onNavigate={handleNavigate}
           />
-        );
-      default:
-        return null;
-    }
-  };
-
-  return <div>{renderPage()}</div>;
+        } />
+      </Routes>
+    </Router>
+  );
 }
 
 export default App;
