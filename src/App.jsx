@@ -22,7 +22,7 @@ function App() {
   const handleQuizComplete = () => setCurrentPage('gallery');
 
   return (
-    <Router basename="/Mahesa">
+    <Router>
       <Routes>
         <Route path="/" element={
           currentPage === 'home' ? (
