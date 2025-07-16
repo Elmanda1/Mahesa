@@ -22,6 +22,14 @@ function App() {
 
   const renderPage = () => {
     switch(currentPage) {
+      case 'home':
+        return <HomePage 
+          onStartQuiz={handleStartQuiz}
+          onNavigateToGallery={handleNavigateToGallery}
+          onNavigateToTimeline={handleNavigateToTimeline}
+          onNavigateToAbout={handleNavigateToAbout}
+          onNavigate={handleNavigate}
+        />; // TIDAK ADA NAVBAR DI SINI
       case 'quiz':
         return (
           <QuizPage 
@@ -32,13 +40,16 @@ function App() {
         );
       case 'gallery':
         return (
-          <GalleryPage 
-            onBackToHome={handleBackToHome}
-            onStartQuiz={handleStartQuiz}
-            onNavigateToTimeline={handleNavigateToTimeline}
-            onNavigateToAbout={handleNavigateToAbout}
-            onNavigate={handleNavigate}
-          />
+          <>
+            <Navbar activeView="gallery" onNavigate={handleNavigate} />
+            <GalleryPage 
+              onBackToHome={handleBackToHome}
+              onStartQuiz={handleStartQuiz}
+              onNavigateToTimeline={handleNavigateToTimeline}
+              onNavigateToAbout={handleNavigateToAbout}
+              onNavigate={handleNavigate}
+            />
+          </>
         );
       case 'timeline':
         return (
@@ -59,25 +70,12 @@ function App() {
             onNavigate={handleNavigate}
           />
         );
-      default: // 'home'
-        return (
-          <HomePage 
-            onStartQuiz={handleStartQuiz}
-            onNavigateToGallery={handleNavigateToGallery}
-            onNavigateToTimeline={handleNavigateToTimeline}
-            onNavigateToAbout={handleNavigateToAbout}
-            onNavigate={handleNavigate}
-          />
-        );
+      default:
+        return null;
     }
   };
 
-  return (
-    <div className="App">
-      <Navbar activeView={currentPage} onNavigate={handleNavigate} />
-      {renderPage()}
-    </div>
-  );
+  return <div>{renderPage()}</div>;
 }
 
 export default App;

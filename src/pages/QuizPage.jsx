@@ -8,6 +8,7 @@ function QuizPage({ onQuizComplete }) {
   const [selectedAnswer, setSelectedAnswer] = useState(null);
   const [answerStatus, setAnswerStatus] = useState(null);
   const [showChatPage, setShowChatPage] = useState(false);
+  const [showMemoirPage, setShowMemoirPage] = useState(false);
   const [completedChats, setCompletedChats] = useState([]);
   const [currentChatIndex, setCurrentChatIndex] = useState(0);
   const [typingText, setTypingText] = useState('');
@@ -35,18 +36,34 @@ function QuizPage({ onQuizComplete }) {
     return quizQuestions[currentQuestionIndex].chatDate;
   };
 
-  // Function to parse text with formatting
-  const parseFormattedText = (text) => {
+  // Function to clean text from formatting marks
+  const cleanText = (text) => {
     if (!text) return '';
     
-    // Replace **bold** with <strong>
-    let formatted = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+    // Remove **bold** marks
+    let cleaned = text.replace(/\*\*(.*?)\*\*/g, '$1');
     
-    // Replace __underline__ with <u>
-    formatted = formatted.replace(/__(.*?)__/g, '<u>$1</u>');
+    // Remove __underline__ marks
+    cleaned = cleaned.replace(/__(.*?)__/g, '$1');
     
-    // Replace *italic* with <em>
-    formatted = formatted.replace(/\*(.*?)\*/g, '<em>$1</em>');
+    // Remove *italic* marks
+    cleaned = cleaned.replace(/\*(.*?)\*/g, '$1');
+    
+    return cleaned;
+  };
+
+  // Function to render text with formatting
+  const renderFormattedText = (text) => {
+    if (!text) return '';
+    
+    // Convert **bold** to <strong>
+    let formatted = text.replace(/\*\*(.*?)\*\*/g, '<strong class="text-brand-primary font-bold">$1</strong>');
+    
+    // Convert __underline__ to <u>
+    formatted = formatted.replace(/__(.*?)__/g, '<u class="text-brand-primary-light">$1</u>');
+    
+    // Convert *italic* to <em>
+    formatted = formatted.replace(/\*(.*?)\*/g, '<em class="text-brand-text/80 italic">$1</em>');
     
     return formatted;
   };
@@ -72,7 +89,7 @@ function QuizPage({ onQuizComplete }) {
             </div>
           </div>
           {chat.message && (
-            <p className="text-sm leading-relaxed font-medium" dangerouslySetInnerHTML={{ __html: parseFormattedText(chat.message) }} />
+            <p className="text-sm leading-relaxed font-medium">{cleanText(chat.message)}</p>
           )}
         </div>
       );
@@ -90,7 +107,7 @@ function QuizPage({ onQuizComplete }) {
             </video>
           </div>
           {chat.message && (
-            <p className="text-sm leading-relaxed font-medium" dangerouslySetInnerHTML={{ __html: parseFormattedText(chat.message) }} />
+            <p className="text-sm leading-relaxed font-medium">{cleanText(chat.message)}</p>
           )}
         </div>
       );
@@ -105,14 +122,14 @@ function QuizPage({ onQuizComplete }) {
             />
           </div>
           {chat.message && (
-            <p className="text-sm leading-relaxed font-medium" dangerouslySetInnerHTML={{ __html: parseFormattedText(chat.message) }} />
+            <p className="text-sm leading-relaxed font-medium">{cleanText(chat.message)}</p>
           )}
         </div>
       );
     } else {
       // Regular text message
       return (
-        <p className="text-sm leading-relaxed font-medium" dangerouslySetInnerHTML={{ __html: parseFormattedText(chat.message) }} />
+        <p className="text-sm leading-relaxed font-medium">{cleanText(chat.message)}</p>
       );
     }
   };
@@ -135,10 +152,11 @@ function QuizPage({ onQuizComplete }) {
           setTypingText('');
         } else {
           // For text messages, show typing animation
+          const cleanMessage = cleanText(currentChat.message);
           let index = 0;
           const typeInterval = setInterval(() => {
-            if (index < currentChat.message.length) {
-              setTypingText(currentChat.message.substring(0, index + 1));
+            if (index < cleanMessage.length) {
+              setTypingText(cleanMessage.substring(0, index + 1));
               index++;
             } else {
               clearInterval(typeInterval);
@@ -170,10 +188,11 @@ function QuizPage({ onQuizComplete }) {
             setTypingText('');
           } else {
             // For text messages, show typing animation
+            const cleanMessage = cleanText(currentChat.message);
             let index = 0;
             const typeInterval = setInterval(() => {
-              if (index < currentChat.message.length) {
-                setTypingText(currentChat.message.substring(0, index + 1));
+              if (index < cleanMessage.length) {
+                setTypingText(cleanMessage.substring(0, index + 1));
                 index++;
               } else {
                 clearInterval(typeInterval);
@@ -200,14 +219,22 @@ function QuizPage({ onQuizComplete }) {
     setAnswerStatus(isCorrect ? 'correct' : 'incorrect');
     if (isCorrect) setScore(score + 1);
     
-    // Go to chat page after 1.5 seconds
+    // Check if current question has chat or memoir content
+    const currentQuestion = quizQuestions[currentQuestionIndex];
+    
     setTimeout(() => {
-      setShowChatPage(true);
-      setCompletedChats([]);
-      setCurrentChatIndex(0);
-      setTypingText('');
-      setShowTypingIndicator(false);
-      setIsTyping(false);
+      if (currentQuestion.hasChat) {
+        // Show chat page
+        setShowChatPage(true);
+        setCompletedChats([]);
+        setCurrentChatIndex(0);
+        setTypingText('');
+        setShowTypingIndicator(false);
+        setIsTyping(false);
+      } else {
+        // Show memoir page
+        setShowMemoirPage(true);
+      }
     }, 1500);
   };
 
@@ -218,6 +245,7 @@ function QuizPage({ onQuizComplete }) {
       setSelectedAnswer(null);
       setAnswerStatus(null);
       setShowChatPage(false);
+      setShowMemoirPage(false);
       setCompletedChats([]);
       setCurrentChatIndex(0);
       setTypingText('');
@@ -226,6 +254,7 @@ function QuizPage({ onQuizComplete }) {
     } else {
       setShowScore(true);
       setShowChatPage(false);
+      setShowMemoirPage(false);
     }
   };
 
@@ -254,6 +283,95 @@ function QuizPage({ onQuizComplete }) {
         <div className="absolute bottom-20 left-32 w-24 h-24 bg-brand-primary/10 rounded-full opacity-20 animate-pulse" style={{animationDelay: '2s'}}></div>
         <div className="absolute bottom-40 right-10 w-12 h-12 bg-brand-primary-light/20 rounded-full opacity-20 animate-pulse" style={{animationDelay: '0.5s'}}></div>
       </div>
+
+      {/* Memoir Page */}
+      {showMemoirPage && (
+        <div className="absolute inset-0 bg-gradient-to-br from-purple-50 via-pink-50 to-blue-50 flex flex-col animate-slide-in">
+          {/* Header */}
+          <div className="bg-white/95 backdrop-blur-sm shadow-xl p-6 border-b border-brand-primary/20">
+            <div className="max-w-4xl mx-auto">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center space-x-4">
+                  <div className="w-16 h-16 bg-gradient-to-br from-brand-primary to-brand-primary-light rounded-2xl flex items-center justify-center shadow-lg">
+                    <span className="text-2xl">📖</span>
+                  </div>
+                  <div>
+                    <h1 className="text-2xl font-bold text-brand-text">Memoir</h1>
+                    <p className="text-brand-text/70 font-medium">Kenangan tentang Mahesa</p>
+                  </div>
+                </div>
+                <div className="text-center bg-gradient-to-r from-brand-primary/10 to-brand-primary-light/10 px-6 py-3 rounded-2xl border border-brand-primary/20">
+                  <p className="text-sm font-bold text-brand-text">
+                    {answerStatus === 'correct' ? '✅ Bener banget!' : '❌ Kurang tepat!'}
+                  </p>
+                  {answerStatus === 'incorrect' && (
+                    <p className="text-xs text-brand-text/70 mt-1">
+                      Jawabannya: {currentQuestion.correctAnswer}
+                    </p>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Memoir Content */}
+          <div className="flex-1 overflow-y-auto p-6">
+            <div className="max-w-4xl mx-auto">
+              <div className="bg-white/90 backdrop-blur-sm rounded-3xl shadow-2xl p-8 border border-white/50 animate-fade-in-up">
+                {/* Title */}
+                <div className="text-center mb-8">
+                  <h2 className="text-3xl font-bold text-brand-text mb-2">
+                    {currentQuestion.memoirTitle}
+                  </h2>
+                  <div className="w-24 h-1 bg-gradient-to-r from-brand-primary to-brand-primary-light rounded-full mx-auto"></div>
+                </div>
+
+                {/* Content */}
+                <div className="space-y-6">
+                  {currentQuestion.memoirContent.map((paragraph, index) => (
+                    <div 
+                      key={index}
+                      className="animate-fade-in-up"
+                      style={{ animationDelay: `${index * 0.2}s` }}
+                    >
+                      <p 
+                        className="text-lg leading-relaxed text-brand-text/90 font-medium"
+                        dangerouslySetInnerHTML={{ __html: renderFormattedText(paragraph) }}
+                      />
+                    </div>
+                  ))}
+                </div>
+
+                {/* Decorative Elements */}
+                <div className="mt-8 flex justify-center space-x-2">
+                  <div className="w-2 h-2 bg-brand-primary rounded-full animate-pulse"></div>
+                  <div className="w-2 h-2 bg-brand-primary-light rounded-full animate-pulse" style={{animationDelay: '0.5s'}}></div>
+                  <div className="w-2 h-2 bg-brand-primary rounded-full animate-pulse" style={{animationDelay: '1s'}}></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Memory Context & Continue Button */}
+          <div className="p-6 bg-white/95 backdrop-blur-sm border-t border-brand-primary/20">
+            <div className="max-w-4xl mx-auto">
+              <div className="bg-gradient-to-r from-brand-primary/10 to-brand-primary-light/10 rounded-2xl p-6 border border-brand-primary/20 mb-6 shadow-lg">
+                <p 
+                  className="text-center text-brand-text font-bold leading-relaxed"
+                  dangerouslySetInnerHTML={{ __html: renderFormattedText(currentQuestion.memoryContext) }}
+                />
+              </div>
+              
+              <button
+                onClick={handleNextQuestion}
+                className="w-full py-4 px-6 bg-gradient-to-r from-brand-primary to-brand-primary-light rounded-2xl font-bold text-white hover:shadow-xl transition-all duration-300 transform hover:scale-105 animate-fade-in-up text-lg"
+              >
+                {currentQuestionIndex + 1 < quizQuestions.length ? 'Lanjut ke Pertanyaan Berikutnya' : 'Lihat Hasil'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Chat Page */}
       {showChatPage && (
@@ -359,7 +477,7 @@ function QuizPage({ onQuizComplete }) {
           <div className="p-6 bg-white/90 backdrop-blur-sm border-t border-gray-200">
             <div className="bg-gradient-to-r from-brand-primary/10 to-brand-primary-light/10 rounded-2xl p-5 border border-brand-primary/20 mb-4 shadow-lg">
               <p className="text-sm text-brand-text font-bold text-center leading-relaxed">
-                {quizQuestions[currentQuestionIndex].memoryContext}
+                {cleanText(quizQuestions[currentQuestionIndex].memoryContext)}
               </p>
             </div>
             
@@ -377,7 +495,7 @@ function QuizPage({ onQuizComplete }) {
       )}
 
       {/* Enhanced Main Quiz Content */}
-      <div className={`min-h-screen flex items-center justify-center p-4 transition-all duration-700 ${showChatPage ? 'opacity-0 pointer-events-none scale-95' : 'opacity-100 scale-100'}`}>
+      <div className={`min-h-screen flex items-center justify-center p-4 transition-all duration-700 ${(showChatPage || showMemoirPage) ? 'opacity-0 pointer-events-none scale-95' : 'opacity-100 scale-100'}`}>
         <div className="bg-white/90 backdrop-blur-sm rounded-3xl shadow-2xl p-8 w-full max-w-2xl border border-white/20">
           {showScore ? (
             <div className="text-center animate-fade-in-up">
@@ -505,32 +623,17 @@ function QuizPage({ onQuizComplete }) {
         
         .animate-chat-appear-completed {
           animation: chat-appear-completed 0.15s ease-out forwards;
-          opacity: 1;
+          opacity: 0;
         }
         
         .animate-chat-appear-typing {
-          animation: chat-appear-typing 0.2s ease-out forwards;
-          opacity: 0.8;
+          animation: chat-appear-typing 0.3s ease-out forwards;
+          opacity: 0;
         }
         
         .animate-fade-in-up {
-          animation: fade-in-up 0.8s ease-out;
-        }
-        
-        /* Hide scrollbar while keeping scroll functionality */
-        .chat-container {
-          scrollbar-width: none; /* Firefox */
-          -ms-overflow-style: none; /* Internet Explorer and Edge */
-        }
-        
-        .chat-container::-webkit-scrollbar {
-          display: none; /* Chrome, Safari, Opera */
-        }
-        
-        /* Ensure the container can still scroll */
-        .chat-container {
-          overflow-y: auto;
-          scroll-behavior: smooth;
+          animation: fade-in-up 0.7s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+          opacity: 0;
         }
       `}</style>
     </div>

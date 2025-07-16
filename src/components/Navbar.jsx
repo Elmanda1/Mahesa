@@ -136,8 +136,8 @@ function Navbar({ activeView, onNavigate }) {
         </div>
       )}
 
-      {/* Add some spacing so content doesn't hide behind navbar */}
-      <div className="h-20"></div>
+      {/* Reduced spacing - navbar only needs minimal clearance */}
+      <div className="h-10 md:h-8" bg-white></div>
     </>
   );
 }

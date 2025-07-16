@@ -115,7 +115,7 @@ function Home({ onStartQuiz, onNavigateToGallery, onNavigateToTimeline, onNaviga
               {/* Greeting Section */}
               <div className="text-center lg:text-left">
                 {/* Decorative top element */}
-                <div className="w-20 h-1 bg-gradient-to-r from-brand-primary to-brand-primary-light mx-auto lg:mx-0 mb-8 rounded-full"></div>
+                <div className="w-20 h-2 bg-gradient-to-r from-brand-primary to-brand-primary-light mx-auto lg:mx-0 mb-8 rounded-full"></div>
                 
                 <h1 className="text-4xl lg:text-6xl font-bold mb-8 bg-gradient-to-r from-brand-primary to-brand-primary-light bg-clip-text text-transparent leading-tight">
                   Untuk Mahesa,

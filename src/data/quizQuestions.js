@@ -6,6 +6,7 @@ export const quizQuestions = [
     options: ["Pink", "Hitam", "Putih", "Ungu"],
     correctAnswer: "Pink",
     chatDate: "Senin, 7 Juli 2024",
+    hasChat: true,
     chatMemory: [
       {
         sender: "me",
@@ -65,6 +66,7 @@ export const quizQuestions = [
   //   options: ["Baca Buku", "Main Roblox", "Main Valorant", "Nonton Anime"],
   //   correctAnswer: "Baca Buku",
   //   chatDate: "Minggu, 18 Mei 2024",
+  //   hasChat: true,
   //   chatMemory: [
   //     {
   //       sender: "me",
@@ -133,6 +135,7 @@ export const quizQuestions = [
   //   options: ["Terbang", "Menghilang", "Teleportasi", "Membaca pikiran"],
   //   correctAnswer: "Teleportasi",
   //   chatDate: "Sabtu, 20 Juli 2024",
+  //   hasChat: true,
   //   chatMemory: [
   //     {
   //       sender: "you",
@@ -189,6 +192,7 @@ export const quizQuestions = [
   //   options: ["Pizza", "Sushi", "Rendang", "Bakso"],
   //   correctAnswer: "Sushi",
   //   chatDate: "Kamis, 15 Agustus 2024",
+  //   hasChat: true,
   //   chatMemory: [
   //     {
   //       sender: "you",
@@ -208,6 +212,7 @@ export const quizQuestions = [
   //     {
   //       sender: "me",
   //       type: "image",
+  //       media: "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=400&h=300&fit=crop",
   //       alt: "Sushi platter",
   //       message: "Ini nih yang __bikin ngiler__! 🍣",
   //       time: "12:32"
@@ -234,5 +239,20 @@ export const quizQuestions = [
   //     }
   //   ],
   //   memoryContext: "Mahesa **suka banget** sama sushi! Udah jadi makanan favorit dari dulu 🍣✨"
+  // },
+  // {
+  //   id: 5,
+  //   question: "Apa mimpi terbesar Mahesa yang belum tercapai?",
+  //   options: ["Jadi YouTuber Terkenal", "Keliling Dunia", "Punya Rumah Sendiri", "Jadi Penulis Novel"],
+  //   correctAnswer: "Jadi Penulis Novel",
+  //   hasChat: false,
+  //   memoirTitle: "Mimpi Jadi Penulis Novel",
+  //   memoirContent: [
+  //     "Sejak SMP, Mahesa selalu punya **mimpi besar** jadi penulis novel. Dia sering cerita tentang ide-ide cerita yang ada di kepalanya - dari petualangan remaja yang __magical__ sampai drama slice of life yang relate banget sama kehidupan sehari-hari.",
+  //     "Yang paling dia pengen adalah nulis novel fantasy untuk remaja Indonesia. Katanya sih pengen jadi kayak **J.K. Rowling** versi Indonesia gitu. Dia selalu excited kalau ngomongin worldbuilding dan karakter-karakter yang udah dia buat di kepalanya.",
+  //     "Setiap kali baca novel bagus, mata Mahesa langsung berbinar. Dia bakal analyze *writing style* nya, gimana cara penulis itu bikin pembaca terhanyut. Katanya '_Suatu hari nanti, aku juga mau bikin orang nangis baca tulisan aku_'.",
+  //     "Mahesa udah mulai nulis beberapa **short story** dan draft novel. Dia bilang masih jauh dari perfect, tapi dia yakin kalau terus konsisten, mimpi itu pasti bisa tercapai. Semangatnya buat nulis itu bener-bener __inspiring__ banget! ✨"
+  //   ],
+  //   memoryContext: "Mahesa punya **mimpi besar** jadi penulis novel, terutama fantasy untuk remaja Indonesia. Dia udah mulai nulis dan semangat banget! 📖✨"
   // }
 ];
