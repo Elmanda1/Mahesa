@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Heart, Star, Gift, Calendar, Camera, Music, Sparkles, MapPin, Clock, MessageCircle } from 'lucide-react';
-import timelineData from '../data/timelineData'; 
+import { Heart, Star, MessageCircle, Camera, Clock } from 'lucide-react';
+import { saveMessage, subscribeToMessages } from '../services/database';
+import timelineData from '../data/timelineData';
+import MessageViewer from './MessageViewer';
 
 // Komponen floating elements yang lebih bervariasi
 const FloatingElement = ({ delay = 0, duration = 4, type = "sparkle" }) => {
@@ -342,7 +344,36 @@ function Timeline() {
   const [hoveredItem, setHoveredItem] = useState(null);
   const [scrollProgress, setScrollProgress] = useState(0);
   const [likedItems, setLikedItems] = useState(new Set());
-  const [messages, setMessages] = useState({});
+  const [messages, setMessages] = useState([]);
+  
+  // Subscribe to real-time updates
+  useEffect(() => {
+    const unsubscribe = subscribeToMessages((newMessages) => {
+      setMessages(newMessages);
+    });
+
+    // Cleanup subscription on unmount
+    return () => unsubscribe();
+  }, []);
+
+  const handleMessageSubmit = async (index, content) => {
+    if (!content?.trim()) return;
+
+    try {
+      const messageData = {
+        timelineItemId: index,
+        content: content,
+        timelineData: timelineData[index],
+        timestamp: new Date().toISOString()
+      };
+
+      await saveMessage(messageData);
+      // No need to update state manually - Firebase listener will handle it
+    } catch (error) {
+      console.error('Error sending message:', error);
+      alert('Gagal mengirim pesan. Silakan coba lagi.');
+    }
+  };
   
   const handleLike = (index) => {
     setLikedItems(prev => {
@@ -365,6 +396,11 @@ function Timeline() {
   const timelineRef = useRef(null);
   
   useEffect(() => {
+    // Set semua item sebagai visible saat mounting
+    const allIndices = timelineData.map((_, index) => index);
+    setVisibleItems(new Set(allIndices));
+    
+    // Backup intersection observer untuk smooth animation
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -377,8 +413,10 @@ function Timeline() {
       { threshold: 0.1 }
     );
     
-    const items = document.querySelectorAll('[data-index]');
-    items.forEach((item) => observer.observe(item));
+    setTimeout(() => {
+      const items = document.querySelectorAll('[data-index]');
+      items.forEach((item) => observer.observe(item));
+    }, 100);
     
     return () => observer.disconnect();
   }, []);
@@ -535,6 +573,21 @@ function Timeline() {
       >
         <Star className="w-6 h-6" />
       </button>
+
+      {/* Message viewer button and component */}
+      <button 
+        onClick={() => setShowMessageViewer(true)}
+        className="fixed bottom-20 right-8 bg-gradient-to-r from-pink-400 to-pink-500 text-white 
+          p-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 z-50"
+      >
+        <MessageCircle className="w-6 h-6" />
+      </button>
+
+      <MessageViewer 
+        isOpen={showMessageViewer}
+        onClose={() => setShowMessageViewer(false)}
+        messages={sentMessages}
+      />
     </div>
   );
 }

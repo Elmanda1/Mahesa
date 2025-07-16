@@ -1,5 +1,25 @@
 // src/data/timelineData.js
-export const timelineData = [
+const timelineData = [
+  {
+    id: 1,
+    title: "Pertemuan Pertama",
+    date: "14 Februari 2024",
+    description: "Hari yang mengubah segalanya, ketika mata kita bertemu untuk pertama kalinya di kafe kecil itu.",
+    category: "Milestone",
+    color: "from-pink-400 to-pink-500",
+    icon: "💕",
+    image: "https://images.unsplash.com/photo-1511988617509-a57c8a288659?w=400&h=300&fit=crop"
+  },
+  {
+    id: 2,
+    title: "Kencan Pertama",
+    date: "20 Februari 2024",
+    description: "Gugup tapi bahagia, kita menghabiskan waktu berjam-jam hanya untuk saling mengenal.",
+    category: "Romance",
+    color: "from-purple-400 to-purple-500",
+    icon: "🌹",
+    image: "https://images.unsplash.com/photo-1414016642750-7fdd78dc33d9?w=400&h=300&fit=crop"
+  },
   {
     date: "10 Agustus 2021",
     title: "Pertama Kali Main Bareng",
@@ -55,3 +75,5 @@ export const timelineData = [
     category: "present"
   }
 ];
+
+export default timelineData;
