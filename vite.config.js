@@ -1,13 +1,11 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
-// https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
-  base: '/Mahesa/', 
+  base: '/Mahesa/',
   build: {
     outDir: 'dist',
-    assetsDir: 'assets',
     sourcemap: false,
     rollupOptions: {
       output: {
@@ -20,11 +18,18 @@ export default defineConfig({
       }
     }
   },
-  server: {
-    port: 3000,
-    open: true
+  resolve: {
+    alias: {
+      crypto: 'crypto-browserify',
+      stream: 'stream-browserify',
+      assert: 'assert',
+      http: 'stream-http',
+      https: 'https-browserify',
+      os: 'os-browserify',
+      url: 'url'
+    }
   },
-  preview: {
-    port: 4173
+  define: {
+    'process.env': {}
   }
 })
