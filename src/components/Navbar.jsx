@@ -9,8 +9,8 @@ function Navbar({ activeView, onNavigate }) {
     { id: 'home', label: 'Home' },
     { id: 'about', label: 'About' },
     { id: 'timeline', label: 'Timeline' },
-    { id: 'gallery', label: 'Galeri Foto' },
-    { id: 'Wallofquotes', label: 'Wall of Quotes' },
+    { id: 'gallery', label: 'Galeri Foto' }
+    // Wall of Quotes sudah dihapus
   ];
 
   // Detect scroll to add extra blur effect
@@ -39,6 +39,7 @@ function Navbar({ activeView, onNavigate }) {
   };
 
   const handleNavigation = (view) => {
+    console.log('Navbar: handleNavigation called with:', view);
     onNavigate(view);
     setIsMobileMenuOpen(false);
   };

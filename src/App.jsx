@@ -1,31 +1,25 @@
-// src/App.jsx
+// src/App.jsx - Fixed Version with Integrated Wall of Quotes and Navbar
 import React, { useState } from 'react';
 import HomePage from './pages/HomePage';
 import QuizPage from './pages/QuizPage';
 import GalleryPage from './pages/GalleryPage';
 import TimelinePage from './components/Timeline';
 import AboutPage from './components/About';
-import Wallofquotes from './components/Wallofquotes';
+import Navbar from './components/Navbar';
 import './index.css';
 
 function App() {
-  // State untuk mengelola halaman yang aktif
   const [currentPage, setCurrentPage] = useState('home');
 
-  // Fungsi navigasi untuk setiap halaman
+  // Handler navigasi
+  const handleNavigate = (page) => setCurrentPage(page);
   const handleStartQuiz = () => setCurrentPage('quiz');
   const handleNavigateToGallery = () => setCurrentPage('gallery');
   const handleNavigateToTimeline = () => setCurrentPage('timeline');
   const handleNavigateToAbout = () => setCurrentPage('about');
-  const handleNavigateToWallofquotes = () => setCurrentPage('Wallofquotes'); // Sesuaikan dengan Navbar
-
-  // Fungsi untuk kembali ke home
   const handleBackToHome = () => setCurrentPage('home');
-
-  // Fungsi untuk menyelesaikan quiz dan lanjut ke gallery
   const handleQuizComplete = () => setCurrentPage('gallery');
 
-  // Fungsi untuk merender halaman yang sesuai
   const renderPage = () => {
     switch(currentPage) {
       case 'quiz':
@@ -33,9 +27,9 @@ function App() {
           <QuizPage 
             onQuizComplete={handleQuizComplete}
             onBackToHome={handleBackToHome}
+            onNavigate={handleNavigate}
           />
         );
-        
       case 'gallery':
         return (
           <GalleryPage 
@@ -43,32 +37,18 @@ function App() {
             onStartQuiz={handleStartQuiz}
             onNavigateToTimeline={handleNavigateToTimeline}
             onNavigateToAbout={handleNavigateToAbout}
-            onNavigateToWallofquotes={handleNavigateToWallofquotes}
+            onNavigate={handleNavigate}
           />
         );
-        
       case 'timeline':
         return (
           <TimelinePage 
             onBackToHome={handleBackToHome}
             onNavigateToGallery={handleNavigateToGallery}
             onNavigateToAbout={handleNavigateToAbout}
-            onNavigateToWallofquotes={handleNavigateToWallofquotes}
+            onNavigate={handleNavigate}
           />
         );
-        
-      case 'Wallofquotes': // Sesuaikan dengan Navbar
-        return (
-          <Wallofquotes 
-            onBack={handleBackToHome}
-            onBackToHome={handleBackToHome}
-            onStartQuiz={handleStartQuiz}
-            onNavigateToGallery={handleNavigateToGallery}
-            onNavigateToTimeline={handleNavigateToTimeline}
-            onNavigateToAbout={handleNavigateToAbout}
-          />
-        );
-        
       case 'about':
         return (
           <AboutPage 
@@ -76,10 +56,9 @@ function App() {
             onStartQuiz={handleStartQuiz}
             onNavigateToGallery={handleNavigateToGallery}
             onNavigateToTimeline={handleNavigateToTimeline}
-            onNavigateToWallofquotes={handleNavigateToWallofquotes}
+            onNavigate={handleNavigate}
           />
         );
-        
       default: // 'home'
         return (
           <HomePage 
@@ -87,7 +66,7 @@ function App() {
             onNavigateToGallery={handleNavigateToGallery}
             onNavigateToTimeline={handleNavigateToTimeline}
             onNavigateToAbout={handleNavigateToAbout}
-            onNavigateToWallofquotes={handleNavigateToWallofquotes}
+            onNavigate={handleNavigate}
           />
         );
     }
@@ -95,6 +74,7 @@ function App() {
 
   return (
     <div className="App">
+      <Navbar activeView={currentPage} onNavigate={handleNavigate} />
       {renderPage()}
     </div>
   );

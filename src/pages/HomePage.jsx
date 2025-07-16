@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import Welcome from '../components/Home';
 
-function HomePage({ onStartQuiz }) {
+function HomePage({ onStartQuiz, onNavigateToGallery, onNavigateToTimeline, onNavigateToAbout, onNavigateToWallofquotes }) {
   const [isVisible, setIsVisible] = useState(false);
   const [showMahesa, setShowMahesa] = useState(false);
   const [showButton, setShowButton] = useState(false);
@@ -49,14 +48,12 @@ function HomePage({ onStartQuiz }) {
             <h1 className={`text-5xl md:text-7xl font-bold text-brand-text leading-tight transform transition-all duration-1000 ease-out delay-600 ${
               isVisible ? 'translate-x-0 opacity-100' : 'translate-x-8 opacity-0'
             }`}>
-              {/* Change: Replaced 'text-brand-primary' with 'text-pink-500' for the main text color */}
               <span className={`text-pink-500 relative inline-block font-serif italic transform transition-all duration-2000 ease-out ${
                 showMahesa ? 'scale-100 opacity-100 rotate-0' : 'scale-100 opacity-0 rotate-0'
               }`}>
                 <span className={`relative z-10 inline-block transition-all duration-2000 ease-out ${
                   showMahesa ? 'transform-none' : 'transform translate-y-2'
                 }`} style={{
-                  // Change: Replaced the CSS variable with the direct RGB value for pink-500 (236, 72, 153) for the shadow effects.
                   textShadow: showMahesa ? '0 0 20px rgba(236, 72, 153, 0.3)' : 'none',
                   filter: showMahesa ? 'drop-shadow(0 0 8px rgba(236, 72, 153, 0.2))' : 'none'
                 }}>
@@ -76,7 +73,6 @@ function HomePage({ onStartQuiz }) {
                 </span>
                 
                 {/* Elegant underline effect */}
-                {/* Change: Updated the gradient to use pink shades. */}
                 <div className={`absolute -bottom-2 left-0 h-0.5 bg-gradient-to-r from-pink-500 to-pink-400 transition-all duration-2000 ease-out delay-1000 ${
                   showMahesa ? 'w-full opacity-100' : 'w-0 opacity-0'
                 }`}></div>
@@ -111,9 +107,6 @@ function HomePage({ onStartQuiz }) {
           </div>
         </div>
       </div>
-
-      {/* Welcome Section */}
-      <Welcome onStartQuiz={onStartQuiz} />
     </div>
   );
 }
