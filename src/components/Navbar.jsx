@@ -10,7 +10,6 @@ function Navbar({ activeView, onNavigate }) {
     { id: 'about', label: 'About' },
     { id: 'timeline', label: 'Timeline' },
     { id: 'gallery', label: 'Galeri Foto' }
-    // Wall of Quotes sudah dihapus
   ];
 
   // Detect scroll to add extra blur effect
@@ -40,7 +39,14 @@ function Navbar({ activeView, onNavigate }) {
 
   const handleNavigation = (view) => {
     console.log('Navbar: handleNavigation called with:', view);
-    onNavigate(view);
+    
+    // Ensure onNavigate is a function before calling it
+    if (typeof onNavigate === 'function') {
+      onNavigate(view);
+    } else {
+      console.warn('onNavigate is not a function:', onNavigate);
+    }
+    
     setIsMobileMenuOpen(false);
   };
 
@@ -137,7 +143,7 @@ function Navbar({ activeView, onNavigate }) {
       )}
 
       {/* Reduced spacing - navbar only needs minimal clearance */}
-      <div className="h-10 md:h-8 bg-white"></div>
+      <div className="h-10 md:h-8"></div>
     </>
   );
 }

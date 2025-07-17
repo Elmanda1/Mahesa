@@ -1,56 +1,61 @@
 import React, { useState, useEffect } from 'react';
 
-function Home({ onStartQuiz, onNavigateToGallery, onNavigateToTimeline, onNavigateToAbout }) {
+function Home({ onStartQuiz, onNavigate }) {
   const [isVisible, setIsVisible] = useState(false);
   const [clickedCard, setClickedCard] = useState(null);
+  const [activeSection, setActiveSection] = useState('quotes'); // 'quotes' or 'wishes'
+  const [selectedCategory, setSelectedCategory] = useState('all');
 
   useEffect(() => {
     setIsVisible(true);
   }, []);
 
-  const handleCardClick = (cardIndex) => {
-    setClickedCard(cardIndex);
-    setTimeout(() => setClickedCard(null), 300);
-    
-    // Navigasi berdasarkan card yang diklik
-    setTimeout(() => {
-      switch(cardIndex) {
-        case 0: // Timeline Kenangan
-          if (onNavigateToTimeline) {
-            onNavigateToTimeline();
-          } else {
-            // Fallback: scroll ke bagian timeline atau tampilkan alert
-            alert('Timeline feature coming soon!');
-          }
-          break;
-        case 1: // Momen Spesial (Gallery)
-          if (onNavigateToGallery) {
-            onNavigateToGallery();
-          }
-          break;
-        case 2: // Kilas Balik ke Quiz
-          if (onStartQuiz) {
-            onStartQuiz();
-          }
-          break;
-        case 3: // Tentang Kita
-          if (onNavigateToAbout) {
-            onNavigateToAbout();
-          } else {
-            // Fallback: scroll ke bagian about
-            const aboutSection = document.getElementById('about-section');
-            if (aboutSection) {
-              aboutSection.scrollIntoView({ behavior: 'smooth' });
-            } else {
-              alert('About section coming soon!');
-            }
-          }
-          break;
-        default:
-          break;
-      }
-    }, 400); // Delay untuk animasi
-  };
+  // Sample quotes data with categories (minimal examples)
+  const quotes = [
+    {
+      id: 1,
+      category: 'friendship',
+      text: "Persahabatan sejati adalah ketika kamu bisa menjadi diri sendiri tanpa takut dihakimi.",
+      author: "Unknown"
+    },
+    {
+      id: 2,
+      category: 'motivation',
+      text: "Jangan takut untuk memulai dari awal. Setiap akhir adalah awal yang baru.",
+      author: "Paulo Coelho"
+    },
+    {
+      id: 3,
+      category: 'life',
+      text: "Hidup bukanlah tentang menunggu badai berlalu, tetapi belajar menari di tengah hujan.",
+      author: "Vivian Greene"
+    }
+  ];
+
+  // Sample wishes data (minimal examples)
+  const wishes = [
+    {
+      id: 1,
+      text: "Semoga di tahun ini kamu menemukan kebahagiaan dalam hal-hal sederhana dan pencapaian dalam mimpi-mimpi besarmu.",
+      from: "Falih"
+    },
+    {
+      id: 2,
+      text: "Selamat ulang tahun! Semoga setiap langkahmu dipenuhi berkah dan setiap senyummu membawa kebahagiaan.",
+      from: "Keluarga Besar"
+    }
+  ];
+
+  const categories = [
+    { id: 'all', label: 'Semua', icon: '🌟' },
+    { id: 'friendship', label: 'Persahabatan', icon: '👥' },
+    { id: 'motivation', label: 'Motivasi', icon: '🚀' },
+    { id: 'life', label: 'Kehidupan', icon: '🌱' }
+  ];
+
+  const filteredQuotes = selectedCategory === 'all' 
+    ? quotes 
+    : quotes.filter(quote => quote.category === selectedCategory);
 
   return (
     <div className="min-h-screen bg-brand-background relative overflow-hidden">
@@ -89,18 +94,13 @@ function Home({ onStartQuiz, onNavigateToGallery, onNavigateToTimeline, onNaviga
                   {/* Gradient border */}
                   <div className="absolute inset-0 bg-gradient-to-br from-brand-primary to-brand-primary-light rounded-3xl p-1 group-hover:scale-105 group-hover:rotate-1 transition-all duration-500">
                     <div className="w-full h-full rounded-3xl overflow-hidden bg-white p-2">
-                      <div className="w-full h-full bg-gradient-to-br from-brand-primary/10 to-brand-primary-light/20 rounded-2xl flex items-center justify-center">
-                        <div className="text-center">
-                          <div className="w-20 h-20 bg-gradient-to-br from-brand-primary to-brand-primary-light rounded-full mx-auto mb-4 flex items-center justify-center">
-                            <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                            </svg>
-                          </div>
-                          <p className="text-2xl font-bold bg-gradient-to-r from-brand-primary to-brand-primary-light bg-clip-text text-transparent">
-                            Mahesa
-                          </p>
-                          <p className="text-brand-text/70 text-sm mt-1">Teman Terbaik</p>
-                        </div>
+                      <div className="w-full h-full rounded-2xl overflow-hidden">
+                        {/* Gambar profil - ganti src dengan path gambar yang diinginkan */}
+                        <img 
+                          src="../src/assets/gallery/home.jpg" 
+                          alt="Mahesa" 
+                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                        />
                       </div>
                     </div>
                   </div>
@@ -134,7 +134,7 @@ function Home({ onStartQuiz, onNavigateToGallery, onNavigateToTimeline, onNaviga
                 {/* Signature */}
                 <div className="mt-10">
                   <div className="text-xl font-bold bg-gradient-to-r from-brand-primary to-brand-primary-light bg-clip-text text-transparent mb-3">
-                    - [Nama Anda]
+                    - Falih Elmanda Ghaisan
                   </div>
                   <div className="w-32 h-0.5 bg-gradient-to-r from-brand-primary to-brand-primary-light mx-auto lg:mx-0 rounded-full"></div>
                 </div>
@@ -142,108 +142,149 @@ function Home({ onStartQuiz, onNavigateToGallery, onNavigateToTimeline, onNaviga
             </div>
           </div>
 
-          {/* Navigation Cards */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
-            {[
-              {
-                icon: "M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z",
-                title: "Timeline Kenangan",
-                desc: "Jelajahi perjalanan waktu bersama",
-                gradient: "from-brand-primary to-brand-primary-light",
-                action: "timeline"
-              },
-              {
-                icon: "M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z",
-                title: "Momen Spesial",
-                desc: "Koleksi kenangan terindah",
-                gradient: "from-brand-primary-light to-brand-primary",
-                action: "gallery"
-              },
-              {
-                icon: "M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z",
-                title: "Kilas Balik ke Quiz",
-                desc: "Ingat quiz yang pernah kita bikin?",
-                gradient: "from-brand-primary to-brand-primary-light",
-                action: "quiz"
-              },
-              {
-                icon: "M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z",
-                title: "Tentang Kita",
-                desc: "Cerita persahabatan yang indah",
-                gradient: "from-brand-primary-light to-brand-primary",
-                action: "about"
-              }
-            ].map((card, index) => (
-              <div
-                key={index}
-                onClick={() => handleCardClick(index)}
-                className={`bg-white/80 backdrop-blur-sm p-8 rounded-3xl shadow-lg border border-white/30 text-center transform hover:scale-105 hover:shadow-2xl hover:bg-white/90 transition-all duration-300 cursor-pointer group relative ${
-                  clickedCard === index ? 'scale-95 shadow-inner' : ''
-                }`}
-              >
-                {/* Hover indicator */}
-                <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <svg className="w-5 h-5 text-brand-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                  </svg>
-                </div>
-                
-                <div className={`w-16 h-16 bg-gradient-to-br ${card.gradient} rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 group-hover:rotate-12 transition-all duration-300 shadow-lg`}>
-                  <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={card.icon} />
-                  </svg>
-                </div>
-                <h3 className="text-xl font-bold text-brand-text mb-3 group-hover:text-brand-primary transition-colors duration-300">{card.title}</h3>
-                <p className="text-brand-text/70 group-hover:text-brand-text transition-colors duration-300 leading-relaxed">{card.desc}</p>
-                
-                {/* Action indicator */}
-                <div className="flex items-center justify-center mt-4 text-brand-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <span className="text-sm mr-2">Klik untuk {card.action === 'quiz' ? 'mulai' : 'lihat'}</span>
-                  <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                  </svg>
-                </div>
-                
-                {/* Subtle indicator */}
-                <div className="w-0 h-1 bg-gradient-to-r from-brand-primary to-brand-primary-light mx-auto mt-4 group-hover:w-12 transition-all duration-300 rounded-full"></div>
+          {/* Wall of Quotes and Wishes Section */}
+          <div className="mb-16">
+            {/* Section Header */}
+            <div className="text-center mb-12">
+              <h2 className="text-3xl lg:text-4xl font-bold mb-8 bg-gradient-to-r from-brand-primary to-brand-primary-light bg-clip-text text-transparent animate-fade-in">
+                {activeSection === 'quotes' ? 'Wall of Quotes' : 'Wall of Wishes'}
+              </h2>
+              
+              {/* Toggle Buttons */}
+              <div className="flex justify-center gap-4 mb-8">
+                <button
+                  onClick={() => setActiveSection('quotes')}
+                  className={`px-8 py-4 rounded-2xl font-semibold transition-all duration-500 transform hover:scale-110 hover:rotate-1 perspective-1000 ${
+                    activeSection === 'quotes'
+                      ? 'bg-gradient-to-r from-brand-primary to-brand-primary-light text-white shadow-2xl shadow-brand-primary/30'
+                      : 'bg-white/80 backdrop-blur-md text-brand-text hover:bg-white/90 shadow-xl hover:shadow-2xl'
+                  }`}
+                  style={{ 
+                    transform: activeSection === 'quotes' ? 'translateZ(20px)' : 'translateZ(0px)',
+                    transition: 'all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275)'
+                  }}
+                >
+                  📜 Quotes
+                </button>
+                <button
+                  onClick={() => setActiveSection('wishes')}
+                  className={`px-8 py-4 rounded-2xl font-semibold transition-all duration-500 transform hover:scale-110 hover:rotate-1 perspective-1000 ${
+                    activeSection === 'wishes'
+                      ? 'bg-gradient-to-r from-brand-primary to-brand-primary-light text-white shadow-2xl shadow-brand-primary/30'
+                      : 'bg-white/80 backdrop-blur-md text-brand-text hover:bg-white/90 shadow-xl hover:shadow-2xl'
+                  }`}
+                  style={{ 
+                    transform: activeSection === 'wishes' ? 'translateZ(20px)' : 'translateZ(0px)',
+                    transition: 'all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275)'
+                  }}
+                >
+                  💝 Wishes
+                </button>
               </div>
-            ))}
-          </div>
 
-          {/* Call to action */}
-          <div className="text-center mb-8">
-            <button 
-              onClick={onStartQuiz}
-              className="inline-flex items-center px-10 py-4 bg-gradient-to-r from-brand-primary to-brand-primary-light text-white rounded-full font-semibold shadow-lg hover:shadow-2xl transform hover:scale-105 hover:-translate-y-1 transition-all duration-300 cursor-pointer group text-lg">
-              <span className="group-hover:mr-1 transition-all duration-300">Mulai Jelajahi</span>
-              <svg className="w-6 h-6 ml-2 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-              </svg>
-            </button>
-          </div>
-
-          {/* About Section (untuk navigasi internal) */}
-          <div id="about-section" className="bg-white/60 backdrop-blur-sm rounded-3xl p-8 shadow-lg border border-white/30 mb-8">
-            <h2 className="text-3xl font-bold text-center mb-6 bg-gradient-to-r from-brand-primary to-brand-primary-light bg-clip-text text-transparent">
-              Tentang Persahabatan Kita
-            </h2>
-            <div className="grid md:grid-cols-2 gap-8 items-center">
-              <div>
-                <p className="text-brand-text leading-relaxed mb-4">
-                  Perjalanan persahabatan kita dimulai dari... [ceritakan awal pertemuan kalian]
-                </p>
-                <p className="text-brand-text leading-relaxed">
-                  Dari situ, kita mengalami banyak hal bersama. Tawa, tangis, petualangan, dan kenangan yang tak terlupakan.
-                </p>
-              </div>
-              <div className="text-center">
-                <div className="w-32 h-32 bg-gradient-to-br from-brand-primary to-brand-primary-light rounded-full mx-auto mb-4 flex items-center justify-center">
-                  <svg className="w-16 h-16 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                  </svg>
+              {/* Category Filter (Only for Quotes) */}
+              {activeSection === 'quotes' && (
+                <div className="flex flex-wrap justify-center gap-3 mb-8 animate-slide-in">
+                  {categories.map((category) => (
+                    <button
+                      key={category.id}
+                      onClick={() => setSelectedCategory(category.id)}
+                      className={`px-6 py-3 rounded-xl text-sm font-medium transition-all duration-500 transform hover:scale-110 hover:-translate-y-1 ${
+                        selectedCategory === category.id
+                          ? 'bg-gradient-to-r from-brand-primary to-brand-primary-light text-white shadow-xl shadow-brand-primary/30'
+                          : 'bg-white/70 backdrop-blur-sm text-brand-text hover:bg-white/90 shadow-lg hover:shadow-xl'
+                      }`}
+                    >
+                      {category.icon} {category.label}
+                    </button>
+                  ))}
                 </div>
-                <p className="text-brand-text/70 font-medium">Persahabatan Sejati</p>
-              </div>
+              )}
+            </div>
+
+            {/* Content Grid */}
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 perspective-1000">
+              {activeSection === 'quotes' ? (
+                // Quotes Grid
+                filteredQuotes.map((quote, index) => (
+                  <div
+                    key={quote.id}
+                    className={`quote-card bg-white/80 backdrop-blur-md rounded-3xl p-8 shadow-xl border border-white/40 hover:shadow-2xl transition-all duration-700 transform hover:scale-105 hover:-translate-y-2 hover:rotate-1 cursor-pointer group animate-card-in`}
+                    style={{
+                      animationDelay: `${index * 0.2}s`,
+                      transformStyle: 'preserve-3d'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.transform = 'translateZ(30px) rotateY(5deg) rotateX(5deg) scale(1.05)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.transform = 'translateZ(0px) rotateY(0deg) rotateX(0deg) scale(1)';
+                    }}
+                  >
+                    <div className="relative">
+                      {/* Quote Icon */}
+                      <div className="absolute -top-4 -left-4 w-12 h-12 bg-gradient-to-br from-brand-primary to-brand-primary-light rounded-full flex items-center justify-center text-white text-xl font-bold shadow-lg group-hover:shadow-xl group-hover:scale-110 transition-all duration-500">
+                        "
+                      </div>
+                      
+                      {/* Quote Text */}
+                      <p className="text-brand-text leading-relaxed mb-6 italic text-base lg:text-lg font-medium pt-4">
+                        "{quote.text}"
+                      </p>
+                      
+                      {/* Author */}
+                      <div className="flex items-center justify-between">
+                        <span className="text-brand-primary font-bold text-sm bg-gradient-to-r from-brand-primary to-brand-primary-light bg-clip-text text-transparent">
+                          — {quote.author}
+                        </span>
+                        <div className="w-8 h-8 bg-gradient-to-br from-brand-primary/20 to-brand-primary-light/20 rounded-full flex items-center justify-center group-hover:scale-110 transition-all duration-500">
+                          <span className="text-sm">✨</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))
+              ) : (
+                // Wishes Grid
+                wishes.map((wish, index) => (
+                  <div
+                    key={wish.id}
+                    className={`wish-card bg-white/80 backdrop-blur-md rounded-3xl p-8 shadow-xl border border-white/40 hover:shadow-2xl transition-all duration-700 transform hover:scale-105 hover:-translate-y-2 hover:rotate-1 cursor-pointer group animate-card-in`}
+                    style={{
+                      animationDelay: `${index * 0.2}s`,
+                      transformStyle: 'preserve-3d'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.transform = 'translateZ(30px) rotateY(-5deg) rotateX(5deg) scale(1.05)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.transform = 'translateZ(0px) rotateY(0deg) rotateX(0deg) scale(1)';
+                    }}
+                  >
+                    <div className="relative">
+                      {/* Wish Icon */}
+                      <div className="absolute -top-4 -left-4 w-12 h-12 bg-gradient-to-br from-brand-primary to-brand-primary-light rounded-full flex items-center justify-center text-white text-lg shadow-lg group-hover:shadow-xl group-hover:scale-110 transition-all duration-500">
+                        💝
+                      </div>
+                      
+                      {/* Wish Text */}
+                      <p className="text-brand-text leading-relaxed mb-6 text-base lg:text-lg font-medium pt-4">
+                        {wish.text}
+                      </p>
+                      
+                      {/* From */}
+                      <div className="flex items-center justify-between">
+                        <span className="text-brand-primary font-bold text-sm bg-gradient-to-r from-brand-primary to-brand-primary-light bg-clip-text text-transparent">
+                          — {wish.from}
+                        </span>
+                        <div className="w-8 h-8 bg-gradient-to-br from-brand-primary/20 to-brand-primary-light/20 rounded-full flex items-center justify-center group-hover:scale-110 transition-all duration-500">
+                          <span className="text-sm">💕</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))
+              )}
             </div>
           </div>
 
@@ -289,12 +330,91 @@ function Home({ onStartQuiz, onNavigateToGallery, onNavigateToTimeline, onNaviga
           50% { opacity: 1; transform: scale(1.2); }
         }
         
+        @keyframes fadeIn {
+          from {
+            opacity: 0;
+            transform: translateY(20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        
+        @keyframes slideIn {
+          from {
+            opacity: 0;
+            transform: translateX(-30px);
+          }
+          to {
+            opacity: 1;
+            transform: translateX(0);
+          }
+        }
+        
+        @keyframes cardIn {
+          from {
+            opacity: 0;
+            transform: translateY(50px) rotateY(30deg) scale(0.8);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0) rotateY(0deg) scale(1);
+          }
+        }
+        
         .animate-gentle-float {
           animation: gentleFloat 4s ease-in-out infinite;
         }
         
         .animate-sparkle {
           animation: sparkle 2s ease-in-out infinite;
+        }
+        
+        .animate-fade-in {
+          animation: fadeIn 0.8s ease-out;
+        }
+        
+        .animate-slide-in {
+          animation: slideIn 0.6s ease-out;
+        }
+        
+        .animate-card-in {
+          animation: cardIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+          opacity: 0;
+        }
+        
+        .perspective-1000 {
+          perspective: 1000px;
+        }
+        
+        .quote-card, .wish-card {
+          transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+          transform-style: preserve-3d;
+        }
+        
+        .quote-card:hover, .wish-card:hover {
+          box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+        
+        /* Enhanced 3D hover effects */
+        .quote-card:hover::before,
+        .wish-card:hover::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+          border-radius: 24px;
+          z-index: 1;
+        }
+        
+        .quote-card > div,
+        .wish-card > div {
+          position: relative;
+          z-index: 2;
         }
       `}</style>
     </div>
