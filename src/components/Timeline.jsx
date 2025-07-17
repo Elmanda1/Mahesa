@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Heart, Star, MessageCircle, Camera, Clock } from 'lucide-react';
 import timelineData from '../data/timelineData';
-import MessageViewer from './MessageViewer';
 
 // Komponen floating elements yang lebih bervariasi
 const FloatingElement = ({ delay = 0, duration = 4, type = "sparkle" }) => {
