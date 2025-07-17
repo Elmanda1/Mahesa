@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Heart, Star, MessageCircle, Camera, Clock } from 'lucide-react';
 import timelineData from '../data/timelineData';
+import { saveResponses } from '../../firebase';
 
 // Komponen floating elements yang lebih bervariasi
 const FloatingElement = ({ delay = 0, duration = 4, type = "sparkle" }) => {
@@ -61,7 +62,7 @@ const PhotoGallery = ({ isOpen, onClose, photos }) => {
 };
 
 // Komponen timeline item yang diperbaiki
-const TimelineItem3D = ({ data, index, isVisible, onHover, isLiked, onLike, message, onMessageChange }) => {
+const TimelineItem3D = ({ data, index, isVisible, onHover, isLiked, onLike, message, onMessageChange, onSubmit }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [customDate, setCustomDate] = useState("");
@@ -208,13 +209,7 @@ const TimelineItem3D = ({ data, index, isVisible, onHover, isLiked, onLike, mess
           {/* Action buttons */}
           <div className="flex gap-3 mt-6">
             <button 
-              onClick={() => {
-                if (message?.trim()) {
-                  alert(`Pesan tersimpan: "${message}"`);
-                } else {
-                  alert("Tulis pesan dulu ya! 💕");
-                }
-              }}
+              onClick={() => {onSubmit(`card${index}`)}}
               className="flex-1 bg-gradient-to-r from-pink-400 to-pink-500 text-white py-3 px-4 
                 rounded-xl hover:from-pink-500 hover:to-pink-600 transition-all duration-300 
                 font-medium shadow-lg hover:shadow-xl transform hover:-translate-y-1 
@@ -343,14 +338,10 @@ function Timeline() {
   const [hoveredItem, setHoveredItem] = useState(null);
   const [scrollProgress, setScrollProgress] = useState(0);
   const [likedItems, setLikedItems] = useState(new Set());
+  const [showMessageViewer, setShowMessageViewer] = useState(false);
 
-  const handleMessageSubmit = (message) => {
-    setMessages(prev => [...prev, {
-      id: Date.now(),
-      content: message,
-      timestamp: new Date().toISOString(),
-      sender: 'anonymous'
-    }]);
+const handleMessageSubmit = (cardIdentifier) => {
+    saveResponses(cardIdentifier, messages)
   };
 
   const handleLike = (index) => {
@@ -481,6 +472,7 @@ function Timeline() {
                 onLike={handleLike}
                 message={messages[index]}
                 onMessageChange={handleMessageChange}
+                onSubmit={handleMessageSubmit} //ditambahin ini
               />
             </div>
           ))}
