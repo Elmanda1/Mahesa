@@ -507,7 +507,7 @@ function QuizPage() {
                 Skor Akhir: <span className="font-bold text-brand-primary text-2xl">{score}</span> dari {quizQuestions.length}
               </div>
               <button
-                onClick={() => navigate('/')} // Update dengan useNavigate
+                onClick={() => navigate('/gallery')} // Update dengan useNavigate
                 className="w-full py-4 px-6 bg-gradient-to-r from-brand-primary to-brand-primary-light rounded-2xl font-bold text-white hover:shadow-xl transition-all duration-300 transform hover:scale-105 text-lg"
               >
                 ✨ Lanjutkan Petualangan ✨

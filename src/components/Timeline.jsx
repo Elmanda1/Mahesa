@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Heart, Star, MessageCircle, Camera, Clock } from 'lucide-react';
-import { saveMessage, subscribeToMessages } from '../services/database';
 import timelineData from '../data/timelineData';
 import MessageViewer from './MessageViewer';
 
@@ -340,43 +339,22 @@ const TimelineItem3D = ({ data, index, isVisible, onHover, isLiked, onLike, mess
 
 // Komponen utama timeline yang diperbaiki
 function Timeline() {
+  const [messages, setMessages] = useState([]);
   const [visibleItems, setVisibleItems] = useState(new Set());
   const [hoveredItem, setHoveredItem] = useState(null);
   const [scrollProgress, setScrollProgress] = useState(0);
   const [likedItems, setLikedItems] = useState(new Set());
-  const [messages, setMessages] = useState([]);
-  // Tambahkan state untuk message viewer
   const [showMessageViewer, setShowMessageViewer] = useState(false);
 
-  // Subscribe to real-time updates
-  useEffect(() => {
-    const unsubscribe = subscribeToMessages((newMessages) => {
-      setMessages(newMessages);
-    });
-
-    // Cleanup subscription on unmount
-    return () => unsubscribe();
-  }, []);
-
-  const handleMessageSubmit = async (index, content) => {
-    if (!content?.trim()) return;
-
-    try {
-      const messageData = {
-        timelineItemId: index,
-        content: content,
-        timelineData: timelineData[index],
-        timestamp: new Date().toISOString()
-      };
-
-      await saveMessage(messageData);
-      // No need to update state manually - Firebase listener will handle it
-    } catch (error) {
-      console.error('Error sending message:', error);
-      alert('Gagal mengirim pesan. Silakan coba lagi.');
-    }
+  const handleMessageSubmit = (message) => {
+    setMessages(prev => [...prev, {
+      id: Date.now(),
+      content: message,
+      timestamp: new Date().toISOString(),
+      sender: 'anonymous'
+    }]);
   };
-  
+
   const handleLike = (index) => {
     setLikedItems(prev => {
       const newSet = new Set(prev);
