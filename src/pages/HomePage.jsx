@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-function HomePage({ onStartQuiz, onNavigateToGallery, onNavigateToTimeline, onNavigateToAbout, onNavigateToWallofquotes }) {
+function HomePage() {
+  const navigate = useNavigate();
   const [isVisible, setIsVisible] = useState(false);
   const [showMahesa, setShowMahesa] = useState(false);
   const [showButton, setShowButton] = useState(false);
@@ -92,7 +94,7 @@ function HomePage({ onStartQuiz, onNavigateToGallery, onNavigateToTimeline, onNa
             showButton ? 'rotate-0 opacity-100 scale-100 filter-none' : 'rotate-3 opacity-0 scale-80 blur-sm'
           }`}>
             <button
-              onClick={onStartQuiz}
+              onClick={() => navigate('/quiz')}
               className="group relative py-4 px-10 bg-brand-primary text-white font-bold rounded-full shadow-lg hover:shadow-2xl transform transition-all duration-300 hover:scale-105 hover:rotate-1 active:scale-95 overflow-hidden animate-pulse hover:animate-none"
             >
               {/* Button glow effect */}
@@ -103,6 +105,12 @@ function HomePage({ onStartQuiz, onNavigateToGallery, onNavigateToTimeline, onNa
               
               {/* Subtle shine effect */}
               <div className="absolute inset-0 -top-1 -left-1 bg-gradient-to-r from-transparent via-white/20 to-transparent w-6 h-full transform -skew-x-12 translate-x-[-100%] group-hover:translate-x-[300%] transition-transform duration-700"></div>
+            </button>
+            <button
+              onClick={() => navigate('/gallery')}
+              className="ml-4 py-4 px-10 bg-brand-secondary text-white font-bold rounded-full shadow-lg hover:shadow-2xl transform transition-all duration-300 hover:scale-105 active:scale-95"
+            >
+              Galeri
             </button>
           </div>
         </div>
