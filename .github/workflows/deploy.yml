@@ -3,12 +3,9 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches: [ main ]
-  pull_request:
-    branches: [ main ]
 
-# Add permissions
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
@@ -19,9 +16,7 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v4
-      with:
-        token: ${{ secrets.GITHUB_TOKEN }}
-        
+      
     - name: Setup Node.js
       uses: actions/setup-node@v4
       with:
@@ -31,10 +26,33 @@ jobs:
     - name: Install dependencies
       run: npm ci
       
+    - name: Debug Environment Variables
+      run: |
+        echo "=== Checking GitHub Secrets ==="
+        echo "VITE_FIREBASE_API_KEY: ${{ secrets.VITE_FIREBASE_API_KEY != '' && 'SET' || 'NOT SET' }}"
+        echo "VITE_FIREBASE_AUTH_DOMAIN: ${{ secrets.VITE_FIREBASE_AUTH_DOMAIN != '' && 'SET' || 'NOT SET' }}"
+        echo "VITE_FIREBASE_PROJECT_ID: ${{ secrets.VITE_FIREBASE_PROJECT_ID != '' && 'SET' || 'NOT SET' }}"
+        echo "VITE_FIREBASE_STORAGE_BUCKET: ${{ secrets.VITE_FIREBASE_STORAGE_BUCKET != '' && 'SET' || 'NOT SET' }}"
+        echo "VITE_FIREBASE_MESSAGING_SENDER_ID: ${{ secrets.VITE_FIREBASE_MESSAGING_SENDER_ID != '' && 'SET' || 'NOT SET' }}"
+        echo "VITE_FIREBASE_APP_ID: ${{ secrets.VITE_FIREBASE_APP_ID != '' && 'SET' || 'NOT SET' }}"
+        echo "VITE_FIREBASE_MEASUREMENT_ID: ${{ secrets.VITE_FIREBASE_MEASUREMENT_ID != '' && 'SET' || 'NOT SET' }}"
+        
+    - name: Create .env file
+      run: |
+        echo "=== Creating .env file ==="
+        echo "VITE_FIREBASE_API_KEY=${{ secrets.VITE_FIREBASE_API_KEY }}" > .env
+        echo "VITE_FIREBASE_AUTH_DOMAIN=${{ secrets.VITE_FIREBASE_AUTH_DOMAIN }}" >> .env
+        echo "VITE_FIREBASE_PROJECT_ID=${{ secrets.VITE_FIREBASE_PROJECT_ID }}" >> .env
+        echo "VITE_FIREBASE_STORAGE_BUCKET=${{ secrets.VITE_FIREBASE_STORAGE_BUCKET }}" >> .env
+        echo "VITE_FIREBASE_MESSAGING_SENDER_ID=${{ secrets.VITE_FIREBASE_MESSAGING_SENDER_ID }}" >> .env
+        echo "VITE_FIREBASE_APP_ID=${{ secrets.VITE_FIREBASE_APP_ID }}" >> .env
+        echo "VITE_FIREBASE_MEASUREMENT_ID=${{ secrets.VITE_FIREBASE_MEASUREMENT_ID }}" >> .env
+        echo "=== .env file created ==="
+        ls -la .env
+        
     - name: Build
       run: npm run build
       env:
-        # Firebase Environment Variables
         VITE_FIREBASE_API_KEY: ${{ secrets.VITE_FIREBASE_API_KEY }}
         VITE_FIREBASE_AUTH_DOMAIN: ${{ secrets.VITE_FIREBASE_AUTH_DOMAIN }}
         VITE_FIREBASE_PROJECT_ID: ${{ secrets.VITE_FIREBASE_PROJECT_ID }}
@@ -43,14 +61,10 @@ jobs:
         VITE_FIREBASE_APP_ID: ${{ secrets.VITE_FIREBASE_APP_ID }}
         VITE_FIREBASE_MEASUREMENT_ID: ${{ secrets.VITE_FIREBASE_MEASUREMENT_ID }}
         
-    - name: Setup Pages
-      uses: actions/configure-pages@v4
-      
-    - name: Upload artifact
-      uses: actions/upload-pages-artifact@v3
-      with:
-        path: './dist'
-        
     - name: Deploy to GitHub Pages
-      id: deployment
-      uses: actions/deploy-pages@v4
+      uses: peaceiris/actions-gh-pages@v3
+      if: github.ref == 'refs/heads/main'
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./dist
+        force_orphan: true
