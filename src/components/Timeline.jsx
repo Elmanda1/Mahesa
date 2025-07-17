@@ -345,7 +345,9 @@ function Timeline() {
   const [scrollProgress, setScrollProgress] = useState(0);
   const [likedItems, setLikedItems] = useState(new Set());
   const [messages, setMessages] = useState([]);
-  
+  // Tambahkan state untuk message viewer
+  const [showMessageViewer, setShowMessageViewer] = useState(false);
+
   // Subscribe to real-time updates
   useEffect(() => {
     const unsubscribe = subscribeToMessages((newMessages) => {
@@ -583,10 +585,11 @@ function Timeline() {
         <MessageCircle className="w-6 h-6" />
       </button>
 
+      {/* Message Viewer */}
       <MessageViewer 
         isOpen={showMessageViewer}
         onClose={() => setShowMessageViewer(false)}
-        messages={sentMessages}
+        messages={messages}
       />
     </div>
   );

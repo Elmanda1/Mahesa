@@ -137,7 +137,7 @@ function Navbar({ activeView, onNavigate }) {
       )}
 
       {/* Reduced spacing - navbar only needs minimal clearance */}
-      <div className="h-10 md:h-8" bg-white></div>
+      <div className="h-10 md:h-8 bg-white"></div>
     </>
   );
 }

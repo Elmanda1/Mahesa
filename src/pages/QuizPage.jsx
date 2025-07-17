@@ -1,7 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom'; // Tambahkan import
 import { quizQuestions } from '../data/quizQuestions';
 
-function QuizPage({ onQuizComplete }) {
+function QuizPage() {
+  const navigate = useNavigate(); // Tambahkan hook
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [score, setScore] = useState(0);
   const [showScore, setShowScore] = useState(false);
@@ -505,7 +507,7 @@ function QuizPage({ onQuizComplete }) {
                 Skor Akhir: <span className="font-bold text-brand-primary text-2xl">{score}</span> dari {quizQuestions.length}
               </div>
               <button
-                onClick={onQuizComplete}
+                onClick={() => navigate('/')} // Update dengan useNavigate
                 className="w-full py-4 px-6 bg-gradient-to-r from-brand-primary to-brand-primary-light rounded-2xl font-bold text-white hover:shadow-xl transition-all duration-300 transform hover:scale-105 text-lg"
               >
                 ✨ Lanjutkan Petualangan ✨
@@ -556,86 +558,88 @@ function QuizPage({ onQuizComplete }) {
       </div>
       
       {/* Enhanced Custom Styles */}
-      <style jsx>{`
-        @keyframes slide-in {
-          0% {
-            transform: translateX(100%);
+      <style>
+        {`
+          @keyframes slide-in {
+            0% {
+              transform: translateX(100%);
+              opacity: 0;
+            }
+            100% {
+              transform: translateX(0);
+              opacity: 1;
+            }
+          }
+          
+          @keyframes chat-appear {
+            0% {
+              transform: translateY(20px) scale(0.8);
+              opacity: 0;
+            }
+            100% {
+              transform: translateY(0) scale(1);
+              opacity: 1;
+            }
+          }
+          
+          @keyframes chat-appear-completed {
+            0% {
+              transform: translateY(3px);
+              opacity: 0.7;
+            }
+            100% {
+              transform: translateY(0);
+              opacity: 1;
+            }
+          }
+          
+          @keyframes chat-appear-typing {
+            0% {
+              transform: translateY(5px) scale(0.98);
+              opacity: 0.8;
+            }
+            100% {
+              transform: translateY(0) scale(1);
+              opacity: 1;
+            }
+          }
+          
+          @keyframes fade-in-up {
+            0% {
+              transform: translateY(30px);
+              opacity: 0;
+            }
+            100% {
+              transform: translateY(0);
+              opacity: 1;
+            }
+          }
+          
+          .animate-slide-in {
+            animation: slide-in 0.5s ease-out;
+          }
+          
+          .animate-chat-appear {
+            animation: chat-appear 0.6s ease-out forwards;
             opacity: 0;
           }
-          100% {
-            transform: translateX(0);
-            opacity: 1;
-          }
-        }
-        
-        @keyframes chat-appear {
-          0% {
-            transform: translateY(20px) scale(0.8);
+          
+          .animate-chat-appear-completed {
+            animation: chat-appear-completed 0.15s ease-out forwards;
             opacity: 0;
           }
-          100% {
-            transform: translateY(0) scale(1);
-            opacity: 1;
-          }
-        }
-        
-        @keyframes chat-appear-completed {
-          0% {
-            transform: translateY(3px);
-            opacity: 0.7;
-          }
-          100% {
-            transform: translateY(0);
-            opacity: 1;
-          }
-        }
-        
-        @keyframes chat-appear-typing {
-          0% {
-            transform: translateY(5px) scale(0.98);
-            opacity: 0.8;
-          }
-          100% {
-            transform: translateY(0) scale(1);
-            opacity: 1;
-          }
-        }
-        
-        @keyframes fade-in-up {
-          0% {
-            transform: translateY(30px);
+          
+          .animate-chat-appear-typing {
+            animation: chat-appear-typing 0.3s ease-out forwards;
             opacity: 0;
           }
-          100% {
-            transform: translateY(0);
-            opacity: 1;
+          
+          .animate-fade-in-up {
+            animation: fade-in-up 0.7s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+            opacity: 0;
           }
-        }
-        
-        .animate-slide-in {
-          animation: slide-in 0.5s ease-out;
-        }
-        
-        .animate-chat-appear {
-          animation: chat-appear 0.6s ease-out forwards;
-          opacity: 0;
-        }
-        
-        .animate-chat-appear-completed {
-          animation: chat-appear-completed 0.15s ease-out forwards;
-          opacity: 0;
-        }
-        
-        .animate-chat-appear-typing {
-          animation: chat-appear-typing 0.3s ease-out forwards;
-          opacity: 0;
-        }
-        
-        .animate-fade-in-up {
-          animation: fade-in-up 0.7s cubic-bezier(0.23, 1, 0.32, 1) forwards;
-          opacity: 0;
-        }
-      `}</style>
+        `}
+      </style>
     </div>
   );
 }
