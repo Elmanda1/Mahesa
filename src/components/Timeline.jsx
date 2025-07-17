@@ -343,7 +343,6 @@ function Timeline() {
   const [hoveredItem, setHoveredItem] = useState(null);
   const [scrollProgress, setScrollProgress] = useState(0);
   const [likedItems, setLikedItems] = useState(new Set());
-  const [showMessageViewer, setShowMessageViewer] = useState(false);
 
   const handleMessageSubmit = (message) => {
     setMessages(prev => [...prev, {
@@ -552,22 +551,6 @@ function Timeline() {
       >
         <Star className="w-6 h-6" />
       </button>
-
-      {/* Message viewer button and component */}
-      <button 
-        onClick={() => setShowMessageViewer(true)}
-        className="fixed bottom-20 right-8 bg-gradient-to-r from-pink-400 to-pink-500 text-white 
-          p-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 z-50"
-      >
-        <MessageCircle className="w-6 h-6" />
-      </button>
-
-      {/* Message Viewer */}
-      <MessageViewer 
-        isOpen={showMessageViewer}
-        onClose={() => setShowMessageViewer(false)}
-        messages={messages}
-      />
     </div>
   );
 }
