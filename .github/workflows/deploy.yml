@@ -6,16 +6,24 @@ on:
   pull_request:
     branches: [ main ]
 
+# Add permissions
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     
     steps:
     - name: Checkout
-      uses: actions/checkout@v3
-      
+      uses: actions/checkout@v4
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        
     - name: Setup Node.js
-      uses: actions/setup-node@v3
+      uses: actions/setup-node@v4
       with:
         node-version: '18'
         cache: 'npm'
@@ -23,17 +31,6 @@ jobs:
     - name: Install dependencies
       run: npm ci
       
-    - name: Debug Environment Variables
-      run: |
-        echo "Checking Firebase environment variables..."
-        echo "API_KEY exists: $([[ -n '${{ secrets.VITE_FIREBASE_API_KEY }}' ]] && echo 'YES' || echo 'NO')"
-        echo "AUTH_DOMAIN exists: $([[ -n '${{ secrets.VITE_FIREBASE_AUTH_DOMAIN }}' ]] && echo 'YES' || echo 'NO')"
-        echo "PROJECT_ID exists: $([[ -n '${{ secrets.VITE_FIREBASE_PROJECT_ID }}' ]] && echo 'YES' || echo 'NO')"
-        echo "STORAGE_BUCKET exists: $([[ -n '${{ secrets.VITE_FIREBASE_STORAGE_BUCKET }}' ]] && echo 'YES' || echo 'NO')"
-        echo "MESSAGING_SENDER_ID exists: $([[ -n '${{ secrets.VITE_FIREBASE_MESSAGING_SENDER_ID }}' ]] && echo 'YES' || echo 'NO')"
-        echo "APP_ID exists: $([[ -n '${{ secrets.VITE_FIREBASE_APP_ID }}' ]] && echo 'YES' || echo 'NO')"
-        echo "MEASUREMENT_ID exists: $([[ -n '${{ secrets.VITE_FIREBASE_MEASUREMENT_ID }}' ]] && echo 'YES' || echo 'NO')"
-        
     - name: Build
       run: npm run build
       env:
@@ -46,9 +43,14 @@ jobs:
         VITE_FIREBASE_APP_ID: ${{ secrets.VITE_FIREBASE_APP_ID }}
         VITE_FIREBASE_MEASUREMENT_ID: ${{ secrets.VITE_FIREBASE_MEASUREMENT_ID }}
         
-    - name: Deploy to GitHub Pages
-      uses: peaceiris/actions-gh-pages@v3
-      if: github.ref == 'refs/heads/main'
+    - name: Setup Pages
+      uses: actions/configure-pages@v4
+      
+    - name: Upload artifact
+      uses: actions/upload-pages-artifact@v3
       with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./dist
+        path: './dist'
+        
+    - name: Deploy to GitHub Pages
+      id: deployment
+      uses: actions/deploy-pages@v4
