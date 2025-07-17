@@ -3,14 +3,13 @@ import React, { useState, useEffect } from 'react';
 function Home({ onStartQuiz, onNavigate }) {
   const [isVisible, setIsVisible] = useState(false);
   const [clickedCard, setClickedCard] = useState(null);
-  const [activeSection, setActiveSection] = useState('quotes'); // 'quotes' or 'wishes'
+  const [activeSection, setActiveSection] = useState('quotes'); 
   const [selectedCategory, setSelectedCategory] = useState('all');
 
   useEffect(() => {
     setIsVisible(true);
   }, []);
 
-  // Sample quotes data with categories (minimal examples)
   const quotes = [
     {
       id: 1,
@@ -32,7 +31,6 @@ function Home({ onStartQuiz, onNavigate }) {
     }
   ];
 
-  // Sample wishes data (minimal examples)
   const wishes = [
     {
       id: 1,
@@ -41,8 +39,23 @@ function Home({ onStartQuiz, onNavigate }) {
     },
     {
       id: 2,
-      text: "Selamat ulang tahun! Semoga setiap langkahmu dipenuhi berkah dan setiap senyummu membawa kebahagiaan.",
-      from: "Keluarga Besar"
+      text: "Semoga setiap langkahmu di tahun ini membawa kamu lebih dekat ke impianmu.",
+      from: "Falih"
+    },
+    {
+      id: 3,
+      text: "Semoga kamu selalu dikelilingi oleh orang-orang yang mencintaimu dan mendukungmu.",
+      from: "Falih"
+    },
+    {
+      id: 4,
+      text: "Semoga setiap hari di tahun ini dipenuhi dengan tawa, cinta, dan kenangan indah.",
+      from: "Falih"
+    },
+    {
+      id: 5,
+      text: "Semoga kamu selalu menemukan kekuatan dalam dirimu untuk mengatasi segala tantangan yang datang.",
+      from: "Falih"
     }
   ];
 
@@ -87,7 +100,7 @@ function Home({ onStartQuiz, onNavigate }) {
         <div className="max-w-6xl mx-auto">
           {/* Main welcome section */}
           <div className="bg-white/90 backdrop-blur-sm p-8 md:p-12 rounded-3xl shadow-2xl border border-white/30 mb-12 transform hover:scale-[1.01] transition-all duration-500">
-            <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div className="grid lg:grid-cols-2 gap-3 items-center">
               {/* Photo Section */}
               <div className="text-center lg:text-left">
                 <div className="relative w-80 h-80 mx-auto lg:mx-0 group">
@@ -95,9 +108,9 @@ function Home({ onStartQuiz, onNavigate }) {
                   <div className="absolute inset-0 bg-gradient-to-br from-brand-primary to-brand-primary-light rounded-3xl p-1 group-hover:scale-105 group-hover:rotate-1 transition-all duration-500">
                     <div className="w-full h-full rounded-3xl overflow-hidden bg-white p-2">
                       <div className="w-full h-full rounded-2xl overflow-hidden">
-                        {/* Gambar profil - ganti src dengan path gambar yang diinginkan */}
+                        {/* Gambar profil */}
                         <img 
-                          src="../src/assets/gallery/home.jpg" 
+                          src="./assets/gallery/home.jpg" 
                           alt="Mahesa" 
                           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                         />
@@ -123,18 +136,21 @@ function Home({ onStartQuiz, onNavigate }) {
                 
                 <div className="space-y-6 text-lg text-brand-text leading-relaxed">
                   <p className="opacity-90">
-                    Selamat memasuki babak baru dalam hidupmu! Aku membuat website kecil ini bukan hanya sebagai hadiah, tapi juga sebagai kapsul waktu digital untuk semua kenangan yang telah kita lalui.
+                    Selamat memasuki babak baru dalam hidupmu yaa! Website kecil ini kubuat bukan hanya sebagai hadiah, tapi juga sebagai kapsul waktu digital untuk semua kenangan yang telah kamu atau kita lalui.
                   </p>
                   
                   <p className="opacity-90">
-                    Semoga kamu suka dengan hadiah sederhana ini. Jelajahi setiap bagiannya, kenang kembali momen-momen kita, dan tersenyumlah. Selamat ulang tahun, kawan terbaik!
+                    Semoga kamu suka dengan hadiah sederhana ku ini. Mohon jelajahi setiap bagiannya, kenang kembali momen-momen nya, dan tersenyumlah. 
+                  </p>
+                  <p className="opacity-90">
+                    Selamat ulang tahun, Mahesa! Semoga tahun ini dipenuhi dengan kebahagiaan, cinta, dan pencapaian yang luar biasa.
                   </p>
                 </div>
                 
                 {/* Signature */}
                 <div className="mt-10">
                   <div className="text-xl font-bold bg-gradient-to-r from-brand-primary to-brand-primary-light bg-clip-text text-transparent mb-3">
-                    - Falih Elmanda Ghaisan
+                    - Falih Elmanda 
                   </div>
                   <div className="w-32 h-0.5 bg-gradient-to-r from-brand-primary to-brand-primary-light mx-auto lg:mx-0 rounded-full"></div>
                 </div>
@@ -222,10 +238,6 @@ function Home({ onStartQuiz, onNavigate }) {
                     }}
                   >
                     <div className="relative">
-                      {/* Quote Icon */}
-                      <div className="absolute -top-4 -left-4 w-12 h-12 bg-gradient-to-br from-brand-primary to-brand-primary-light rounded-full flex items-center justify-center text-white text-xl font-bold shadow-lg group-hover:shadow-xl group-hover:scale-110 transition-all duration-500">
-                        "
-                      </div>
                       
                       {/* Quote Text */}
                       <p className="text-brand-text leading-relaxed mb-6 italic text-base lg:text-lg font-medium pt-4">
@@ -262,10 +274,6 @@ function Home({ onStartQuiz, onNavigate }) {
                     }}
                   >
                     <div className="relative">
-                      {/* Wish Icon */}
-                      <div className="absolute -top-4 -left-4 w-12 h-12 bg-gradient-to-br from-brand-primary to-brand-primary-light rounded-full flex items-center justify-center text-white text-lg shadow-lg group-hover:shadow-xl group-hover:scale-110 transition-all duration-500">
-                        💝
-                      </div>
                       
                       {/* Wish Text */}
                       <p className="text-brand-text leading-relaxed mb-6 text-base lg:text-lg font-medium pt-4">
@@ -317,106 +325,6 @@ function Home({ onStartQuiz, onNavigate }) {
           </div>
         ))}
       </div>
-
-      {/* Custom styles */}
-      <style jsx>{`
-        @keyframes gentleFloat {
-          0%, 100% { transform: translateY(0px) rotate(0deg); }
-          50% { transform: translateY(-10px) rotate(5deg); }
-        }
-        
-        @keyframes sparkle {
-          0%, 100% { opacity: 0.3; transform: scale(1); }
-          50% { opacity: 1; transform: scale(1.2); }
-        }
-        
-        @keyframes fadeIn {
-          from {
-            opacity: 0;
-            transform: translateY(20px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-        
-        @keyframes slideIn {
-          from {
-            opacity: 0;
-            transform: translateX(-30px);
-          }
-          to {
-            opacity: 1;
-            transform: translateX(0);
-          }
-        }
-        
-        @keyframes cardIn {
-          from {
-            opacity: 0;
-            transform: translateY(50px) rotateY(30deg) scale(0.8);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0) rotateY(0deg) scale(1);
-          }
-        }
-        
-        .animate-gentle-float {
-          animation: gentleFloat 4s ease-in-out infinite;
-        }
-        
-        .animate-sparkle {
-          animation: sparkle 2s ease-in-out infinite;
-        }
-        
-        .animate-fade-in {
-          animation: fadeIn 0.8s ease-out;
-        }
-        
-        .animate-slide-in {
-          animation: slideIn 0.6s ease-out;
-        }
-        
-        .animate-card-in {
-          animation: cardIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-          opacity: 0;
-        }
-        
-        .perspective-1000 {
-          perspective: 1000px;
-        }
-        
-        .quote-card, .wish-card {
-          transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-          transform-style: preserve-3d;
-        }
-        
-        .quote-card:hover, .wish-card:hover {
-          box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-        }
-        
-        /* Enhanced 3D hover effects */
-        .quote-card:hover::before,
-        .wish-card:hover::before {
-          content: '';
-          position: absolute;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
-          border-radius: 24px;
-          z-index: 1;
-        }
-        
-        .quote-card > div,
-        .wish-card > div {
-          position: relative;
-          z-index: 2;
-        }
-      `}</style>
     </div>
   );
 }
