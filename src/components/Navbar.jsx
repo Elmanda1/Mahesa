@@ -37,15 +37,28 @@ function Navbar({ activeView, onNavigate }) {
     return `${baseClasses} text-pink-700 hover:text-white hover:bg-gradient-to-r hover:from-pink-400 hover:to-pink-500`;
   };
 
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  };
+
   const handleNavigation = (view) => {
     console.log('Navbar: handleNavigation called with:', view);
     
-    // Ensure onNavigate is a function before calling it
-    if (typeof onNavigate === 'function') {
-      onNavigate(view);
-    } else {
-      console.warn('onNavigate is not a function:', onNavigate);
-    }
+    // Scroll to top first
+    scrollToTop();
+    
+    // Small delay to ensure smooth scrolling happens first
+    setTimeout(() => {
+      // Ensure onNavigate is a function before calling it
+      if (typeof onNavigate === 'function') {
+        onNavigate(view);
+      } else {
+        console.warn('onNavigate is not a function:', onNavigate);
+      }
+    }, 100);
     
     setIsMobileMenuOpen(false);
   };

@@ -1,7 +1,86 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Heart, Star, MessageCircle, Camera, Clock } from 'lucide-react';
+import { Heart, Star, MessageCircle, Camera, Clock, CheckCircle, X } from 'lucide-react';
 import timelineData from '../data/timelineData';
 import { saveResponses } from '../../firebase';
+
+// Pink color variations for consistent theming
+const pinkColorVariants = [
+  'from-pink-400 to-pink-500',
+  'from-pink-500 to-pink-600', 
+  'from-pink-300 to-pink-400',
+  'from-pink-600 to-pink-700',
+  'from-pink-400 to-pink-600',
+  'from-pink-500 to-pink-700'
+];
+
+// Notification Component
+const Notification = ({ isVisible, message, onClose }) => {
+  const [isAnimating, setIsAnimating] = useState(false);
+  
+  useEffect(() => {
+    if (isVisible) {
+      setIsAnimating(true);
+    }
+  }, [isVisible]);
+  
+  const handleClose = () => {
+    setIsAnimating(false);
+    setTimeout(onClose, 300);
+  };
+  
+  useEffect(() => {
+    if (isVisible) {
+      const timer = setTimeout(handleClose, 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [isVisible]);
+  
+  if (!isVisible && !isAnimating) return null;
+  
+  return (
+    <div className={`fixed top-6 left-1/2 transform -translate-x-1/2 z-50 transition-all duration-300 ease-out
+      ${isAnimating && isVisible ? 'translate-y-0 opacity-100 scale-100' : '-translate-y-8 opacity-0 scale-95'}`}>
+      <div className="bg-gradient-to-r from-pink-500 to-pink-600 text-white px-6 py-4 rounded-2xl shadow-2xl 
+        backdrop-blur-sm border border-pink-400/30 min-w-[300px] relative overflow-hidden">
+        {/* Background decoration */}
+        <div className="absolute inset-0 bg-gradient-to-r from-white/10 to-transparent rounded-2xl"></div>
+        
+        {/* Animated background sparkles */}
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute top-2 left-4 text-pink-200 animate-pulse">✨</div>
+          <div className="absolute bottom-2 right-6 text-pink-200 animate-pulse delay-500">💕</div>
+          <div className="absolute top-3 right-4 text-pink-200 animate-pulse delay-1000">⭐</div>
+        </div>
+        
+        <div className="flex items-center gap-3 relative z-10">
+          {/* Success icon with animation */}
+          <div className="relative">
+            <CheckCircle className="w-6 h-6 text-white animate-bounce" />
+            <div className="absolute inset-0 bg-white/30 rounded-full animate-ping opacity-75"></div>
+          </div>
+          
+          <div className="flex-1">
+            <p className="font-semibold text-lg">Berhasil Terkirim!</p>
+            <p className="text-pink-100 text-sm">{message}</p>
+          </div>
+          
+          {/* Close button */}
+          <button 
+            onClick={handleClose}
+            className="text-pink-200 hover:text-white transition-colors duration-200 p-1 rounded-full hover:bg-white/10"
+          >
+            <X className="w-4 h-4" />
+          </button>
+        </div>
+        
+        {/* Progress bar */}
+        <div className="absolute bottom-0 left-0 h-1 bg-pink-400 rounded-full animate-pulse">
+          <div className="h-full bg-white/30 rounded-full animate-pulse"></div>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 // Komponen floating elements yang lebih bervariasi
 const FloatingElement = ({ delay = 0, duration = 4, type = "sparkle" }) => {
@@ -46,8 +125,8 @@ const PhotoGallery = ({ isOpen, onClose, photos }) => {
     <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
       <div className="bg-white rounded-2xl p-6 max-w-2xl w-full max-h-[80vh] overflow-y-auto">
         <div className="flex justify-between items-center mb-6">
-          <h3 className="text-2xl font-bold text-gray-800">Galeri Foto</h3>
-          <button onClick={onClose} className="text-gray-500 hover:text-gray-700 text-2xl">×</button>
+          <h3 className="text-2xl font-bold text-pink-800">Galeri Foto</h3>
+          <button onClick={onClose} className="text-pink-500 hover:text-pink-700 text-2xl">×</button>
         </div>
         <div className="grid grid-cols-2 gap-4">
           {photos.map((photo, index) => (
@@ -68,9 +147,13 @@ const TimelineItem3D = ({ data, index, isVisible, onHover, isLiked, onLike, mess
   const [customDate, setCustomDate] = useState("");
   const [showGallery, setShowGallery] = useState(false);
   const [likeAnimation, setLikeAnimation] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const cardRef = useRef(null);
   
   const isEven = index % 2 === 0;
+  
+  // Use pink color variants instead of data.color
+  const cardColor = pinkColorVariants[index % pinkColorVariants.length];
   
   const handleMouseMove = (e) => {
     if (!cardRef.current) return;
@@ -88,6 +171,15 @@ const TimelineItem3D = ({ data, index, isVisible, onHover, isLiked, onLike, mess
     setTimeout(() => setLikeAnimation(false), 600);
   };
   
+  const handleSubmit = async () => {
+    setIsSubmitting(true);
+    try {
+      await onSubmit(`card${index}`);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+  
   const cardStyle = {
     transform: isHovered 
       ? `perspective(1000px) rotateX(${(mousePosition.y - 150) * 0.03}deg) rotateY(${(mousePosition.x - 200) * 0.03}deg) translateZ(15px)`
@@ -98,9 +190,9 @@ const TimelineItem3D = ({ data, index, isVisible, onHover, isLiked, onLike, mess
   
   return (
     <div className={`flex items-center w-full mb-16 ${isEven ? 'flex-row-reverse' : ''} relative`}>
-      {/* Enhanced background glow */}
+      {/* Enhanced background glow - now consistently pink */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className={`absolute w-96 h-96 bg-gradient-to-r ${data.color} opacity-8 rounded-full blur-3xl 
+        <div className={`absolute w-96 h-96 bg-gradient-to-r ${cardColor} opacity-8 rounded-full blur-3xl 
           ${isEven ? 'right-0' : 'left-0'} top-1/2 transform -translate-y-1/2 transition-all duration-1000
           ${isVisible ? 'opacity-8 scale-100' : 'opacity-0 scale-50'}`} />
       </div>
@@ -129,9 +221,9 @@ const TimelineItem3D = ({ data, index, isVisible, onHover, isLiked, onLike, mess
             ${isHovered ? 'translate-x-[100%]' : 'translate-x-[-100%]'} 
             transition-transform duration-1200 ease-out`} />
           
-          {/* Kategori badge dengan icon */}
+          {/* Kategori badge dengan icon - now consistently pink */}
           <div className={`inline-flex items-center px-4 py-2 rounded-full text-sm font-semibold text-white 
-            bg-gradient-to-r ${data.color} mb-6 shadow-lg relative overflow-hidden`}>
+            bg-gradient-to-r ${cardColor} mb-6 shadow-lg relative overflow-hidden`}>
             <div className="absolute inset-0 bg-white/20 rounded-full transform scale-0 group-hover:scale-100 transition-transform duration-300"></div>
             <span className="relative z-10">{data.category}</span>
           </div>
@@ -144,11 +236,10 @@ const TimelineItem3D = ({ data, index, isVisible, onHover, isLiked, onLike, mess
                 {data.date}
               </time>
             </div>
-          
           </div>
           
           {/* Enhanced title */}
-          <h3 className="text-3xl font-bold mb-6 text-gray-800 relative group">
+          <h3 className="text-3xl font-bold mb-6 text-pink-800 relative group">
             {data.title}
             <div className="absolute bottom-0 left-0 w-0 h-1 bg-gradient-to-r from-pink-400 to-pink-500 
               group-hover:w-full transition-all duration-500 rounded-full"></div>
@@ -162,7 +253,7 @@ const TimelineItem3D = ({ data, index, isVisible, onHover, isLiked, onLike, mess
                 alt={data.title} 
                 className="w-full h-56 object-cover transition-transform duration-500 group-hover:scale-105" 
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent 
+              <div className="absolute inset-0 bg-gradient-to-t from-pink-900/20 via-transparent to-transparent 
                 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               
               {/* Gallery button */}
@@ -177,7 +268,7 @@ const TimelineItem3D = ({ data, index, isVisible, onHover, isLiked, onLike, mess
               {/* Image overlay info */}
               <div className="absolute bottom-4 left-4 text-white opacity-0 group-hover:opacity-100 
                 transition-opacity duration-300">
-                <span className="text-sm font-medium bg-black/30 px-3 py-1 rounded-full backdrop-blur-sm">
+                <span className="text-sm font-medium bg-pink-800/30 px-3 py-1 rounded-full backdrop-blur-sm">
                   Lihat Galeri
                 </span>
               </div>
@@ -185,7 +276,7 @@ const TimelineItem3D = ({ data, index, isVisible, onHover, isLiked, onLike, mess
           )}
           
           {/* Enhanced description */}
-          <p className="text-gray-600 leading-relaxed text-lg mb-6 relative">
+          <p className="text-pink-700 leading-relaxed text-lg mb-6 relative">
             {data.description}
           </p>
           
@@ -193,38 +284,56 @@ const TimelineItem3D = ({ data, index, isVisible, onHover, isLiked, onLike, mess
           <div className="relative group">
             <div className="flex items-center gap-2 mb-2">
               <MessageCircle className="w-4 h-4 text-pink-500" />
-              <span className="text-sm font-medium text-gray-600">Pesan khusus:</span>
+              <span className="text-sm font-medium text-pink-600">Pesan khusus:</span>
             </div>
             <textarea
               value={message || ""}
               onChange={(e) => onMessageChange(index, e.target.value)}
               placeholder="Tulis kenangan spesial tentang moment ini... 💭"
               className="w-full px-4 py-3 border-2 border-pink-200 rounded-xl focus:border-pink-500 
-                focus:outline-none transition-all duration-300 text-gray-700 placeholder-gray-400
+                focus:outline-none transition-all duration-300 text-pink-700 placeholder-pink-400
                 bg-gradient-to-r from-pink-50/50 to-pink-50/30 backdrop-blur-sm hover:bg-pink-50 
                 focus:bg-white resize-none h-20 group-hover:shadow-md focus:shadow-lg"
+              disabled={isSubmitting}
             />
           </div>
           
           {/* Action buttons */}
           <div className="flex gap-3 mt-6">
             <button 
-              onClick={() => {onSubmit(`card${index}`)}}
-              className="flex-1 bg-gradient-to-r from-pink-400 to-pink-500 text-white py-3 px-4 
+              onClick={handleSubmit}
+              disabled={!message?.trim() || isSubmitting}
+              className={`flex-1 bg-gradient-to-r from-pink-400 to-pink-500 text-white py-3 px-4 
                 rounded-xl hover:from-pink-500 hover:to-pink-600 transition-all duration-300 
                 font-medium shadow-lg hover:shadow-xl transform hover:-translate-y-1 
-                disabled:opacity-50 disabled:transform-none"
-              disabled={!message?.trim()}
+                disabled:opacity-50 disabled:transform-none disabled:cursor-not-allowed
+                relative overflow-hidden group`}
             >
-              Simpan Kenangan
+              {/* Button loading animation */}
+              {isSubmitting && (
+                <div className="absolute inset-0 bg-gradient-to-r from-pink-500 to-pink-600 flex items-center justify-center">
+                  <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                </div>
+              )}
+              
+              {/* Button text */}
+              <span className={`transition-opacity duration-300 ${isSubmitting ? 'opacity-0' : 'opacity-100'}`}>
+                Simpan Kenangan
+              </span>
+              
+              {/* Success ripple effect */}
+              <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-white/10 
+                transform scale-0 group-hover:scale-100 transition-transform duration-300 rounded-xl"></div>
             </button>
             
             <button 
               onClick={handleLikeClick}
+              disabled={isSubmitting}
               className={`relative bg-pink-100 hover:bg-pink-200 text-pink-600 py-3 px-4 
                 rounded-xl transition-all duration-300 font-medium shadow-lg hover:shadow-xl
                 transform hover:-translate-y-1 overflow-hidden group
-                ${isLiked ? 'bg-pink-500 text-white hover:bg-pink-600' : ''}`}
+                ${isLiked ? 'bg-pink-500 text-white hover:bg-pink-600' : ''}
+                disabled:opacity-50 disabled:transform-none disabled:cursor-not-allowed`}
             >
               {/* Heart icon with animation */}
               <Heart 
@@ -294,8 +403,8 @@ const TimelineItem3D = ({ data, index, isVisible, onHover, isLiked, onLike, mess
             ${isVisible ? 'opacity-100' : 'opacity-0'}`} />
         </div>
         
-        {/* Enhanced center icon */}
-        <div className={`relative w-20 h-20 bg-gradient-to-br ${data.color} text-white text-3xl 
+        {/* Enhanced center icon - now consistently pink */}
+        <div className={`relative w-20 h-20 bg-gradient-to-br ${cardColor} text-white text-3xl 
           rounded-full flex items-center justify-center shadow-2xl transition-all duration-500 z-10
           ${isHovered ? 'scale-125 shadow-pink-300/50' : 'scale-100'}
           border-4 border-white`}
@@ -305,8 +414,8 @@ const TimelineItem3D = ({ data, index, isVisible, onHover, isLiked, onLike, mess
           }}>
           <span className="relative z-10 drop-shadow-lg">{data.icon}</span>
           
-          {/* Pulsing ring effect */}
-          <div className={`absolute inset-0 rounded-full bg-gradient-to-br ${data.color} 
+          {/* Pulsing ring effect - now consistently pink */}
+          <div className={`absolute inset-0 rounded-full bg-gradient-to-br ${cardColor} 
             ${isHovered ? 'animate-ping' : ''} opacity-30`} />
         </div>
         
@@ -339,9 +448,36 @@ function Timeline() {
   const [scrollProgress, setScrollProgress] = useState(0);
   const [likedItems, setLikedItems] = useState(new Set());
   const [showMessageViewer, setShowMessageViewer] = useState(false);
+  const [footerMessage, setFooterMessage] = useState("");
+  const [notification, setNotification] = useState({ show: false, message: "" });
 
-const handleMessageSubmit = (cardIdentifier) => {
-    saveResponses(cardIdentifier, messages)
+  const handleMessageSubmit = async (cardIdentifier) => {
+    try {
+      await saveResponses(cardIdentifier, messages);
+      
+      // Show success notification
+      setNotification({
+        show: true,
+        message: "Kenangan spesial berhasil disimpan! 💕"
+      });
+      
+      // Clear the message after submitting
+      const cardIndex = parseInt(cardIdentifier.replace('card', ''));
+      setMessages(prev => ({
+        ...prev,
+        [cardIndex]: ""
+      }));
+    } catch (error) {
+      // Show error notification
+      setNotification({
+        show: true,
+        message: "Terjadi kesalahan saat menyimpan kenangan 😔"
+      });
+    }
+  };
+
+  const handleCloseNotification = () => {
+    setNotification({ show: false, message: "" });
   };
 
   const handleLike = (index) => {
@@ -362,6 +498,14 @@ const handleMessageSubmit = (cardIdentifier) => {
       [index]: message
     }));
   };
+
+  const handleFooterSubmit = () => {
+    // Handle footer message submission
+    console.log('Footer message:', footerMessage);
+    // Clear the footer message after submitting
+    setFooterMessage("");
+  };
+
   const timelineRef = useRef(null);
   
   useEffect(() => {
@@ -405,6 +549,13 @@ const handleMessageSubmit = (cardIdentifier) => {
   
   return (
     <div className="min-h-screen bg-gradient-to-br from-pink-50 via-white to-pink-100 relative overflow-hidden">
+      {/* Notification */}
+      <Notification 
+        isVisible={notification.show}
+        message={notification.message}
+        onClose={handleCloseNotification}
+      />
+      
       {/* Enhanced background elements */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-20 left-10 w-40 h-40 bg-pink-200/30 rounded-full blur-3xl animate-pulse"></div>
@@ -426,10 +577,10 @@ const handleMessageSubmit = (cardIdentifier) => {
       </div>
       
       {/* Enhanced header */}
-      <div className="text-center py-24 relative z-10">
+      <div className="text-center py-20 relative z-10">
         <div className="inline-block">
-          <h1 className="text-7xl font-bold bg-gradient-to-r from-pink-600 via-pink-500 to-pink-600 
-            bg-clip-text text-transparent mb-10 drop-shadow-sm">
+          <h1 className="text-7xl leading-relaxed font-bold bg-gradient-to-r from-pink-600 via-pink-500 to-pink-600 
+            bg-clip-text text-transparent mb-3 drop-shadow-sm">
             Jejak Langkah Kita
           </h1>
           <div className="w-32 h-2 bg-gradient-to-r from-pink-400 via-pink-500 to-pink-600 
@@ -438,7 +589,7 @@ const handleMessageSubmit = (cardIdentifier) => {
           </div>
         </div>
         
-        <p className="text-xl text-gray-600 mt-10 max-w-3xl mx-auto px-4 leading-relaxed">
+        <p className="text-xl text-pink-600 mt-10 max-w-3xl mx-auto px-4 leading-relaxed">
           Setiap momen berharga yang kita lalui bersama, terangkai dalam kenangan yang tak terlupakan 🌸✨
         </p>
         
@@ -456,7 +607,6 @@ const handleMessageSubmit = (cardIdentifier) => {
       
       {/* Timeline container */}
       <div ref={timelineRef} className="container mx-auto px-4 pb-24 relative">
-        {/* Main timeline line background */}
         <div className="absolute left-1/2 top-0 bottom-0 w-1 bg-gradient-to-b from-pink-400 to-pink-500 
           transform -translate-x-1/2 opacity-20 hidden md:block"></div>
         
@@ -472,7 +622,7 @@ const handleMessageSubmit = (cardIdentifier) => {
                 onLike={handleLike}
                 message={messages[index]}
                 onMessageChange={handleMessageChange}
-                onSubmit={handleMessageSubmit} //ditambahin ini
+                onSubmit={handleMessageSubmit}
               />
             </div>
           ))}
@@ -486,63 +636,32 @@ const handleMessageSubmit = (cardIdentifier) => {
           <div className="flex justify-center mb-6">
             <Heart className="w-16 h-16 text-pink-500 animate-pulse drop-shadow-lg" />
           </div>
-          <h2 className="text-4xl font-bold text-gray-800 mb-4">
+          <h2 className="text-4xl font-bold text-pink-800 mb-4">
             Untuk seseorang yang sangat berharga ✨
           </h2>
-          <p className="text-xl text-gray-600 mb-8">
+          <p className="text-xl text-pink-600 mb-8">
             Setiap detik bersamamu adalah hadiah terindah
           </p>
-          
-          {/* Enhanced footer input */}
-          <div className="mt-10 max-w-lg mx-auto">
-            <div className="relative group">
-              <input
-                type="text"
-                placeholder="Tulis pesan spesial untuknya... 🌸"
-                className="w-full px-8 py-4 border-2 border-pink-200 rounded-full focus:border-pink-500 
-                  focus:outline-none transition-all duration-300 text-gray-700 placeholder-gray-400
-                  bg-gradient-to-r from-pink-50/50 to-pink-50/30 backdrop-blur-sm text-center 
-                  hover:bg-pink-50 focus:bg-white text-lg group-hover:shadow-lg focus:shadow-xl"
-              />
-              <div className="absolute right-6 top-4 text-pink-400 group-hover:animate-pulse text-xl">✨</div>
+        </div>
+
+        {/* Enhanced decorative elements */}
+        <div className="absolute inset-0 pointer-events-none">
+          {[...Array(6)].map((_, i) => (
+            <div
+              key={`sparkle-${i}`}
+              className="absolute text-pink-400/40 animate-pulse"
+              style={{
+                left: `${15 + i * 15}%`,
+                top: `${25 + i * 15}%`,
+                animationDelay: `${i * 0.8}s`,
+                fontSize: '20px'
+              }}
+            >
+              ✨
             </div>
-            
-            <button className="mt-6 bg-gradient-to-r from-pink-400 to-pink-500 text-white py-3 px-8 
-              rounded-full hover:from-pink-500 hover:to-pink-600 transition-all duration-300 
-              font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-1">
-              Kirim Pesan Cinta 💕
-            </button>
-          </div>
+          ))}
         </div>
       </div>
-
-      {/* Enhanced decorative elements */}
-      <div className="absolute inset-0 pointer-events-none">
-        {[...Array(6)].map((_, i) => (
-          <div
-            key={`sparkle-${i}`}
-            className="absolute text-pink-400/40 animate-pulse"
-            style={{
-              left: `${15 + i * 15}%`,
-              top: `${25 + i * 15}%`,
-              animationDelay: `${i * 0.8}s`,
-              fontSize: '20px'
-            }}
-          >
-            ✨
-          </div>
-        ))}
-      </div>
-      
-      {/* Scroll to top button */}
-      <button 
-        onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-        className="fixed bottom-8 right-8 bg-gradient-to-r from-pink-400 to-pink-500 text-white 
-          p-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 z-50
-          hover:from-pink-500 hover:to-pink-600 transform hover:-translate-y-1"
-      >
-        <Star className="w-6 h-6" />
-      </button>
     </div>
   );
 }

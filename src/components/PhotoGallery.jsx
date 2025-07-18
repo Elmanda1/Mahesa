@@ -238,7 +238,8 @@ function PhotoGallery() {
         <div className="max-w-7xl mx-auto">
           {/* Header Section */}
           <div className="text-center mb-12">
-            <h1 className="text-4xl lg:text-6xl font-bold mb-6 bg-gradient-to-r from-brand-primary to-brand-primary-light bg-clip-text text-transparent leading-tight">
+            <h1 className="text-7xl leading-relaxed font-bold bg-gradient-to-r from-pink-600 via-pink-500 to-pink-600 
+              bg-clip-text text-transparent mb-5 drop-shadow-sm">
               Galeri Kenangan
             </h1>
             <div className="w-20 h-1 bg-gradient-to-r from-brand-primary to-brand-primary-light mx-auto mb-8 rounded-full"></div>

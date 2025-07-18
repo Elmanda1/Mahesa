@@ -483,112 +483,100 @@ function Home({ onStartQuiz, onNavigate }) {
             </div>
 
             {/* Content Grid */}
-            <div className={`grid md:grid-cols-2 lg:grid-cols-3 gap-8 perspective-container grid-stagger content-transition ${
-              contentVisible ? 'content-enter' : 'content-exit'
-            }`}>
-              {activeSection === 'quotes' ? (
-                // Quotes Grid
-                filteredQuotes.map((quote, index) => (
-                  <div
-                    key={quote.id}
-                    className="card-3d gradient-border cursor-pointer group card-enter"
-                    style={{
-                      animationDelay: `${index * 0.1}s`
-                    }}
-                    onMouseMove={(e) => handleMouseMove(e, e.currentTarget)}
-                    onMouseLeave={(e) => handleMouseLeave(e.currentTarget)}
-                  >
-                    <div className="card-inner bg-white/80 backdrop-blur-md rounded-3xl p-8 shadow-xl border border-white/40 hover:shadow-2xl h-full">
-                      <div className="relative h-full flex flex-col">
-                        {/* Decorative corner elements */}
-                        <div className="absolute -top-2 -left-2 w-4 h-4 border-l-2 border-t-2 border-brand-primary/30 rounded-tl-lg"></div>
-                        <div className="absolute -top-2 -right-2 w-4 h-4 border-r-2 border-t-2 border-brand-primary/30 rounded-tr-lg"></div>
-                        <div className="absolute -bottom-2 -left-2 w-4 h-4 border-l-2 border-b-2 border-brand-primary/30 rounded-bl-lg"></div>
-                        <div className="absolute -bottom-2 -right-2 w-4 h-4 border-r-2 border-b-2 border-brand-primary/30 rounded-br-lg"></div>
-                        
-                        {/* Quote Text */}
-                        <div className="flex-1 mb-6">
-                          <div className="relative">
-                            <div className="absolute -top-4 -left-4 text-6xl text-brand-primary/20 font-serif">"</div>
-                            <p className="text-brand-text leading-relaxed italic text-base lg:text-lg font-medium pt-6 relative z-10">
-                              {quote.text}
-                            </p>
-                            <div className="absolute -bottom-2 -right-2 text-4xl text-brand-primary/20 font-serif">"</div>
-                          </div>
-                        </div>
-                        
-                        {/* Author */}
-                        <div className="flex items-center justify-between mt-auto">
-                          <div className="flex items-center gap-2">
-                            <div className="w-8 h-0.5 bg-gradient-to-r from-brand-primary to-brand-primary-light rounded-full"></div>
-                            <span className="text-brand-primary font-bold text-sm bg-gradient-to-r from-brand-primary to-brand-primary-light bg-clip-text text-transparent">
-                              {quote.author}
-                            </span>
-                          </div>
-                          <div className="floating-accent w-6 h-6 bg-gradient-to-br from-brand-primary/20 to-brand-primary-light/20 rounded-full flex items-center justify-center group-hover:scale-110 transition-all duration-500">
-                            <div className="w-2 h-2 bg-gradient-to-br from-brand-primary to-brand-primary-light rounded-full"></div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                ))
-              ) : (
-                // Wishes Grid
-                wishes.map((wish, index) => (
-                  <div
-                    key={wish.id}
-                    className="card-3d gradient-border cursor-pointer group card-enter"
-                    style={{
-                      animationDelay: `${index * 0.1}s`
-                    }}
-                    onMouseMove={(e) => handleMouseMove(e, e.currentTarget)}
-                    onMouseLeave={(e) => handleMouseLeave(e.currentTarget)}
-                  >
-                    <div className="card-inner bg-white/80 backdrop-blur-md rounded-3xl p-8 shadow-xl border border-white/40 hover:shadow-2xl h-full">
-                      <div className="relative h-full flex flex-col">
-                        {/* Decorative corner elements with heart pattern */}
-                        <div className="absolute -top-2 -left-2 w-4 h-4 border-l-2 border-t-2 border-brand-primary/30 rounded-tl-lg"></div>
-                        <div className="absolute -top-2 -right-2 w-4 h-4 border-r-2 border-t-2 border-brand-primary/30 rounded-tr-lg"></div>
-                        <div className="absolute -bottom-2 -left-2 w-4 h-4 border-l-2 border-b-2 border-brand-primary/30 rounded-bl-lg"></div>
-                        <div className="absolute -bottom-2 -right-2 w-4 h-4 border-r-2 border-b-2 border-brand-primary/30 rounded-br-lg"></div>
-                        
-                        {/* Wish Text */}
-                        <div className="flex-1 mb-6">
-                          <div className="relative">
-                            <div className="absolute -top-4 -left-4 text-2xl text-brand-primary/30">♡</div>
-                            <p className="text-brand-text leading-relaxed text-base lg:text-lg font-medium pt-6 relative z-10">
-                              {wish.text}
-                            </p>
-                            <div className="absolute -bottom-2 -right-2 text-xl text-brand-primary/30">♡</div>
-                          </div>
-                        </div>
-                        
-                        {/* From */}
-                        <div className="flex items-center justify-between mt-auto">
-                          <div className="flex items-center gap-2">
-                            <div className="w-8 h-0.5 bg-gradient-to-r from-brand-primary to-brand-primary-light rounded-full"></div>
-                            <span className="text-brand-primary font-bold text-sm bg-gradient-to-r from-brand-primary to-brand-primary-light bg-clip-text text-transparent">
-                              {wish.from}
-                            </span>
-                          </div>
-                          <div className="floating-accent w-6 h-6 bg-gradient-to-br from-brand-primary/20 to-brand-primary-light/20 rounded-full flex items-center justify-center group-hover:scale-110 transition-all duration-500">
-                            <div className="w-2 h-2 bg-gradient-to-br from-brand-primary to-brand-primary-light rounded-full"></div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                ))
-              )}
+<div className={`grid md:grid-cols-2 lg:grid-cols-3 gap-8 perspective-container grid-stagger content-transition ${
+  contentVisible ? 'content-enter' : 'content-exit'
+}`}>
+  {activeSection === 'quotes' ? (
+    // Quotes Grid
+    filteredQuotes.map((quote, index) => (
+      <div
+        key={quote.id}
+        className="card-3d gradient-border cursor-pointer group card-enter"
+        style={{
+          animationDelay: `${index * 0.1}s`
+        }}
+        onMouseMove={(e) => handleMouseMove(e, e.currentTarget)}
+        onMouseLeave={(e) => handleMouseLeave(e.currentTarget)}
+      >
+        <div className="card-inner bg-white/90 backdrop-blur-sm rounded-3xl p-8 shadow-2xl border border-white/30 hover:shadow-2xl h-full">
+          <div className="relative h-full flex flex-col">
+            {/* Quote Text */}
+            <div className="flex-1 mb-6">
+              <div className="relative">
+                <div className="absolute -top-4 -left-4 text-6xl text-brand-primary/30 font-serif">"</div>
+                <p className="text-brand-text leading-relaxed italic text-base lg:text-lg font-medium pt-6 relative z-10 opacity-90">
+                  {quote.text}
+                </p>
+                <div className="absolute -bottom-2 -right-2 text-4xl text-brand-primary/30 font-serif">"</div>
+              </div>
             </div>
+            
+            {/* Author */}
+            <div className="flex items-center justify-between mt-auto">
+              <div className="flex items-center gap-2">
+                <div className="w-8 h-0.5 bg-gradient-to-r from-brand-primary to-brand-primary-light rounded-full"></div>
+                <span className="text-xl font-bold bg-gradient-to-r from-brand-primary to-brand-primary-light bg-clip-text text-transparent">
+                  {quote.author}
+                </span>
+              </div>
+              <div className="floating-accent w-6 h-6 bg-gradient-to-br from-brand-primary to-brand-primary-light rounded-full flex items-center justify-center group-hover:scale-110 transition-all duration-500 shadow-lg">
+                <div className="w-2 h-2 bg-white rounded-full"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    ))
+  ) : (
+    // Wishes Grid
+    wishes.map((wish, index) => (
+      <div
+        key={wish.id}
+        className="card-3d gradient-border cursor-pointer group card-enter"
+        style={{
+          animationDelay: `${index * 0.1}s`
+        }}
+        onMouseMove={(e) => handleMouseMove(e, e.currentTarget)}
+        onMouseLeave={(e) => handleMouseLeave(e.currentTarget)}
+      >
+        <div className="card-inner bg-white/90 backdrop-blur-sm rounded-3xl p-8 shadow-2xl border border-white/30 hover:shadow-2xl h-full">
+          <div className="relative h-full flex flex-col">
+            {/* Wish Text */}
+            <div className="flex-1 mb-6">
+              <div className="relative">
+                <div className="absolute -top-4 -left-4 text-2xl text-brand-primary/50">♡</div>
+                <p className="text-brand-text leading-relaxed text-base lg:text-lg font-medium pt-6 relative z-10 opacity-90">
+                  {wish.text}
+                </p>
+                <div className="absolute -bottom-2 -right-2 text-xl text-brand-primary/50">♡</div>
+              </div>
+            </div>
+            
+            {/* From */}
+            <div className="flex items-center justify-between mt-auto">
+              <div className="flex items-center gap-2">
+                <div className="w-8 h-0.5 bg-gradient-to-r from-brand-primary to-brand-primary-light rounded-full"></div>
+                <span className="text-xl font-bold bg-gradient-to-r from-brand-primary to-brand-primary-light bg-clip-text text-transparent">
+                  {wish.from}
+                </span>
+              </div>
+              <div className="floating-accent w-6 h-6 bg-gradient-to-br from-brand-primary to-brand-primary-light rounded-full flex items-center justify-center group-hover:scale-110 transition-all duration-500 shadow-lg">
+                <div className="w-2 h-2 bg-white rounded-full"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    ))
+  )}
+</div>
           </div>
 
           {/* Inspirational quote */}
           <div className="text-center">
             <div className="bg-white/60 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-white/30 max-w-md mx-auto transform hover:scale-105 transition-all duration-500">
               <p className="text-brand-text/70 italic text-lg hover:text-brand-text transition-colors duration-300">
-                "Setiap kenangan adalah harta yang tak ternilai"
+                "Setiap kenangan adalah harta berharga yang tak ternilai"
               </p>
               <div className="w-16 h-0.5 bg-gradient-to-r from-brand-primary to-brand-primary-light mx-auto mt-4 rounded-full"></div>
             </div>
