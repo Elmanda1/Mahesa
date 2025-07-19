@@ -17,63 +17,63 @@ function VideoGalleryPage() {
     {   
       id: 1,
       name: "Larasati Marutika",
-      videoUrl: "/assets/video/ka_laras.mp4",
+      videoUrl: "/assets/video/ka_laras_fixed.mp4",
       date: "Mahesa's Bestfriend",
       duration: "3:11"
     },
     {
       id: 2,
       name: "Naura Aulia",
-      videoUrl: "/assets/video/ka_naura.mp4",
+      videoUrl: "/assets/video/ka_naura_fixed.mp4",
       date: "Mahesa's Bestfriend",
       duration: "1:20"
     },
     {
       id: 3,
       name: "Nasywa Puti Hashmi",
-      videoUrl: "/assets/video/ka_nasywa.mp4",
+      videoUrl: "/assets/video/ka_nasywa_fixed.mp4",
       date: "Mahesa's Bestfriend",
       duration: "0:15"
     },
     {
       id: 4,
       name: "Zharifa Syafiqa Laksono",
-      videoUrl: "/assets/video/ka_fiqa.mp4",
+      videoUrl: "/assets/video/ka_fiqa_fixed.mp4",
       date: "Mahesa's Bestfriend",
       duration: "1:04"
     },
     {
       id: 5,
       name: "Latasya Putri Danieva",
-      videoUrl: "/assets/video/ka_tasya.mp4",
+      videoUrl: "/assets/video/ka_tasya_fixed.mp4",
       date: "Mahesa's Bestfriend",
       duration: "1:22   "
     },
     {
       id: 6,
       name: "Nashita Amanda",
-      videoUrl: "/assets/video/ka_nashita.mp4",
+      videoUrl: "/assets/video/ka_nashita_fixed.mp4",
       date: "Mahesa's Bestfriend",
       duration: "1:01"
     },
     {
       id: 7,
       name: "Achmad Zikran Maulida",
-      videoUrl: "/assets/video/bang_zikran.mp4",
+      videoUrl: "/assets/video/bang_zikran_fixed.mp4",
       date: "Mahesa's Bestfriend",
       duration: "1:04"
     },
     {
       id: 8,
       name: "Zahrah Purnama Alam",
-      videoUrl: "/assets/video/ka_zahra.mp4",
+      videoUrl: "/assets/video/ka_zahra_fixed.mp4",
       date: "Mahesa's Bestfriend",
       duration: "1:05"
     },
     {
       id: 9,
       name: "Muhammad Dzaky Fauzan",
-      videoUrl: "/assets/video/bang_jeki.mp4",
+      videoUrl: "/assets/video/bang_jeki_fixed.mp4",
       date: "Mahesa's Bestfriend",
       duration: "0:05"
     }
