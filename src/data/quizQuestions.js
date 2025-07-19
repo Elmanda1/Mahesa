@@ -135,7 +135,7 @@ export const quizQuestions = [
     id: 6,
     question: "Apa Makanan yang Mahesa gasuka banget?",
     options: ["Sushi", "Nasi Goreng", "Ayam Geprek", "Ayam Katsu"],
-    correctAnswer: "Mie + Brokoli",
+    correctAnswer: "Sushi",
     hasChat: false,
     memoirTitle: "Makanan yang Mahesa gasuka",
     memoirContent: [

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-function MemorialMessage() {
-  // Mock navigate function for demo
-  const navigate = (path) => console.log('Navigate to:', path);
+function MemorialIcha() {
+  const navigate = useNavigate();
   const [showInitialGlow, setShowInitialGlow] = useState(false);
   const [showBackgroundParticles, setShowBackgroundParticles] = useState(false);
   const [showMemorialTitle, setShowMemorialTitle] = useState(false);
@@ -18,9 +18,8 @@ function MemorialMessage() {
   const message = [
     "NAJJJ... selamat ulang tahun yang ke-21 yaaa 🥺💐 wah kita udah segede ini aja ya? gua masih inget banget pertama kali kita kenal... bocil SMP yang kemana-mana selalu bareng. sampe SMA pun juga masih deket yaa.",
     "makasih yaa naj, udah tetep jadi diri lu yang sekarang. yang tetep perhatian, tetep manis, tetep bisa bikin orang ngerasa ditemenin cuma karena lu ada. lu tuh... punya cara aneh tapi ajaib buat bikin hati orang anget. gua juga sering ngerasa gitu. bahkan sekarang pun, walaupun gua gak bisa jawab chat lu kayak dulu, gua masih ngerasa deket kok, naj.",
-    "udah 21 aja ya. semoga tahun ini lu bisa ngasih ruang lebih banyak buat diri lu sendiri. buat istirahat, buat marah kalo perlu (karena marah juga boleh tau naj), buat nolak hal-hal yang nyusahin hati lu. nggak semua hal harus lu tahan sendiri. dan naj... jangan bilang \"gapapa\" kalau sebenernya enggak ya? gua tau banget gaya lu bilang gitu sambil senyum maksa. jangan lagi yaa. cerita. kayak dulu.",
+    "udah 21 aja ya. semoga tahun ini lu bisa ngasih ruang lebih banyak buat diri lu sendiri. buat istirahat, buat marah kalo perlu (karena marah juga boleh tau naj), buat nolak hal-hal yang nyusahin hati lu. nggak semua hal harus lu tahan sendiri.",
     "gua tau mungkin sekarang banyak yang berubah. tapi satu hal yang gak akan berubah: gua sayang lu, naj. banget. dan gua banggaaa banget sama lu. bangga sama cara lu kuat, meski kadang ngerasa lelahnya diem-diem. bangga sama cara lu tetep jadi najma yang gua kenal, walau waktu terus jalan.",
-    "oh! dan tips tahunan dari gua: jangan terlalu baik yaa naj. plis. cukup. kasian hati lu, dia butuh perlindungan juga. harus berani bilang enggak. harus berani jaga diri.",
     "gua gak bisa peluk lu langsung sekarang, tapi semoga tiap lu baca ini, lu ngerasa dipeluk.",
     "makasih yaa udah terus nyimpen gua di hati lu. gua di sini kok. tetep dengerin lu, tetep jagain lu, tetep nyimak update random lu juga 😌",
     "ulang tahun yang ke-21 ini… semoga dunia makin ramah sama lu. dan lu juga makin sayang sama diri lu sendiri yaa 🫶",
@@ -276,4 +275,4 @@ function MemorialMessage() {
   );
 }
 
-export default MemorialMessage;
+export default MemorialIcha;

@@ -66,7 +66,7 @@ function VideoGalleryPage() {
     {
       id: 8,
       name: "Zahrah Purnama Alam",
-      videoUrl: "/assets/video/ka_fiqa.mp4",
+      videoUrl: "/assets/video/ka_zahra.mp4",
       date: "Mahesa's Bestfriend",
       duration: "1:05"
     },
