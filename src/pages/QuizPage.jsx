@@ -21,6 +21,16 @@ function QuizPage() {
   const chatContainerRef = useRef(null);
   const messagesEndRef = useRef(null);
 
+  // Function to render formatted text with basic HTML support
+  const renderFormattedText = (text) => {
+    if (!text) return '';
+    return text
+      .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') // Bold text
+      .replace(/\*(.*?)\*/g, '<em>$1</em>') // Italic text
+      .replace(/\n/g, '<br>') // Line breaks
+      .replace(/_(.*?)_/g, '<u>$1</u>'); // Underlined text
+  };
+
   // Auto-scroll ke bawah
   const scrollToBottom = () => {
     if (messagesEndRef.current) {
@@ -59,7 +69,7 @@ function QuizPage() {
             </div>
           </div>
           {chat.message && (
-            <p className="text-sm leading-relaxed font-medium">{(chat.message)}</p>
+            <p className="text-sm leading-relaxed font-medium">{chat.message}</p>
           )}
         </div>
       );
@@ -77,7 +87,7 @@ function QuizPage() {
             </video>
           </div>
           {chat.message && (
-            <p className="text-sm leading-relaxed font-medium">{(chat.message)}</p>
+            <p className="text-sm leading-relaxed font-medium">{chat.message}</p>
           )}
         </div>
       );
@@ -92,14 +102,14 @@ function QuizPage() {
             />
           </div>
           {chat.message && (
-            <p className="text-sm leading-relaxed font-medium">{(chat.message)}</p>
+            <p className="text-sm leading-relaxed font-medium">{chat.message}</p>
           )}
         </div>
       );
     } else {
       // Regular text message
       return (
-        <p className="text-sm leading-relaxed font-medium">{(chat.message)}</p>
+        <p className="text-sm leading-relaxed font-medium">{chat.message}</p>
       );
     }
   };
@@ -122,7 +132,7 @@ function QuizPage() {
           setTypingText('');
         } else {
           // For text messages, show typing animation
-          const cleanMessage = (currentChat.message);
+          const cleanMessage = currentChat.message;
           let index = 0;
           const typeInterval = setInterval(() => {
             if (index < cleanMessage.length) {
@@ -158,7 +168,7 @@ function QuizPage() {
             setTypingText('');
           } else {
             // For text messages, show typing animation
-            const cleanMessage = (currentChat.message);
+            const cleanMessage = currentChat.message;
             let index = 0;
             const typeInterval = setInterval(() => {
               if (index < cleanMessage.length) {
@@ -272,7 +282,7 @@ function QuizPage() {
                 </div>
                 <div className="text-center bg-gradient-to-r from-brand-primary/10 to-brand-primary-light/10 px-6 py-3 rounded-2xl border border-brand-primary/20">
                   <p className="text-sm font-bold text-brand-text">
-                    {answerStatus === 'correct' ? '✅ Bener banget!' : '❌ Kurang tepat!'}
+                    {answerStatus === 'correct' ? '✅ Bener banget, Hesa!' : '❌ Kurang tepat!'}
                   </p>
                   {answerStatus === 'incorrect' && (
                     <p className="text-xs text-brand-text/70 mt-1">
@@ -302,7 +312,7 @@ function QuizPage() {
                     <div 
                       key={index}
                       className="animate-fade-in-up"
-                      style={{ animationDelay: `${index * 0.2}s` }}
+                      style={{ animationDelay: `${index * 1.0}s` }}
                     >
                       <p 
                         className="text-lg leading-relaxed text-brand-text/90 font-medium"
@@ -447,7 +457,7 @@ function QuizPage() {
           <div className="p-6 bg-white/90 backdrop-blur-sm border-t border-gray-200">
             <div className="bg-gradient-to-r from-brand-primary/10 to-brand-primary-light/10 rounded-2xl p-5 border border-brand-primary/20 mb-4 shadow-lg">
               <p className="text-sm text-brand-text font-bold text-center leading-relaxed">
-                {(quizQuestions[currentQuestionIndex].memoryContext)}
+                {quizQuestions[currentQuestionIndex].memoryContext}
               </p>
             </div>
             

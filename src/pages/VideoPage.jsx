@@ -18,44 +18,58 @@ function VideoGalleryPage() {
       id: 1,
       name: "Larasati Marutika",
       videoUrl: "/assets/video/ka_laras.mp4",
-      date: "Mahesa's Forever Bestfriend",
+      date: "Mahesa's Bestfriend",
       duration: "3:11"
     },
     {
       id: 2,
       name: "Naura Aulia",
       videoUrl: "/assets/video/ka_naura.mp4",
-      date: "Mahesa's Forever Bestfriend",
+      date: "Mahesa's Bestfriend",
       duration: "1:20"
     },
     {
       id: 3,
       name: "Nasywa Puti Hashmi",
       videoUrl: "/assets/video/ka_nasywa.mp4",
-      date: "Mahesa's Forever Bestfriend",
-      duration: "0:55"
+      date: "Mahesa's Bestfriend",
+      duration: "0:15"
     },
     {
       id: 4,
-      name: "Dani",
-      videoUrl: "/videos/dani-ucapan.mp4",
-      date: "18 Juli 2025",
-      duration: "1:10"
+      name: "Zharifa Syafiqa Laksono",
+      videoUrl: "/assets/video/ka_fiqa.mp4",
+      date: "Mahesa's Bestfriend",
+      duration: "1:04"
     },
     {
       id: 5,
-      name: "Lisa",
-      videoUrl: "/videos/lisa-ucapan.mp4",
-      date: "18 Juli 2025",
+      name: "Latasya Putri Danieva",
+      videoUrl: "/assets/video/ka_fiqa.mp4",
+      date: "Mahesa's Bestfriend",
       duration: "0:38"
     },
     {
       id: 6,
-      name: "Andi",
-      videoUrl: "/videos/andi-ucapan.mp4",
-      date: "18 Juli 2025",
+      name: "Achmad Zikran Maulida",
+      videoUrl: "/assets/video/bang_zikran.mp4",
+      date: "Mahesa's Bestfriend",
+      duration: "1:04"
+    },
+    {
+      id: 7,
+      name: "Zahrah Purnama Alam",
+      videoUrl: "/assets/video/ka_fiqa.mp4",
+      date: "Mahesa's Bestfriend",
       duration: "1:05"
-    }
+    },
+    {
+      id: 8,
+      name: "Muhammad Dzaky Fauzan",
+      videoUrl: "/assets/video/ka_fiqa.mp4",
+      date: "Mahesa's Bestfriend",
+      duration: "1:05"
+    },
   ]);
 
   // Animation triggers
@@ -204,7 +218,7 @@ function VideoGalleryPage() {
           <p className={`text-lg md:text-xl text-brand-text/70 max-w-3xl mx-auto leading-relaxed transform transition-all duration-1000 ease-out delay-500 ${
             isVisible ? 'scale-100 opacity-100 filter-none' : 'scale-95 opacity-0 blur-sm'
           }`}>
-            Kumpulan video ucapan penuh cinta dari orang-orang yang menyayangimu. Hover untuk preview, klik untuk menonton penuh.
+            Video ucapan penuh cinta dari orang-orang yang menyayangimu.
           </p>
         </div>
       </div>

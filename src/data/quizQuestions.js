@@ -178,17 +178,5 @@ export const quizQuestions = [
       "Iyaa.. ga ada yang expect kenapa pramuka. akupun yang bikin ini bingung kenapa harus sama pramuka",
     ],
     memoryContext: "yaa.. pramuka"
-  },
-  {
-    id: 10,
-    question: "Ekskul Saman kolaborasi sama Ekskul apa di acara Aksi?",
-    options: ["Voli", "Futsal", "Pramuka", "Paskibra"],
-    correctAnswer: "Pramuka",
-    hasChat: false,
-    memoirTitle: "Kolaborasi Ekskul di Aksi",
-    memoirContent: [
-      "Iyaa.. ga ada yang expect kenapa pramuka. akupun yang bikin ini bingung kenapa harus sama pramuka",
-    ],
-    memoryContext: "yaa.. pramuka"
   }
 ];
