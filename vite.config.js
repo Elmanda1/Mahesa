@@ -16,6 +16,9 @@ export default defineConfig({
           'ui': ['lucide-react']
         }
       }
+    },
+    server: {
+      port: 3000
     }
   }
 })
