@@ -4,6 +4,7 @@ import { Routes, Route } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import VideoPage from './pages/VideoPage';
 import QuizPage from './pages/QuizPage';
+import MemorialIcha from './pages/MemorialIcha';
 import GalleryPage from './pages/GalleryPage';
 import TimelinePage from './components/Timeline';
 import Navbar from './components/Navbar';
@@ -15,6 +16,7 @@ function App() {
       <Route path="/" element={<HomePage />} />
       <Route path="/video" element={<VideoPage />} />
       <Route path="/quiz" element={<QuizPage />} />
+      <Route path="/memorial" element={<MemorialIcha />} />
       <Route 
         path="/gallery" 
         element={

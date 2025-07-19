@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 function VideoGalleryPage() {
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
   const [selectedVideo, setSelectedVideo] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
@@ -45,30 +45,37 @@ function VideoGalleryPage() {
     {
       id: 5,
       name: "Latasya Putri Danieva",
-      videoUrl: "/assets/video/ka_fiqa.mp4",
+      videoUrl: "/assets/video/ka_tasya.mp4",
       date: "Mahesa's Bestfriend",
-      duration: "0:38"
+      duration: "1:22   "
     },
     {
       id: 6,
+      name: "Nashita Amanda",
+      videoUrl: "/assets/video/ka_nashita.mp4",
+      date: "Mahesa's Bestfriend",
+      duration: "1:01"
+    },
+    {
+      id: 7,
       name: "Achmad Zikran Maulida",
       videoUrl: "/assets/video/bang_zikran.mp4",
       date: "Mahesa's Bestfriend",
       duration: "1:04"
     },
     {
-      id: 7,
+      id: 8,
       name: "Zahrah Purnama Alam",
       videoUrl: "/assets/video/ka_fiqa.mp4",
       date: "Mahesa's Bestfriend",
       duration: "1:05"
     },
     {
-      id: 8,
+      id: 9,
       name: "Muhammad Dzaky Fauzan",
-      videoUrl: "/assets/video/ka_fiqa.mp4",
+      videoUrl: "/assets/video/bang_jeki.mp4",
       date: "Mahesa's Bestfriend",
-      duration: "1:05"
+      duration: "0:05"
     },
   ]);
 
@@ -175,19 +182,28 @@ function VideoGalleryPage() {
       {/* Header Section */}
       <div className="relative z-10 pt-8 pb-16 px-4">
         <div className="max-w-6xl mx-auto text-center">
-          {/* Back Button */}
+          {/* Enhanced Back Button with Highlight */}
           <div className="flex justify-start mb-8">
             <button
               onClick={() => navigate('/')}
-              className={`group flex items-center space-x-2 px-6 py-3 bg-white/10 backdrop-blur-sm rounded-full font-medium text-brand-text hover:bg-white/20 transition-all duration-300 transform hover:scale-105 border border-white/20 ${
+              className={`group relative flex items-center space-x-2 px-8 py-4 bg-gradient-to-r from-brand-primary/20 to-pink-500/20 backdrop-blur-sm rounded-full font-bold text-brand-text hover:from-brand-primary/30 hover:to-pink-500/30 transition-all duration-300 transform hover:scale-110 border-2 border-brand-primary/30 hover:border-brand-primary/50 shadow-lg hover:shadow-xl ${
                 isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-8'
               }`}
-              style={{ transitionDelay: '200ms' }}
+              style={{ 
+                transitionDelay: '200ms',
+                boxShadow: '0 8px 32px rgba(96, 165, 250, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.2)'
+              }}
             >
-              <svg className="w-5 h-5 transition-transform duration-300 group-hover:-translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              {/* Glowing effect */}
+              <div className="absolute inset-0 rounded-full bg-gradient-to-r from-brand-primary/10 to-pink-500/10 blur-md group-hover:blur-lg transition-all duration-300"></div>
+              
+              <svg className="w-6 h-6 transition-transform duration-300 group-hover:-translate-x-1 relative z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
               </svg>
-              <span>Kembali</span>
+              <span className="text-lg relative z-10">Kembali</span>
+              
+              {/* Shine effect */}
+              <div className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 bg-gradient-to-r from-transparent via-white/20 to-transparent transform -skew-x-12 transition-all duration-500"></div>
             </button>
           </div>
 
@@ -325,6 +341,24 @@ function VideoGalleryPage() {
               </div>
             ))}
           </div>
+        </div>
+      </div>
+
+      {/* Secret Message Button - Positioned at bottom */}
+      <div className="relative z-10 pb-8 px-4">
+        <div className="max-w-6xl mx-auto text-center">
+          <button
+            onClick={() => navigate('/memorial')}
+            className="group relative opacity-30 hover:opacity-100 transition-all duration-500 transform hover:scale-105"
+          >
+            <div className="px-6 py-3 bg-white/5 backdrop-blur-sm rounded-full border border-white/10 hover:border-white/20 transition-all duration-300">
+              <span className="text-sm text-brand-text/60 group-hover:text-brand-text font-medium tracking-wider">
+                secret message
+              </span>
+            </div>
+            {/* Subtle glow effect */}
+            <div className="absolute inset-0 rounded-full bg-gradient-to-r from-brand-primary/5 to-pink-500/5 blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+          </button>
         </div>
       </div>
 
