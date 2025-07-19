@@ -3,10 +3,9 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion'; 
 
 import Navbar from '../components/Navbar';
-import Welcome from '../components/Home'; // Import baru
+import Welcome from '../components/Home'; 
 import Timeline from '../components/Timeline';
 import PhotoGallery from '../components/PhotoGallery';
-import About from '../components/About';
 
 function GalleryPage() {
   // Jadikan 'home' sebagai view default

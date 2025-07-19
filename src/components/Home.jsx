@@ -3,9 +3,9 @@ import React, { useState, useEffect } from 'react';
 function Home({ onStartQuiz, onNavigate }) {
   const [isVisible, setIsVisible] = useState(false);
   const [activeSection, setActiveSection] = useState('quotes'); 
-  const [selectedCategory, setSelectedCategory] = useState('all');
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [contentVisible, setContentVisible] = useState(true);
+  const [displayContent, setDisplayContent] = useState('quotes'); // What content is currently being displayed
 
   useEffect(() => {
     setIsVisible(true);
@@ -32,60 +32,106 @@ function Home({ onStartQuiz, onNavigate }) {
     if (!cardRef) return;
     cardRef.style.transform = 'rotateX(0deg) rotateY(0deg) translateZ(0px) scale(1)';
   };
+  
   const switchSection = (newSection) => {
     if (newSection === activeSection || isTransitioning) return;
     
     setIsTransitioning(true);
     setContentVisible(false);
     
+    // First phase: fade out current content
     setTimeout(() => {
+      setDisplayContent(newSection); // Update what content should be displayed
       setActiveSection(newSection);
-      setSelectedCategory('all'); // Reset category when switching
+    }, 400); // Wait for fade out animation
+    
+    // Second phase: fade in new content
+    setTimeout(() => {
       setContentVisible(true);
-      
-      setTimeout(() => {
-        setIsTransitioning(false);
-      }, 300);
-    }, 200);
+    }, 450); // Start fade in slightly after content change
+    
+    // Final phase: complete transition
+    setTimeout(() => {
+      setIsTransitioning(false);
+    }, 850); // Wait for fade in animation to complete
   };
 
   const quotes = [
     {
       id: 1,
-      category: 'friendship',
-      text: "Persahabatan sejati adalah ketika kamu bisa menjadi diri sendiri tanpa takut dihakimi.",
-      author: "Unknown"
+      text: "Cinta yang tidak direstui adalah cinta yang paling jujur, karena ia tidak mengharap apa-apa selain diterima.",
+      author: "Tere Liye"
     },
     {
       id: 2,
-      category: 'motivation',
-      text: "Jangan takut untuk memulai dari awal. Setiap akhir adalah awal yang baru.",
-      author: "Paulo Coelho"
+      text: "Jangan biarkan masa lalu mencuri kebahagiaanmu hari ini.",
+      author: "Dee Lestari"
     },
     {
       id: 3,
-      category: 'life',
-      text: "Hidup bukanlah tentang menunggu badai berlalu, tetapi belajar menari di tengah hujan.",
-      author: "Vivian Greene"
+      text: "Love is not something that you find. Love is something that finds you.",
+      author: "Loretta Young"
     },
     {
       id: 4,
-      category: 'motivation',
-      text: "Kesuksesan bukan tentang tidak pernah jatuh, tetapi tentang bangkit setiap kali kamu jatuh.",
-      author: "Nelson Mandela"
+      text: "We accept the love we think we deserve.",
+      author: "Stephen Chbosky"
     },
     {
       id: 5,
-      category: 'friendship',
-      text: "Sahabat terbaik adalah cermin yang menunjukkan versi terbaik dari diri kita.",
-      author: "Unknown"
+      text: "You have brains in your head. You have feet in your shoes. You can steer yourself any direction you choose.",
+      author: "Dr. Seuss"
     },
     {
-      id: 6,
-      category: 'life',
-      text: "Kebahagiaan bukan tujuan, tetapi perjalanan yang harus dinikmati setiap hari.",
-      author: "Buddha"
-    }
+      id: 7,
+      text: "Bermimpilah dalam hidup, jangan hidup dalam mimpi.",
+      author: "Andrea Hirata"
+    },
+    {
+      id: 8,
+      text: "You can't go back and change the beginning, but you can start where you are and change the ending.",
+      author: "C.S.Lewis"
+    },
+    {
+      id: 9,
+      text: "You are never too old to set another goal or to dream a new dream.",
+      author: "C.S.Lewis"
+    },
+    {
+      id: 10,
+      text: "Keberanian terbesar adalah ketika kamu berdiri untuk diri sendiri, meski dunia menentang.",
+      author: "Pramoedya Ananta Toer"
+    },
+    {
+      id: 11,
+      text: "Setiap orang bisa hebat, asal tahu apa yang dia perjuangkan.",
+      author: "B.J. Habibie"
+    },
+    {
+      id: 12,
+      text: "Jangan terlalu lama menyesali apa yang sudah terjadi. Karena waktu tidak akan menunggumu berdamai.",
+      author: "Boy Candra"
+    },
+    {
+      id: 13,
+      text: "Ketika kita tidak bisa mendapatkan apa yang kita cintai, cintailah apa yang kita miliki. Di situlah kedewasaan tumbuh.",
+      author: "Dee Lestari"
+    },
+    {
+      id: 14,
+      text: "Kamu tidak harus luar biasa untuk memulai, tapi kamu harus mulai untuk menjadi luar biasa.",
+      author: "Bob Sadino"
+    },
+    {
+      id: 15,
+      text: "Yang melemahkanmu bukan beban hidup, tapi cara pikirmu terhadap beban itu.",
+      author: "Tere Liye"
+    },
+    {
+      id: 16,
+      text: "There is no greater agony than bearing an untold story inside you.",
+      author: "Maya Angelou"
+    },
   ];
 
   const wishes = [
@@ -118,219 +164,163 @@ function Home({ onStartQuiz, onNavigate }) {
       id: 6,
       text: "Semoga tahun ini membawa kesempatan baru, petualangan seru, dan momen-momen yang tak terlupakan.",
       from: "Falih"
+    },
+    {
+      id: 7,
+      text: "wishnyaaaa semogaaa di chapter 21 ini kita jadi sering ketemu dan ga ketemu di margo lagi margo lagi,,, tapi gapapa i love margo heheee. najj semogaa semua yang baik menghampiri kamu di umur 21 ini yaa, sehat terusss, makin sering update kehidupann PLEASEEEE di x atau di sg terserah yg mana aja dah yg penting update… semoga dilancarkann kuliahnya, magangnya, semuanyaaa pokonya i love u alwayssss muach kecup kecuppp😘😘😘😘😘😘.",
+      from: "Naura Aulia"
+    },
+    {
+      id: 8,
+      text: "Wishing Najma more secure, wiser, healthier, happier than ever! ❤ Whenever you feel like you fighting your silent battles, please do remember that I wish for calm in your chaos. I wish for peace in your mind, and warmth in your heart. I hope you keep choosing yourself Naj 💝 You’ve grown in ways you probably don’t even notice. But I do (how could I not? 🤣), and I’m proud of every version of you. Especially the one who keeps going. Love you always sisterstar! 💗",
+      from: "Larasati Marutika"
     }
   ];
 
-  const categories = [
-    { id: 'all', label: 'Semua', icon: '🌟' },
-    { id: 'friendship', label: 'Persahabatan', icon: '👥' },
-    { id: 'motivation', label: 'Motivasi', icon: '🚀' },
-    { id: 'life', label: 'Kehidupan', icon: '🌱' }
-  ];
-
-  const filteredQuotes = selectedCategory === 'all' 
-    ? quotes 
-    : quotes.filter(quote => quote.category === selectedCategory);
-
   return (
     <div className="min-h-screen bg-brand-background relative overflow-hidden">
-      {/* Custom CSS for animations */}
+      
       <style jsx>{`
-        @keyframes slideInFromLeft {
-          from {
-            opacity: 0;
-            transform: translateX(-100px) scale(0.8);
-          }
-          to {
-            opacity: 1;
-            transform: translateX(0) scale(1);
-          }
-        }
-
-        @keyframes slideInFromRight {
-          from {
-            opacity: 0;
-            transform: translateX(100px) scale(0.8);
-          }
-          to {
-            opacity: 1;
-            transform: translateX(0) scale(1);
-          }
-        }
-
-        @keyframes fadeSlideUp {
-          from {
-            opacity: 0;
-            transform: translateY(30px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-
-        @keyframes scaleIn {
-          from {
-            opacity: 0;
-            transform: scale(0.3) rotate(10deg);
-          }
-          to {
-            opacity: 1;
-            transform: scale(1) rotate(0deg);
-          }
-        }
-
-        @keyframes titleGlow {
-          0%, 100% {
-            text-shadow: 0 0 20px rgba(236, 72, 153, 0.3);
-          }
-          50% {
-            text-shadow: 0 0 30px rgba(236, 72, 153, 0.6), 0 0 40px rgba(236, 72, 153, 0.4);
-          }
-        }
-
-        @keyframes float3d {
-          0%, 100% { 
-            transform: translateY(0px) rotateX(0deg) rotateY(0deg);
-          }
-          33% { 
-            transform: translateY(-8px) rotateX(2deg) rotateY(-1deg);
-          }
-          66% { 
-            transform: translateY(-4px) rotateX(-1deg) rotateY(2deg);
-          }
-        }
-
-        @keyframes pulseGlow {
-          0%, 100% {
-            box-shadow: 0 0 20px rgba(236, 72, 153, 0.3);
-          }
-          50% {
-            box-shadow: 0 0 40px rgba(236, 72, 153, 0.6), 0 0 60px rgba(236, 72, 153, 0.4);
-          }
-        }
-
         .content-transition {
-          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+          transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
-
+        
         .content-enter {
-          animation: fadeSlideUp 0.5s ease-out;
+          opacity: 1;
+          transform: translateY(0px) scale(1);
         }
-
+        
         .content-exit {
           opacity: 0;
-          transform: translateY(-20px) scale(0.98);
+          transform: translateY(20px) scale(0.95);
         }
-
+        
+        .title-transition {
+          transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .card-transition {
+          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
         .card-enter {
-          animation: scaleIn 0.5s ease-out;
+          animation: cardSlideIn 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
         }
-
-        .title-glow {
-          animation: titleGlow 3s ease-in-out infinite;
+        
+        @keyframes cardSlideIn {
+          from {
+            opacity: 0;
+            transform: translateY(30px) scale(0.9);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0px) scale(1);
+          }
         }
-
+        
         .button-morphing {
-          transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        .button-morphing:hover {
-          transform: translateY(-2px) scale(1.05);
-          box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-        }
-
-        .button-morphing.active {
-          transform: translateY(-3px) scale(1.1);
-          box-shadow: 0 15px 35px rgba(236, 72, 153, 0.4);
-        }
-
-        .grid-stagger > * {
-          animation-fill-mode: both;
-        }
-
-        .grid-stagger > *:nth-child(1) { animation-delay: 0.1s; }
-        .grid-stagger > *:nth-child(2) { animation-delay: 0.2s; }
-        .grid-stagger > *:nth-child(3) { animation-delay: 0.3s; }
-        .grid-stagger > *:nth-child(4) { animation-delay: 0.4s; }
-        .grid-stagger > *:nth-child(5) { animation-delay: 0.5s; }
-        .grid-stagger > *:nth-child(6) { animation-delay: 0.6s; }
-
-        .perspective-container {
-          perspective: 1200px;
-        }
-
-        .card-3d {
-          transform-style: preserve-3d;
-          transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
           position: relative;
+          overflow: hidden;
         }
-
-        .card-3d::before {
+        
+        .button-morphing::before {
           content: '';
           position: absolute;
-          inset: 0;
-          background: linear-gradient(135deg, rgba(236, 72, 153, 0.1), rgba(147, 51, 234, 0.1));
-          border-radius: 24px;
-          opacity: 0;
-          transition: opacity 0.3s ease;
-          z-index: -1;
+          top: 0;
+          left: -100%;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+          transition: left 0.5s;
         }
-
-        .card-3d:hover::before {
-          opacity: 1;
+        
+        .button-morphing:hover::before {
+          left: 100%;
         }
-
-        .card-3d:hover {
-          box-shadow: 
-            0 25px 50px -12px rgba(0, 0, 0, 0.25),
-            0 0 0 1px rgba(236, 72, 153, 0.1),
-            0 0 20px rgba(236, 72, 153, 0.2);
-        }
-
-        .card-inner {
-          transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        .card-3d:hover .card-inner {
-          transform: translateZ(20px);
-        }
-
-        .floating-accent {
-          animation: float3d 4s ease-in-out infinite;
-        }
-
+        
         .floating-particle {
-          animation: float 6s ease-in-out infinite;
+          animation: float 4s ease-in-out infinite;
         }
-
+        
         @keyframes float {
           0%, 100% { transform: translateY(0px) rotate(0deg); }
-          50% { transform: translateY(-20px) rotate(180deg); }
+          25% { transform: translateY(-20px) rotate(90deg); }
+          50% { transform: translateY(-10px) rotate(180deg); }
+          75% { transform: translateY(-15px) rotate(270deg); }
         }
-
-        .gradient-border {
-          position: relative;
-          background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.7));
-          border-radius: 24px;
-          padding: 2px;
+        
+        .card-3d {
+          transform-style: preserve-3d;
+          transition: transform 0.3s ease;
         }
-
-        .gradient-border::before {
-          content: '';
-          position: absolute;
-          inset: 0;
-          padding: 2px;
-          background: linear-gradient(135deg, #ec4899, #9333ea, #06b6d4);
-          border-radius: 24px;
-          mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-          mask-composite: xor;
-          opacity: 0;
-          transition: opacity 0.3s ease;
+        
+        .perspective-container {
+          perspective: 1000px;
         }
-
-        .card-3d:hover .gradient-border::before {
-          opacity: 1;
+        
+        .grid-stagger > * {
+          transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .photo-enter {
+          animation: photoSlideIn 1s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+        
+        @keyframes photoSlideIn {
+          from {
+            opacity: 0;
+            transform: translateX(-50px) scale(0.9);
+          }
+          to {
+            opacity: 1;
+            transform: translateX(0px) scale(1);
+          }
+        }
+        
+        .text-enter {
+          animation: textSlideIn 1s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+        
+        @keyframes textSlideIn {
+          from {
+            opacity: 0;
+            transform: translateX(50px);
+          }
+          to {
+            opacity: 1;
+            transform: translateX(0px);
+          }
+        }
+        
+        .section-slide-enter {
+          animation: sectionSlideIn 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+        
+        .section-slide-exit {
+          animation: sectionSlideOut 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+        
+        @keyframes sectionSlideIn {
+          from {
+            opacity: 0;
+            transform: translateX(30px) scale(0.95);
+          }
+          to {
+            opacity: 1;
+            transform: translateX(0px) scale(1);
+          }
+        }
+        
+        @keyframes sectionSlideOut {
+          from {
+            opacity: 1;
+            transform: translateX(0px) scale(1);
+          }
+          to {
+            opacity: 0;
+            transform: translateX(-30px) scale(0.95);
+          }
         }
       `}</style>
 
@@ -359,36 +349,37 @@ function Home({ onStartQuiz, onNavigate }) {
       </div>
 
       <div className="container mx-auto px-4 py-16 relative z-10">
-        <div className="max-w-6xl mx-auto">
-          {/* Main welcome section */}
-          <div className="bg-white/90 backdrop-blur-sm p-8 md:p-12 rounded-3xl shadow-2xl border border-white/30 mb-12 transform hover:scale-[1.01] transition-all duration-500">
-            <div className="grid lg:grid-cols-2 gap-8 items-center">
-              {/* Photo Section */}
-              <div className="text-center lg:text-left">
-                <div className="relative w-80 h-80 mx-auto lg:mx-0 group">
-                  {/* Gradient border */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-brand-primary to-brand-primary-light rounded-3xl p-1 group-hover:scale-105 group-hover:rotate-1 transition-all duration-500">
-                    <div className="w-full h-full rounded-3xl overflow-hidden bg-white p-2">
-                      <div className="w-full h-full rounded-2xl overflow-hidden">
-                        {/* Gambar profil */}
+        <div className="max-w-7xl mx-auto">
+          {/* Enhanced main welcome section */}
+          <div className="bg-white/90 backdrop-blur-sm p-8 md:p-16 rounded-3xl shadow-2xl border border-white/30 mb-12 transform hover:scale-[1.01] transition-all duration-500">
+            <div className="flex flex-col lg:flex-row gap-12 items-center">
+              {/* Enhanced Photo Section */}
+              <div className="flex-shrink-0 photo-enter" style={{ animationDelay: '0.3s' }}>
+                <div className="relative w-96 h-96 lg:w-[450px] lg:h-[450px] group">
+                  {/* Outer decorative ring */}
+                  <div className="absolute -inset-8 border-2 border-brand-secondary/40 rounded-full group-hover:border-brand-primary/60 transition-colors duration-500 group-hover:scale-105 group-hover:rotate-6"></div>
+                  
+                  {/* Inner decorative ring */}
+                  <div className="absolute -inset-4 border border-brand-primary/30 rounded-full group-hover:border-brand-primary/50 transition-colors duration-500 group-hover:scale-105 group-hover:-rotate-3"></div>
+                  
+                  {/* Main gradient border */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-brand-primary via-brand-primary-light to-brand-primary rounded-full p-2 group-hover:scale-105 group-hover:rotate-2 transition-all duration-500 shadow-2xl">
+                    <div className="w-full h-full rounded-full overflow-hidden bg-white p-1">
+                      <div className="w-full h-full rounded-full overflow-hidden bg-gray-200 flex items-center justify-center">
+                        {/* Profile image */}
                         <img 
-                          src="/assets/gallery/home.jpg" 
+                          src="/assets/gallery/home.JPG" 
                           alt="Mahesa" 
                           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                         />
                       </div>
                     </div>
                   </div>
-                  
-                  {/* Decorative elements */}
-                  <div className="absolute -inset-6 border-2 border-brand-secondary/50 rounded-3xl group-hover:border-brand-primary/70 transition-colors duration-500"></div>
-                  <div className="absolute -top-3 -right-3 w-8 h-8 bg-gradient-to-br from-brand-primary to-brand-primary-light rounded-full animate-pulse shadow-lg"></div>
-                  <div className="absolute -bottom-3 -left-3 w-6 h-6 bg-gradient-to-br from-brand-primary-light to-brand-primary rounded-full animate-pulse delay-1000 shadow-lg"></div>
                 </div>
               </div>
 
-              {/* Greeting Section */}
-              <div className="text-center lg:text-left">
+              {/* Enhanced Text Content Section */}
+              <div className="flex-1 text-center lg:text-left text-enter" style={{ animationDelay: '0.6s' }}>
                 {/* Decorative top element */}
                 <div className="w-20 h-2 bg-gradient-to-r from-brand-primary to-brand-primary-light mx-auto lg:mx-0 mb-8 rounded-full"></div>
                 
@@ -398,15 +389,18 @@ function Home({ onStartQuiz, onNavigate }) {
                 
                 <div className="space-y-6 text-lg text-brand-text leading-relaxed">
                   <p className="opacity-90">
-                    Selamat memasuki babak baru dalam hidupmu yaa! Website kecil ini kubuat bukan hanya sebagai hadiah, tapi juga sebagai kapsul waktu digital untuk semua kenangan yang telah kamu atau kita lalui.
+                    Selamat memasuki babak baru dalam hidupmu yaa! Website kecil ini kubuat bukan hanya sebagai hadiah, tapi juga sebagai <span className="bg-gradient-to-r from-brand-primary to-brand-primary-light bg-clip-text text-transparent font-semibold">kapsul waktu digital</span> untuk semua kenangan yang telah kamu atau kita lalui.
                   </p>
                   
                   <p className="opacity-90">
-                    Semoga kamu suka dengan hadiah sederhana ku ini. Mohon jelajahi setiap bagiannya, kenang kembali momen-momen nya, dan tersenyumlah. 
+                    Semoga kamu suka dengan hadiah sederhana ku ini. Mohon jelajahi setiap bagiannya, kenang kembali momen-momen nya, dan <span className="bg-gradient-to-r from-brand-primary to-brand-primary-light bg-clip-text text-transparent font-semibold">tersenyumlah</span>. 
                   </p>
-                  <p className="opacity-90">
-                    Selamat ulang tahun, Mahesa! Semoga tahun ini dipenuhi dengan kebahagiaan, cinta, dan pencapaian yang luar biasa.
-                  </p>
+                  
+                  <div className="bg-gradient-to-r from-brand-primary/10 to-brand-primary-light/10 rounded-2xl p-6 border border-brand-primary/20">
+                    <p className="opacity-95 font-medium text-brand-primary">
+                      Selamat ulang tahun, Mahesa! Semoga tahun ini dipenuhi dengan kebahagiaan, cinta, dan pencapaian yang luar biasa.
+                    </p>
+                  </div>
                 </div>
                 
                 {/* Signature */}
@@ -424,10 +418,10 @@ function Home({ onStartQuiz, onNavigate }) {
           <div className="mb-16 relative">
             {/* Section Header */}
             <div className="text-center mb-12">
-              <h2 className={`text-3xl lg:text-4xl font-bold mb-8 bg-gradient-to-r from-brand-primary to-brand-primary-light bg-clip-text text-transparent title-glow ${
+              <h2 className={`text-3xl lg:text-4xl font-bold mb-8 bg-gradient-to-r from-brand-primary to-brand-primary-light bg-clip-text text-transparent title-glow title-transition ${
                 contentVisible ? 'content-enter' : 'content-exit'
               }`}>
-                {activeSection === 'quotes' ? 'Wall of Quotes' : 'Wall of Wishes'}
+                {displayContent === 'quotes' ? 'Wall of Quotes' : 'Wall of Wishes'}
               </h2>
               
               {/* Toggle Buttons */}
@@ -436,12 +430,10 @@ function Home({ onStartQuiz, onNavigate }) {
                   onClick={() => switchSection('quotes')}
                   disabled={isTransitioning}
                   className={`px-8 py-4 rounded-2xl font-semibold button-morphing ${
-                    activeSection === 'quotes' ? 'active' : ''
-                  } ${
                     activeSection === 'quotes'
-                      ? 'bg-gradient-to-r from-brand-primary to-brand-primary-light text-white shadow-2xl shadow-brand-primary/30'
-                      : 'bg-white/80 backdrop-blur-md text-brand-text hover:bg-white/90 shadow-xl hover:shadow-2xl'
-                  } ${isTransitioning ? 'opacity-50 cursor-not-allowed' : ''}`}
+                      ? 'bg-gradient-to-r from-brand-primary to-brand-primary-light text-white shadow-2xl shadow-brand-primary/30 scale-105'
+                      : 'bg-white/80 backdrop-blur-md text-brand-text hover:bg-white/90 shadow-xl hover:shadow-2xl hover:scale-105'
+                  } ${isTransitioning ? 'opacity-50 cursor-not-allowed' : ''} transition-all duration-300`}
                 >
                   📜 Quotes
                 </button>
@@ -449,127 +441,104 @@ function Home({ onStartQuiz, onNavigate }) {
                   onClick={() => switchSection('wishes')}
                   disabled={isTransitioning}
                   className={`px-8 py-4 rounded-2xl font-semibold button-morphing ${
-                    activeSection === 'wishes' ? 'active' : ''
-                  } ${
                     activeSection === 'wishes'
-                      ? 'bg-gradient-to-r from-brand-primary to-brand-primary-light text-white shadow-2xl shadow-brand-primary/30'
-                      : 'bg-white/80 backdrop-blur-md text-brand-text hover:bg-white/90 shadow-xl hover:shadow-2xl'
-                  } ${isTransitioning ? 'opacity-50 cursor-not-allowed' : ''}`}
+                      ? 'bg-gradient-to-r from-brand-primary to-brand-primary-light text-white shadow-2xl shadow-brand-primary/30 scale-105'
+                      : 'bg-white/80 backdrop-blur-md text-brand-text hover:bg-white/90 shadow-xl hover:shadow-2xl hover:scale-105'
+                  } ${isTransitioning ? 'opacity-50 cursor-not-allowed' : ''} transition-all duration-300`}
                 >
                   💝 Wishes
                 </button>
               </div>
-
-              {/* Category Filter (Only for Quotes) */}
-              {activeSection === 'quotes' && (
-                <div className={`flex flex-wrap justify-center gap-3 mb-8 content-transition ${
-                  contentVisible ? 'content-enter' : 'content-exit'
-                }`}>
-                  {categories.map((category) => (
-                    <button
-                      key={category.id}
-                      onClick={() => setSelectedCategory(category.id)}
-                      className={`px-6 py-3 rounded-xl text-sm font-medium transition-all duration-500 transform hover:scale-110 hover:-translate-y-1 ${
-                        selectedCategory === category.id
-                          ? 'bg-gradient-to-r from-brand-primary to-brand-primary-light text-white shadow-xl shadow-brand-primary/30'
-                          : 'bg-white/70 backdrop-blur-sm text-brand-text hover:bg-white/90 shadow-lg hover:shadow-xl'
-                      }`}
-                    >
-                      {category.icon} {category.label}
-                    </button>
-                  ))}
-                </div>
-              )}
             </div>
 
             {/* Content Grid */}
-<div className={`grid md:grid-cols-2 lg:grid-cols-3 gap-8 perspective-container grid-stagger content-transition ${
-  contentVisible ? 'content-enter' : 'content-exit'
-}`}>
-  {activeSection === 'quotes' ? (
-    // Quotes Grid
-    filteredQuotes.map((quote, index) => (
-      <div
-        key={quote.id}
-        className="card-3d gradient-border cursor-pointer group card-enter"
-        style={{
-          animationDelay: `${index * 0.1}s`
-        }}
-        onMouseMove={(e) => handleMouseMove(e, e.currentTarget)}
-        onMouseLeave={(e) => handleMouseLeave(e.currentTarget)}
-      >
-        <div className="card-inner bg-white/90 backdrop-blur-sm rounded-3xl p-8 shadow-2xl border border-white/30 hover:shadow-2xl h-full">
-          <div className="relative h-full flex flex-col">
-            {/* Quote Text */}
-            <div className="flex-1 mb-6">
-              <div className="relative">
-                <div className="absolute -top-4 -left-4 text-6xl text-brand-primary/30 font-serif">"</div>
-                <p className="text-brand-text leading-relaxed italic text-base lg:text-lg font-medium pt-6 relative z-10 opacity-90">
-                  {quote.text}
-                </p>
-                <div className="absolute -bottom-2 -right-2 text-4xl text-brand-primary/30 font-serif">"</div>
-              </div>
+            <div className={`grid md:grid-cols-2 lg:grid-cols-3 gap-8 perspective-container content-transition ${
+              contentVisible ? 'content-enter' : 'content-exit'
+            }`} style={{ transitionDelay: '0.2s' }}>
+              {displayContent === 'quotes' ? (
+                // Quotes Grid - All quotes without filtering
+                quotes.map((quote, index) => (
+                  <div
+                    key={quote.id}
+                    className="card-3d cursor-pointer group card-transition"
+                    style={{
+                      animationDelay: contentVisible ? `${index * 0.1}s` : '0s'
+                    }}
+                    onMouseMove={(e) => handleMouseMove(e, e.currentTarget)}
+                    onMouseLeave={(e) => handleMouseLeave(e.currentTarget)}
+                  >
+                    <div className="bg-white/90 backdrop-blur-sm rounded-3xl p-8 shadow-2xl border border-white/30 hover:shadow-2xl h-full transition-all duration-500 group-hover:scale-105">
+                      <div className="relative h-full flex flex-col">
+                        {/* Quote Text */}
+                        <div className="flex-1 mb-6">
+                          <div className="relative">
+                            <div className="absolute -top-4 -left-4 text-6xl text-brand-primary/30 font-serif">"</div>
+                            <p className="text-brand-text leading-relaxed italic text-base lg:text-lg font-medium pt-6 relative z-10 opacity-90">
+                              {quote.text}
+                            </p>
+                            <div className="absolute -bottom-2 -right-2 text-4xl text-brand-primary/30 font-serif">"</div>
+                          </div>
+                        </div>
+                        
+                        {/* Author */}
+                        <div className="flex items-center justify-between mt-auto">
+                          <div className="flex items-center gap-2">
+                            <div className="w-8 h-0.5 bg-gradient-to-r from-brand-primary to-brand-primary-light rounded-full"></div>
+                            <span className="text-xl font-bold bg-gradient-to-r from-brand-primary to-brand-primary-light bg-clip-text text-transparent">
+                              {quote.author}
+                            </span>
+                          </div>
+                          <div className="floating-accent w-6 h-6 bg-gradient-to-br from-brand-primary to-brand-primary-light rounded-full flex items-center justify-center group-hover:scale-110 transition-all duration-500 shadow-lg">
+                            <div className="w-2 h-2 bg-white rounded-full"></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))
+              ) : (
+                // Wishes Grid
+                wishes.map((wish, index) => (
+                  <div
+                    key={wish.id}
+                    className="card-3d cursor-pointer group card-transition"
+                    style={{
+                      animationDelay: contentVisible ? `${index * 0.1}s` : '0s'
+                    }}
+                    onMouseMove={(e) => handleMouseMove(e, e.currentTarget)}
+                    onMouseLeave={(e) => handleMouseLeave(e.currentTarget)}
+                  >
+                    <div className="bg-white/90 backdrop-blur-sm rounded-3xl p-8 shadow-2xl border border-white/30 hover:shadow-2xl h-full transition-all duration-500 group-hover:scale-105">
+                      <div className="relative h-full flex flex-col">
+                        {/* Wish Text */}
+                        <div className="flex-1 mb-6">
+                          <div className="relative">
+                            <div className="absolute -top-4 -left-4 text-2xl text-brand-primary/50">♡</div>
+                            <p className="text-brand-text leading-relaxed text-base lg:text-lg font-medium pt-6 relative z-10 opacity-90">
+                              {wish.text}
+                            </p>
+                            <div className="absolute -bottom-2 -right-2 text-xl text-brand-primary/50">♡</div>
+                          </div>
+                        </div>
+                        
+                        {/* From */}
+                        <div className="flex items-center justify-between mt-auto">
+                          <div className="flex items-center gap-2">
+                            <div className="w-8 h-0.5 bg-gradient-to-r from-brand-primary to-brand-primary-light rounded-full"></div>
+                            <span className="text-xl font-bold bg-gradient-to-r from-brand-primary to-brand-primary-light bg-clip-text text-transparent">
+                              {wish.from}
+                            </span>
+                          </div>
+                          <div className="floating-accent w-6 h-6 bg-gradient-to-br from-brand-primary to-brand-primary-light rounded-full flex items-center justify-center group-hover:scale-110 transition-all duration-500 shadow-lg">
+                            <div className="w-2 h-2 bg-white rounded-full"></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))
+              )}
             </div>
-            
-            {/* Author */}
-            <div className="flex items-center justify-between mt-auto">
-              <div className="flex items-center gap-2">
-                <div className="w-8 h-0.5 bg-gradient-to-r from-brand-primary to-brand-primary-light rounded-full"></div>
-                <span className="text-xl font-bold bg-gradient-to-r from-brand-primary to-brand-primary-light bg-clip-text text-transparent">
-                  {quote.author}
-                </span>
-              </div>
-              <div className="floating-accent w-6 h-6 bg-gradient-to-br from-brand-primary to-brand-primary-light rounded-full flex items-center justify-center group-hover:scale-110 transition-all duration-500 shadow-lg">
-                <div className="w-2 h-2 bg-white rounded-full"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    ))
-  ) : (
-    // Wishes Grid
-    wishes.map((wish, index) => (
-      <div
-        key={wish.id}
-        className="card-3d gradient-border cursor-pointer group card-enter"
-        style={{
-          animationDelay: `${index * 0.1}s`
-        }}
-        onMouseMove={(e) => handleMouseMove(e, e.currentTarget)}
-        onMouseLeave={(e) => handleMouseLeave(e.currentTarget)}
-      >
-        <div className="card-inner bg-white/90 backdrop-blur-sm rounded-3xl p-8 shadow-2xl border border-white/30 hover:shadow-2xl h-full">
-          <div className="relative h-full flex flex-col">
-            {/* Wish Text */}
-            <div className="flex-1 mb-6">
-              <div className="relative">
-                <div className="absolute -top-4 -left-4 text-2xl text-brand-primary/50">♡</div>
-                <p className="text-brand-text leading-relaxed text-base lg:text-lg font-medium pt-6 relative z-10 opacity-90">
-                  {wish.text}
-                </p>
-                <div className="absolute -bottom-2 -right-2 text-xl text-brand-primary/50">♡</div>
-              </div>
-            </div>
-            
-            {/* From */}
-            <div className="flex items-center justify-between mt-auto">
-              <div className="flex items-center gap-2">
-                <div className="w-8 h-0.5 bg-gradient-to-r from-brand-primary to-brand-primary-light rounded-full"></div>
-                <span className="text-xl font-bold bg-gradient-to-r from-brand-primary to-brand-primary-light bg-clip-text text-transparent">
-                  {wish.from}
-                </span>
-              </div>
-              <div className="floating-accent w-6 h-6 bg-gradient-to-br from-brand-primary to-brand-primary-light rounded-full flex items-center justify-center group-hover:scale-110 transition-all duration-500 shadow-lg">
-                <div className="w-2 h-2 bg-white rounded-full"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    ))
-  )}
-</div>
           </div>
 
           {/* Inspirational quote */}

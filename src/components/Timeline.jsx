@@ -120,25 +120,7 @@ const FloatingElement = ({ delay = 0, duration = 4, type = "sparkle" }) => {
 // Komponen untuk photo gallery modal
 const PhotoGallery = ({ isOpen, onClose, photos }) => {
   if (!isOpen) return null;
-  
-  return (
-    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-      <div className="bg-white rounded-2xl p-6 max-w-2xl w-full max-h-[80vh] overflow-y-auto">
-        <div className="flex justify-between items-center mb-6">
-          <h3 className="text-2xl font-bold text-pink-800">Galeri Foto</h3>
-          <button onClick={onClose} className="text-pink-500 hover:text-pink-700 text-2xl">×</button>
-        </div>
-        <div className="grid grid-cols-2 gap-4">
-          {photos.map((photo, index) => (
-            <div key={index} className="aspect-square bg-pink-100 rounded-lg flex items-center justify-center">
-              <Camera className="w-8 h-8 text-pink-400" />
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-};
+}
 
 // Komponen timeline item yang diperbaiki
 const TimelineItem3D = ({ data, index, isVisible, onHover, isLiked, onLike, message, onMessageChange, onSubmit }) => {
@@ -148,6 +130,7 @@ const TimelineItem3D = ({ data, index, isVisible, onHover, isLiked, onLike, mess
   const [showGallery, setShowGallery] = useState(false);
   const [likeAnimation, setLikeAnimation] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [imageLoaded, setImageLoaded] = useState(false);
   const cardRef = useRef(null);
   
   const isEven = index % 2 === 0;
@@ -245,13 +228,18 @@ const TimelineItem3D = ({ data, index, isVisible, onHover, isLiked, onLike, mess
               group-hover:w-full transition-all duration-500 rounded-full"></div>
           </h3>
           
-          {/* Enhanced image dengan gallery button */}
+          {/* Enhanced image dengan gallery button - Natural aspect ratio */}
           {data.image && (
             <div className="relative mb-6 group overflow-hidden rounded-2xl">
               <img 
                 src={data.image} 
                 alt={data.title} 
-                className="w-full h-56 object-cover transition-transform duration-500 group-hover:scale-105" 
+                className="w-full h-auto object-cover transition-transform duration-500 group-hover:scale-105"
+                onLoad={() => setImageLoaded(true)}
+                style={{
+                  maxHeight: '600px',
+                  minHeight: '200px'
+                }}
               />
               <div className="absolute inset-0 bg-gradient-to-t from-pink-900/20 via-transparent to-transparent 
                 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
@@ -264,14 +252,6 @@ const TimelineItem3D = ({ data, index, isVisible, onHover, isLiked, onLike, mess
               >
                 <Camera className="w-5 h-5 text-pink-500" />
               </button>
-              
-              {/* Image overlay info */}
-              <div className="absolute bottom-4 left-4 text-white opacity-0 group-hover:opacity-100 
-                transition-opacity duration-300">
-                <span className="text-sm font-medium bg-pink-800/30 px-3 py-1 rounded-full backdrop-blur-sm">
-                  Lihat Galeri
-                </span>
-              </div>
             </div>
           )}
           
@@ -289,7 +269,7 @@ const TimelineItem3D = ({ data, index, isVisible, onHover, isLiked, onLike, mess
             <textarea
               value={message || ""}
               onChange={(e) => onMessageChange(index, e.target.value)}
-              placeholder="Tulis kenangan spesial tentang moment ini... 💭"
+              placeholder="Tulis kenangan spesial yang kamu inget dari moment ini... "
               className="w-full px-4 py-3 border-2 border-pink-200 rounded-xl focus:border-pink-500 
                 focus:outline-none transition-all duration-300 text-pink-700 placeholder-pink-400
                 bg-gradient-to-r from-pink-50/50 to-pink-50/30 backdrop-blur-sm hover:bg-pink-50 
@@ -590,7 +570,7 @@ function Timeline() {
         </div>
         
         <p className="text-xl text-pink-600 mt-10 max-w-3xl mx-auto px-4 leading-relaxed">
-          Setiap momen berharga yang kita lalui bersama, terangkai dalam kenangan yang tak terlupakan 🌸✨
+          Setiap momen berharga yang sudah kita lalui bersama dan kenangan yang semoga saja terus kita ciptakan.
         </p>
         
         {/* Enhanced decorative dots */}
@@ -633,33 +613,30 @@ function Timeline() {
       <div className="text-center py-20 relative">
         <div className="absolute inset-0 bg-gradient-to-t from-pink-200/20 via-pink-100/10 to-transparent"></div>
         <div className="relative z-10">
-          <div className="flex justify-center mb-6">
-            <Heart className="w-16 h-16 text-pink-500 animate-pulse drop-shadow-lg" />
-          </div>
           <h2 className="text-4xl font-bold text-pink-800 mb-4">
-            Untuk seseorang yang sangat berharga ✨
+            I treasure every moments with you 
           </h2>
           <p className="text-xl text-pink-600 mb-8">
-            Setiap detik bersamamu adalah hadiah terindah
+            i hope you do too! 
           </p>
         </div>
 
         {/* Enhanced decorative elements */}
         <div className="absolute inset-0 pointer-events-none">
           {[...Array(6)].map((_, i) => (
-            <div
-              key={`sparkle-${i}`}
-              className="absolute text-pink-400/40 animate-pulse"
-              style={{
-                left: `${15 + i * 15}%`,
-                top: `${25 + i * 15}%`,
-                animationDelay: `${i * 0.8}s`,
-                fontSize: '20px'
-              }}
-            >
-              ✨
-            </div>
-          ))}
+  <div
+    key={`sparkle-${i}`}
+    className="absolute text-pink-400/40 animate-pulse"
+    style={{
+      left: `${15 + i * 15}%`,
+      top: `${25 + i * 15}%`,
+      animationDelay: `${i * 0.8}s`,
+      fontSize: '20px'
+    }}
+  >
+    ✨
+  </div>
+))}
         </div>
       </div>
     </div>

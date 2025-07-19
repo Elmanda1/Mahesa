@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useNavigate } from 'react-router-dom'; // Tambahkan import
+import { useNavigate } from 'react-router-dom';
 import { quizQuestions } from '../data/quizQuestions';
 
 function QuizPage() {
-  const navigate = useNavigate(); // Tambahkan hook
+  const navigate = useNavigate(); 
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [score, setScore] = useState(0);
   const [showScore, setShowScore] = useState(false);
@@ -38,38 +38,6 @@ function QuizPage() {
     return quizQuestions[currentQuestionIndex].chatDate;
   };
 
-  // Function to clean text from formatting marks
-  const cleanText = (text) => {
-    if (!text) return '';
-    
-    // Remove **bold** marks
-    let cleaned = text.replace(/\*\*(.*?)\*\*/g, '$1');
-    
-    // Remove __underline__ marks
-    cleaned = cleaned.replace(/__(.*?)__/g, '$1');
-    
-    // Remove *italic* marks
-    cleaned = cleaned.replace(/\*(.*?)\*/g, '$1');
-    
-    return cleaned;
-  };
-
-  // Function to render text with formatting
-  const renderFormattedText = (text) => {
-    if (!text) return '';
-    
-    // Convert **bold** to <strong>
-    let formatted = text.replace(/\*\*(.*?)\*\*/g, '<strong class="text-brand-primary font-bold">$1</strong>');
-    
-    // Convert __underline__ to <u>
-    formatted = formatted.replace(/__(.*?)__/g, '<u class="text-brand-primary-light">$1</u>');
-    
-    // Convert *italic* to <em>
-    formatted = formatted.replace(/\*(.*?)\*/g, '<em class="text-brand-text/80 italic">$1</em>');
-    
-    return formatted;
-  };
-
   // Function to render message content with media support
   const renderMessageContent = (chat) => {
     if (chat.type === 'image') {
@@ -91,7 +59,7 @@ function QuizPage() {
             </div>
           </div>
           {chat.message && (
-            <p className="text-sm leading-relaxed font-medium">{cleanText(chat.message)}</p>
+            <p className="text-sm leading-relaxed font-medium">{(chat.message)}</p>
           )}
         </div>
       );
@@ -109,7 +77,7 @@ function QuizPage() {
             </video>
           </div>
           {chat.message && (
-            <p className="text-sm leading-relaxed font-medium">{cleanText(chat.message)}</p>
+            <p className="text-sm leading-relaxed font-medium">{(chat.message)}</p>
           )}
         </div>
       );
@@ -124,14 +92,14 @@ function QuizPage() {
             />
           </div>
           {chat.message && (
-            <p className="text-sm leading-relaxed font-medium">{cleanText(chat.message)}</p>
+            <p className="text-sm leading-relaxed font-medium">{(chat.message)}</p>
           )}
         </div>
       );
     } else {
       // Regular text message
       return (
-        <p className="text-sm leading-relaxed font-medium">{cleanText(chat.message)}</p>
+        <p className="text-sm leading-relaxed font-medium">{(chat.message)}</p>
       );
     }
   };
@@ -154,7 +122,7 @@ function QuizPage() {
           setTypingText('');
         } else {
           // For text messages, show typing animation
-          const cleanMessage = cleanText(currentChat.message);
+          const cleanMessage = (currentChat.message);
           let index = 0;
           const typeInterval = setInterval(() => {
             if (index < cleanMessage.length) {
@@ -190,7 +158,7 @@ function QuizPage() {
             setTypingText('');
           } else {
             // For text messages, show typing animation
-            const cleanMessage = cleanText(currentChat.message);
+            const cleanMessage = (currentChat.message);
             let index = 0;
             const typeInterval = setInterval(() => {
               if (index < cleanMessage.length) {
@@ -479,7 +447,7 @@ function QuizPage() {
           <div className="p-6 bg-white/90 backdrop-blur-sm border-t border-gray-200">
             <div className="bg-gradient-to-r from-brand-primary/10 to-brand-primary-light/10 rounded-2xl p-5 border border-brand-primary/20 mb-4 shadow-lg">
               <p className="text-sm text-brand-text font-bold text-center leading-relaxed">
-                {cleanText(quizQuestions[currentQuestionIndex].memoryContext)}
+                {(quizQuestions[currentQuestionIndex].memoryContext)}
               </p>
             </div>
             
@@ -507,7 +475,7 @@ function QuizPage() {
                 Skor Akhir: <span className="font-bold text-brand-primary text-2xl">{score}</span> dari {quizQuestions.length}
               </div>
               <button
-                onClick={() => navigate('/gallery')} // Update dengan useNavigate
+                onClick={() => navigate('/video')} // Update dengan useNavigate
                 className="w-full py-4 px-6 bg-gradient-to-r from-brand-primary to-brand-primary-light rounded-2xl font-bold text-white hover:shadow-xl transition-all duration-300 transform hover:scale-105 text-lg"
               >
                 ✨ Lanjutkan Petualangan ✨
@@ -556,90 +524,6 @@ function QuizPage() {
           )}
         </div>
       </div>
-      
-      {/* Enhanced Custom Styles */}
-      <style>
-        {`
-          @keyframes slide-in {
-            0% {
-              transform: translateX(100%);
-              opacity: 0;
-            }
-            100% {
-              transform: translateX(0);
-              opacity: 1;
-            }
-          }
-          
-          @keyframes chat-appear {
-            0% {
-              transform: translateY(20px) scale(0.8);
-              opacity: 0;
-            }
-            100% {
-              transform: translateY(0) scale(1);
-              opacity: 1;
-            }
-          }
-          
-          @keyframes chat-appear-completed {
-            0% {
-              transform: translateY(3px);
-              opacity: 0.7;
-            }
-            100% {
-              transform: translateY(0);
-              opacity: 1;
-            }
-          }
-          
-          @keyframes chat-appear-typing {
-            0% {
-              transform: translateY(5px) scale(0.98);
-              opacity: 0.8;
-            }
-            100% {
-              transform: translateY(0) scale(1);
-              opacity: 1;
-            }
-          }
-          
-          @keyframes fade-in-up {
-            0% {
-              transform: translateY(30px);
-              opacity: 0;
-            }
-            100% {
-              transform: translateY(0);
-              opacity: 1;
-            }
-          }
-          
-          .animate-slide-in {
-            animation: slide-in 0.5s ease-out;
-          }
-          
-          .animate-chat-appear {
-            animation: chat-appear 0.6s ease-out forwards;
-            opacity: 0;
-          }
-          
-          .animate-chat-appear-completed {
-            animation: chat-appear-completed 0.15s ease-out forwards;
-            opacity: 0;
-          }
-          
-          .animate-chat-appear-typing {
-            animation: chat-appear-typing 0.3s ease-out forwards;
-            opacity: 0;
-          }
-          
-          .animate-fade-in-up {
-            animation: fade-in-up 0.7s cubic-bezier(0.23, 1, 0.32, 1) forwards;
-            opacity: 0;
-          }
-        `}
-      </style>
     </div>
   );
 }

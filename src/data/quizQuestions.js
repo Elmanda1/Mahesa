@@ -10,30 +10,22 @@ export const quizQuestions = [
     chatMemory: [
       {
         sender: "me",
-        message: "emg gabisa jauh dari warna **item putih coklat** gue",
+        message: "emg gabisa jauh dari warna item putih coklat gue",
         time: "19:15"
       },
       {
         sender: "you",
-        message: "**pink** juga bagus buat kamu",
+        message: "pink juga bagus buat kamu",
         time: "19:16"
       },
       {
         sender: "me",
-        message: "pink mah *printilan* gue semua jg pink",
+        message: "pink mah printilan gue semua jg pink",
         time: "19:16"
       },
       {
         sender: "me",
-        message: "**laptop pink**",
-        time: "19:16"
-      },
-      {
-        sender: "you",
-        type: "image",
-        media: "https://images.unsplash.com/photo-1557825835-70d97c4aa567?w=400&h=300&fit=crop",
-        alt: "Pink laptop",
-        message: "Seperti ini kan? 😂",
+        message: "laptop pink",
         time: "19:16"
       },
       {
@@ -43,13 +35,7 @@ export const quizQuestions = [
       },
       {
         sender: "you",
-        message: "__tema nya__ aja pink",
-        time: "19:17"
-      },
-      {
-        sender: "me",
-        type: "sticker",
-        media: "https://images.unsplash.com/photo-1618336753974-aae8e04506aa?w=100&h=100&fit=crop",
+        message: "tema nya aja pink",
         time: "19:17"
       },
       {
@@ -58,201 +44,151 @@ export const quizQuestions = [
         time: "19:17"
       }
     ],
-    memoryContext: "inget hesa inget **pink** lah pokoknya HAHAHAHA 💕"
+    memoryContext: "inget hesa inget pink lah pokoknya HAHAHAHA 💕"
   },
-  // {
-  //   id: 2,
-  //   question: "Apa hobi yang Mahesa punya?",
-  //   options: ["Baca Buku", "Main Roblox", "Main Valorant", "Nonton Anime"],
-  //   correctAnswer: "Baca Buku",
-  //   chatDate: "Minggu, 18 Mei 2024",
-  //   hasChat: true,
-  //   chatMemory: [
-  //     {
-  //       sender: "me",
-  //       message: "falih",
-  //       time: "17:32"
-  //     },
-  //     {
-  //       sender: "me",
-  //       message: "baca buku2nya **dewi dee lestari** gak",
-  //       time: "17:32"
-  //     },
-  //     {
-  //       sender: "you",
-  //       message: "yang *perahu kertas* itu bukan si kak?",
-  //       time: "17:53"
-  //     },
-  //     {
-  //       sender: "you",
-  //       message: "aku cuman tau aja sii, __ga baca__",
-  //       time: "17:53"
-  //     },
-  //     {
-  //       sender: "me",
-  //       message: "iyaa itu **salah satunya**",
-  //       time: "18:25"
-  //     },
-  //     {
-  //       sender: "me",
-  //       message: "okedey",
-  //       time: "18:25"
-  //     },
-  //     {
-  //       sender: "you",
-  //       message: "kenapa emang ka",
-  //       time: "18:28"
-  //     },
-  //     {
-  //       sender: "you",
-  //       message: "kakak lagi hunting buku kah? kakak ku suka **ngoleksi buku**",
-  //       time: "18:28"
-  //     },
-  //     {
-  //       sender: "me",
-  //       message: "aku penasaran sm series novel *supernova*",
-  //       time: "18:36"
-  //     },
-  //     {
-  //       sender: "me",
-  //       type: "image",
-  //       media: "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=400&h=300&fit=crop",
-  //       alt: "Books collection",
-  //       message: "aku lagi pingin baca buku indoo trs dari review org jadi penasaran **karya2 nya dia**",
-  //       time: "18:37"
-  //     },
-  //     {
-  //       sender: "you",
-  //       message: "OH ITU **JADUL BANGET** GASI KAK",
-  //       time: "18:37"
-  //     },
-  //   ],
-  //   memoryContext: "Mahesa itu suka **baca buku**, akupun juga suka baca buku (lebih sukaan dia sih), tapi.. 📚"
-  // },
-  // {
-  //   id: 3,
-  //   question: "Jika bisa punya kekuatan super, Mahesa akan memilih?",
-  //   options: ["Terbang", "Menghilang", "Teleportasi", "Membaca pikiran"],
-  //   correctAnswer: "Teleportasi",
-  //   chatDate: "Sabtu, 20 Juli 2024",
-  //   hasChat: true,
-  //   chatMemory: [
-  //     {
-  //       sender: "you",
-  //       message: "Kalau bisa punya **superpower**, kamu mau apa?",
-  //       time: "16:45"
-  //     },
-  //     {
-  //       sender: "me",
-  //       message: "**Teleportasi** dong! Bisa kemana-mana *instant*",
-  //       time: "16:45"
-  //     },
-  //     {
-  //       sender: "you",
-  //       message: "Alasannya apa? Biar ga __macet__? 😂",
-  //       time: "16:46"
-  //     },
-  //     {
-  //       sender: "me",
-  //       message: "Bukan cuma itu, bisa **traveling gratis** ke mana aja!",
-  //       time: "16:46"
-  //     },
-  //     {
-  //       sender: "you",
-  //       type: "video",
-  //       media: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
-  //       thumbnail: "https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=400&h=300&fit=crop",
-  //       message: "Kayak gini dong jadinya! 🌍✨",
-  //       time: "16:47"
-  //     },
-  //     {
-  //       sender: "me",
-  //       message: "HAHAHA iya __exactly__ kayak gitu!",
-  //       time: "16:47"
-  //     },
-  //     {
-  //       sender: "me",
-  //       type: "image",
-  //       media: "https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=400&h=300&fit=crop",
-  //       alt: "Travel destination",
-  //       message: "Bisa langsung ke **Paris** kapan aja 🗼",
-  //       time: "16:48"
-  //     },
-  //     {
-  //       sender: "you",
-  //       message: "Wah *keren* banget! Aku juga mau dong 😍",
-  //       time: "16:48"
-  //     }
-  //   ],
-  //   memoryContext: "Dream superpower kamu adalah **teleportasi** biar bisa traveling gratis ke mana aja! ✨🌍"
-  // },
-  // {
-  //   id: 4,
-  //   question: "Makanan favorit Mahesa adalah?",
-  //   options: ["Pizza", "Sushi", "Rendang", "Bakso"],
-  //   correctAnswer: "Sushi",
-  //   chatDate: "Kamis, 15 Agustus 2024",
-  //   hasChat: true,
-  //   chatMemory: [
-  //     {
-  //       sender: "you",
-  //       message: "Kak, lagi __pengen makan__ apa nih?",
-  //       time: "12:30"
-  //     },
-  //     {
-  //       sender: "me",
-  //       message: "**Sushi** dong! Udah lama ga makan",
-  //       time: "12:31"
-  //     },
-  //     {
-  //       sender: "you",
-  //       message: "Wah *expensive taste* ya kak 😂",
-  //       time: "12:31"
-  //     },
-  //     {
-  //       sender: "me",
-  //       type: "image",
-  //       media: "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=400&h=300&fit=crop",
-  //       alt: "Sushi platter",
-  //       message: "Ini nih yang __bikin ngiler__! 🍣",
-  //       time: "12:32"
-  //     },
-  //     {
-  //       sender: "you",
-  //       message: "Yaampun keliatan **enak banget**! 🤤",
-  //       time: "12:32"
-  //     },
-  //     {
-  //       sender: "me",
-  //       message: "Ayo dong *makan bareng* kapan-kapan",
-  //       time: "12:33"
-  //     },
-  //     {
-  //       sender: "you",
-  //       type: "sticker",
-  //       time: "12:33"
-  //     },
-  //     {
-  //       sender: "you",
-  //       message: "**Siap kak!** Tinggal bilang aja 😊",
-  //       time: "12:33"
-  //     }
-  //   ],
-  //   memoryContext: "Mahesa **suka banget** sama sushi! Udah jadi makanan favorit dari dulu 🍣✨"
-  // },
-  // {
-  //   id: 5,
-  //   question: "Apa mimpi terbesar Mahesa yang belum tercapai?",
-  //   options: ["Jadi YouTuber Terkenal", "Keliling Dunia", "Punya Rumah Sendiri", "Jadi Penulis Novel"],
-  //   correctAnswer: "Jadi Penulis Novel",
-  //   hasChat: false,
-  //   memoirTitle: "Mimpi Jadi Penulis Novel",
-  //   memoirContent: [
-  //     "Sejak SMP, Mahesa selalu punya **mimpi besar** jadi penulis novel. Dia sering cerita tentang ide-ide cerita yang ada di kepalanya - dari petualangan remaja yang __magical__ sampai drama slice of life yang relate banget sama kehidupan sehari-hari.",
-  //     "Yang paling dia pengen adalah nulis novel fantasy untuk remaja Indonesia. Katanya sih pengen jadi kayak **J.K. Rowling** versi Indonesia gitu. Dia selalu excited kalau ngomongin worldbuilding dan karakter-karakter yang udah dia buat di kepalanya.",
-  //     "Setiap kali baca novel bagus, mata Mahesa langsung berbinar. Dia bakal analyze *writing style* nya, gimana cara penulis itu bikin pembaca terhanyut. Katanya '_Suatu hari nanti, aku juga mau bikin orang nangis baca tulisan aku_'.",
-  //     "Mahesa udah mulai nulis beberapa **short story** dan draft novel. Dia bilang masih jauh dari perfect, tapi dia yakin kalau terus konsisten, mimpi itu pasti bisa tercapai. Semangatnya buat nulis itu bener-bener __inspiring__ banget! ✨"
-  //   ],
-  //   memoryContext: "Mahesa punya **mimpi besar** jadi penulis novel, terutama fantasy untuk remaja Indonesia. Dia udah mulai nulis dan semangat banget! 📖✨"
-  // }
+  {
+    id: 2,
+    question: "Apa hobi yang Mahesa punya?",
+    options: ["Baca Buku", "Main Roblox", "Main Valorant", "Nonton Anime"],
+    correctAnswer: "Baca Buku",
+    chatDate: "Minggu, 18 Mei 2024",
+    hasChat: true,
+    chatMemory: [
+      {
+        sender: "me",
+        message: "falih",
+        time: "17:32"
+      },
+      {
+        sender: "me",
+        message: "baca buku2nya dewi dee lestari gak",
+        time: "17:32"
+      },
+      {
+        sender: "you",
+        message: "yang perahu kertas itu bukan si kak?",
+        time: "17:53"
+      },
+      {
+        sender: "you",
+        message: "aku cuman tau aja sii, ga baca",
+        time: "17:53"
+      },
+      {
+        sender: "me",
+        message: "iyaa itu salah satunya",
+        time: "18:25"
+      },
+      {
+        sender: "me",
+        message: "okedey",
+        time: "18:25"
+      },
+      {
+        sender: "you",
+        message: "kenapa emang ka",
+        time: "18:28"
+      },
+      {
+        sender: "you",
+        message: "kakak lagi hunting buku kah? kakak ku suka ngoleksi buku",
+        time: "18:28"
+      },
+      {
+        sender: "me",
+        message: "aku penasaran sm series novel supernova",
+        time: "18:36"
+      },
+      {
+        sender: "you",
+        message: "OH ITU JADUL BANGET GASI KAK",
+        time: "18:37"
+      },
+    ],
+    memoryContext: "Mahesa itu suka baca buku, akupun juga suka baca buku (lebih sukaan dia sih)"
+  },
+  {
+    id: 4,
+    question: "Apa baju yang dipake Mahesa waktu wisuda SMA?",
+    options: ["Kebaya Warna Coklat", "Baju Tidur", "Baju Putih Abu SMA", "Baju Pramuka"],
+    correctAnswer: "Kebaya Warna Coklat",
+    hasChat: false,
+    memoirTitle: "Wisuda SMA Mahesa",
+    memoirContent: [
+      "Pas wisuda SMA Kelas 12, Mahesa tampil anggun banget pake kebaya warna coklat yang elegan. Kebayanya itu simpel tapi classy, bikin dia keliatan dewasa.",
+    ],
+    memoryContext: "Dulu pas Wisuda SMA, dia pake kebaya warna coklat dan kerudungnya juga warna coklat"
+  },
+  {
+    id: 5,
+    question: "Apa Makanan yang dulu Mahesa gasuka tapi mau coba dan turns out dia suka?",
+    options: ["Mie + Brokoli", "Sushi", "Ayam Geprek Susu", "Nasi Goreng Keju"],
+    correctAnswer: "Mie + Brokoli",
+    hasChat: false,
+    memoirTitle: "Funfact Makanan",
+    memoirContent: [
+      "Dulu dia itu ga suka mie + brokoli, tapi pas udah cobain malah cocok. Jadi sekarang dia suka banget mie + brokoli, apalagi kalo dimasak dengan bumbu yang pas.",
+    ],
+    memoryContext: "Dulu dia itu ga suka mie + brokoli, tapi pas udah cobain malah cocok"
+  },
+  {
+    id: 6,
+    question: "Apa Makanan yang Mahesa gasuka banget?",
+    options: ["Sushi", "Nasi Goreng", "Ayam Geprek", "Ayam Katsu"],
+    correctAnswer: "Mie + Brokoli",
+    hasChat: false,
+    memoirTitle: "Makanan yang Mahesa gasuka",
+    memoirContent: [
+      "Dulu dia itu ga suka mie + brokoli, tapi pas udah cobain malah cocok. Jadi sekarang dia suka banget mie + brokoli, apalagi kalo dimasak dengan bumbu yang pas.",
+    ],
+    memoryContext: "Dia itu gasuka banget sushi, pernah dia cobain dan turns out dia bener bener gasuka"
+  },
+  {
+    id: 7,
+    question: "Jam berapa Maksimal biasanya Mahesa tidur sebelum kuliah?",
+    options: ["Jam 10", "Jam 11", "Jam 12", "Jam 1"],
+    correctAnswer: "Jam 10",
+    hasChat: false,
+    memoirTitle: "Waktu Tidur Sebelum Kuliah",
+    memoirContent: [
+      "Dulu tidurnya selalu dibawah jam 10, atau malah dia selalu bilang kalo jam 9 itu biasanya dia udah tidur. Sekarang bisa masih kebangun diatas jam segitu",
+    ],
+    memoryContext: "Dulu tidur selalu dibawah jam 10 an yaaa, sekarang jadi begadang begadang after kuliah"
+  },
+  {
+    id: 8,
+    question: "Siapa dari nama-nama dibawah ini yang bukan PJ Saman di kelas 10?",
+    options: ["Mahesa", "Laras", "Nadya", "Naul (Naura Aulia)"],
+    correctAnswer: "Naul (Naura Aulia)",
+    hasChat: false,
+    memoirTitle: "PJ Saman di Kelas 10",
+    memoirContent: [
+      "Dulu pas kelas 10 PJ nya itu ada 4 orang, najma, laras, zali, dan nadya. trus ke-4 PJ ini yang tampil pas Aksi dan harus kolaborasi sama ekskul lain juga",
+    ],
+    memoryContext: "Super proudd karena kamu ngisi di acara Aksi iniii"
+  },
+  {
+    id: 9,
+    question: "Ekskul Saman kolaborasi sama Ekskul apa di acara Aksi?",
+    options: ["Voli", "Futsal", "Pramuka", "Paskibra"],
+    correctAnswer: "Pramuka",
+    hasChat: false,
+    memoirTitle: "Kolaborasi Ekskul di Aksi",
+    memoirContent: [
+      "Iyaa.. ga ada yang expect kenapa pramuka. akupun yang bikin ini bingung kenapa harus sama pramuka",
+    ],
+    memoryContext: "yaa.. pramuka"
+  },
+  {
+    id: 10,
+    question: "Ekskul Saman kolaborasi sama Ekskul apa di acara Aksi?",
+    options: ["Voli", "Futsal", "Pramuka", "Paskibra"],
+    correctAnswer: "Pramuka",
+    hasChat: false,
+    memoirTitle: "Kolaborasi Ekskul di Aksi",
+    memoirContent: [
+      "Iyaa.. ga ada yang expect kenapa pramuka. akupun yang bikin ini bingung kenapa harus sama pramuka",
+    ],
+    memoryContext: "yaa.. pramuka"
+  }
 ];

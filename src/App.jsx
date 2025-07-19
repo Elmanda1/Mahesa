@@ -2,10 +2,10 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import HomePage from './pages/HomePage';
+import VideoPage from './pages/VideoPage';
 import QuizPage from './pages/QuizPage';
 import GalleryPage from './pages/GalleryPage';
 import TimelinePage from './components/Timeline';
-import AboutPage from './components/About';
 import Navbar from './components/Navbar';
 import './index.css';
 
@@ -13,6 +13,7 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<HomePage />} />
+      <Route path="/video" element={<VideoPage />} />
       <Route path="/quiz" element={<QuizPage />} />
       <Route 
         path="/gallery" 
@@ -24,7 +25,6 @@ function App() {
         } 
       />
       <Route path="/timeline" element={<TimelinePage />} />
-      <Route path="/about" element={<AboutPage />} />
     </Routes>
   );
 }

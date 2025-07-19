@@ -2,78 +2,84 @@
 const timelineData = [
   {
     id: 1,
-    title: "Pertemuan Pertama",
-    date: "14 Februari 2024",
-    description: "Hari yang mengubah segalanya, ketika mata kita bertemu untuk pertama kalinya di kafe kecil itu.",
-    category: "Milestone",
+    title: "Rapat Kerja HIMATIK Pertama",
+    date: "19 April 2025",
+    description: "Hari yang meresmikan perjalanan aku dan kamu sebagai Staff dan BPH yang kerja as PJ Gultik, .",
+    category: "Mahesa",
     color: "from-pink-400 to-pink-500",
-    icon: "💕",
-    image: "https://images.unsplash.com/photo-1511988617509-a57c8a288659?w=400&h=300&fit=crop"
+    icon: "🌹",
+    image: "/assets/gallery/timeline/19april(4).jpg"
   },
   {
     id: 2,
-    title: "Kencan Pertama",
-    date: "20 Februari 2024",
-    description: "Gugup tapi bahagia, kita menghabiskan waktu berjam-jam hanya untuk saling mengenal.",
-    category: "Romance",
-    color: "from-purple-400 to-purple-500",
+    title: "Strolling Margo after Rapat Kerja HIMATIK Pertama",
+    date: "19 April 2025",
+    description: "Refresehing after rapat kerja, kita jalan-jalan ke Margo City, ends up MUKBANG COYY HAHAHAHA.",
+    category: "Mahesa",
+    color: "from-pink-400 to-pink-500",
     icon: "🌹",
-    image: "https://images.unsplash.com/photo-1414016642750-7fdd78dc33d9?w=400&h=300&fit=crop"
+    image: "/assets/gallery/timeline/19april(3).jpg"
   },
   {
-    date: "10 Agustus 2021",
-    title: "Pertama Kali Main Bareng",
-    description: "Hari di mana kita pertama kali main Valorant sampai pagi. Saat itu aku sudah tau kamu spesial.",
-    image: "/api/placeholder/400/250",
-    icon: "🎮",
-    color: "from-pink-500 to-pink-400",
-    category: "gaming"
-  },
-  {
-    date: "25 Desember 2022", 
-    title: "Liburan ke Bandung",
-    description: "Trip dadakan yang penuh cerita, mencoba kuliner baru. Momen yang tak terlupakan bersama.",
-    image: "/api/placeholder/400/250",
-    icon: "🏔️",
+    id: 3,
+    title: "Photobooth Diktek",
+    date: "10 Mei 2025",
+    description: "Abis KSM Meetup tiba-tiba ada wacana photbooth, udah photobooth kita main billiard & kalian-kalian makan di gacoan abis itu.",
+    category: "Mahesa",
     color: "from-pink-400 to-pink-500",
-    category: "travel"
+    icon: "🌹",
+    image: "/assets/gallery/timeline/10may.JPG"
   },
   {
-    date: "14 Februari 2023",
-    title: "Valentine Pertama",
-    description: "Hari spesial di mana kita merayakan cinta untuk pertama kalinya. Dinner romantis yang indah.",
-    image: "/api/placeholder/400/250", 
-    icon: "💖",
-    color: "from-pink-500 to-pink-400",
-    category: "love"
-  },
-  {
-    date: "15 Juni 2023",
-    title: "Konser Musik Favorit",
-    description: "Menyanyi bersama lagu-lagu favorit kita. Malam yang penuh dengan musik dan tawa.",
-    image: "/api/placeholder/400/250",
-    icon: "🎵",
+    id: 4,
+    title: "Photobooth di TIK GAMES 2025",
+    date: "24 Juni 2025",
+    description: "FOTO BERDUA PERTAMA HAHAHAHA, ini udah jelas foto fav aku. Ga expect juga bunda kenal kamu dari foto ini.",
+    category: "Mahesa",
     color: "from-pink-400 to-pink-500",
-    category: "music"
+    icon: "🌹",
+    image: "/assets/gallery/timeline/aku&kamu4.JPG"
   },
   {
-    date: "20 September 2023",
-    title: "Ulang Tahun Pertama Bersama",
-    description: "Merayakan hari spesialmu dengan kejutan kecil. Senyummu adalah hadiah terindah.",
-    image: "/api/placeholder/400/250",
-    icon: "🎂",
-    color: "from-pink-500 to-pink-400",
-    category: "birthday"
+    id: 5,
+    title: "Foto Bareng di Sekret",
+    date: "2 Juli 2025",
+    description: "INI SEBENARNYA GA MASUK DI TIMELINE, CUMAN KARENA FOTO KITA BERDUA YANG INI LUCU JADI AKU MASUKIN AJA DEHH.",
+    category: "Mahesa",
+    color: "from-pink-400 to-pink-500",
+    icon: "🌹",
+    image: "/assets/gallery/timeline/5.jpg"
   },
   {
+    id: 6,
+    title: "Studi Banding sama UNJ",
+    date: "8 Juli 2025",
+    description: "Studi-studi banding, banyak up & down nyaa. tapi overall tetep seruuu!!",
+    category: "Mahesa",
+    color: "from-pink-400 to-pink-500",
+    icon: "🌹",
+    image: "/assets/gallery/timeline/8juli(1).jpg"
+  },
+  {
+    id: 7,
+    title: "Danau UI dan Shawarma kala itu",
+    date: "9 Juli 2025",
+    description: "SHAWARMANYA GEDEE BANGETTT, kamu ga mam di danau karena masih kenyangg. Trus kamu juga mau beliin aku es krim disini",
+    category: "Mahesa",
+    color: "from-pink-400 to-pink-500",
+    icon: "🌹",
+    image: "/assets/gallery/timeline/9juli(1).jpg"
+  },
+  {
+    id: 8,
+    title: "Rapat Kerja 100 Hari HIMATIK",
     date: "10 Juli 2025",
-    title: "Hari Ini - Masih Bersama",
-    description: "Dan di hari ini, kita masih bersama. Terima kasih telah menjadi bagian terindah dalam hidupku.",
-    image: "/api/placeholder/400/250",
-    icon: "💝",
+    description: "Kamu duduk sampingku, seneng banget lah gilak.",
+    category: "Mahesa",
     color: "from-pink-400 to-pink-500",
-    category: "present"
-  }
+    icon: "🌹",
+    image: "/assets/gallery/timeline/10juli.png"
+  },
 ];
 
 export default timelineData;

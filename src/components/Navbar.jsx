@@ -7,7 +7,6 @@ function Navbar({ activeView, onNavigate }) {
 
   const navItems = [
     { id: 'home', label: 'Home' },
-    { id: 'about', label: 'About' },
     { id: 'timeline', label: 'Timeline' },
     { id: 'gallery', label: 'Galeri Foto' }
   ];

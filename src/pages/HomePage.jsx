@@ -104,11 +104,11 @@ function HomePage() {
               <span className="relative z-10 tracking-wide">Mulai Tantangan</span>
               
               {/* Subtle shine effect */}
-              <div className="absolute inset-0 -top-1 -left-1 bg-gradient-to-r from-transparent via-white/20 to-transparent w-6 h-full transform -skew-x-12 translate-x-[-100%] group-hover:translate-x-[300%] transition-transform duration-700"></div>
+              <div className="absolute inset-0 -top-1 -left-1 bg-gradient-to-r from-transparent via-white/90 to-transparent w-6 h-full transform -skew-x-12 translate-x-[-100%] group-hover:translate-x-[300%] transition-transform duration-700"></div>
             </button>
             <button
               onClick={() => navigate('/gallery')}
-              className="ml-4 py-4 px-10 bg-brand-secondary text-white font-bold rounded-full shadow-lg hover:shadow-2xl transform transition-all duration-300 hover:scale-105 active:scale-95"
+              className="ml-4 py-4 px-10 bg-brand-secondary text-black font-bold rounded-full shadow-lg hover:shadow-2xl transform transition-all duration-300 hover:scale-105 active:scale-95"
             >
               Galeri
             </button>
